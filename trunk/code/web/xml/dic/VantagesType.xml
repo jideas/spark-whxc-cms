@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content name="VantagesType">
+	<item code="1" name="普通积分"/>
+	<item code="0" name="不参与积分"/>
+	<item code="2" name="双倍积分"/>
+</content>

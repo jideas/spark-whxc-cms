@@ -1,0 +1,522 @@
+* {
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+}
+
+body {
+	font-size: 12px;
+	font-family: "宋体";
+	text-align: center;
+	margin: 0 auto;
+	background-color: #ffffff;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: #CD0000;
+}
+
+#noGoods a:hover {
+	text-decoration: underline;
+	color: #CD0000;
+}
+
+#shopingcar-body {
+	margin: 0 auto;
+	width: 1200px;
+	text-align: center;
+}
+
+#shopingcar-header {
+	width: 1200px;
+	height: 75px; *
+	height: 60px;
+	border-bottom: #22a618 2px solid;
+}
+
+#shopingcar-header-left {
+	display: inline;
+	float: left;
+	width: 300px;
+	height: 75px; *
+	height: 60px;
+	text-align: left;
+}
+
+#shopingcar-header-left-top {
+	height: 100px;
+	float: left;
+	height: 75px; *
+	height: 60px;
+}
+
+#shopingcar-header-right {
+	display: inline;
+	width: 900px; *
+	width: 895px;
+	height: 75px; *
+	height: 60px;
+}
+
+#shopingcar-center {
+	margin-top: 8px;
+	width: 1200px;
+	float: left;
+	border: #e0e0e0 solid 1px;
+}
+
+#shopingcar-center-header div {
+	font-family: "宋体";
+	font-size: 12px;
+	display: inline;
+	border-right: #ffffff 1px solid;
+}
+
+.column-checkbox {
+	margin-left:10px;
+	*margin-left:5px;
+	text-align:left;
+	height: 32px;
+	line-height: 32px;
+	width: 100px;
+	float: left;
+}
+
+.column-goods {
+	height: 32px;
+	line-height: 32px;
+	width: 500px;
+	float: left;
+	text-align: center;
+}
+
+.column-spec {
+	height: 32px;
+	line-height: 32px;
+	width: 100px;
+	float: left;
+	text-align: center;
+}
+
+.column-promotion {
+	height: 32px;
+	line-height: 32px;
+	width: 100px;
+	float: left;
+	text-align: center;
+}
+
+.column-price {
+	height: 32px;
+	line-height: 32px;
+	width: 120px;
+	float: left;
+	text-align: center;
+}
+
+.column-quantity {
+	height: 32px;
+	line-height: 32px;
+	width: 150px;
+	float: left;
+	text-align: center;
+}
+
+#shopingcar-center-header div.column-action {
+	height: 32px;
+	line-height: 32px;
+	width: 100px;
+	float: left;
+	border-right: 0;
+}
+
+#shopingcar-center-promotion {
+	margin-top: -4px;
+	width: 1200px;
+	height: 32px;
+	line-height: 32px;
+	float: left;
+	background-color: #E0FFFF;
+	width: 1200px;
+	border-bottom: #edd28b 1px solid;
+}
+
+#shopingcar-center-promotion div {
+	display: inline;
+}
+
+#shopingcar-button {
+	height: 40px;
+	width: 1200px;
+	float: left;
+}
+
+#shopingcar-button-left {
+	padding-top: 5px;
+	height: 40px;
+	display: inline;
+	float: left;
+}
+
+#shopingcar-button-right {
+	height: 40px;
+	display: inline;
+	float: right;
+}
+
+#shopingcar-footer {
+	width: 1200px;
+}
+
+.column t-checkbox form {
+	margin-top: 5px;
+	width: 100px;
+}
+
+.shopingcar-center-promotion-img {
+	margin-top: 4px;
+	margin-left: 50px;
+	width: 50px;
+	float: left;
+}
+
+.shopingcar-center-promotion-text {
+	width: 550px;
+	font-family: "宋体";
+	font-size: 12px;
+	padding-top: 5px;
+	display: inline;
+	text-align: left;
+	text-decoration: none;
+	float: left;
+}
+
+.shopingcar-center-promotion-text-price {
+	width: 150px;
+	font-family: "宋体";
+	font-size: 12px;
+	padding-top: 5px;
+	display: inline;
+	text-align: right;
+	text-decoration: none;
+	float: left;
+}
+
+.shopingcar-center-list {
+	width: 1200px;
+	background-color: #fcfcfc;
+}
+
+.shopingcar-center-row {
+	height: 76px;
+	width: 1200px;
+	border-bottom: #e0e0e0 1px solid;
+}
+
+.shopingcar-center-row div {
+	font-family: "宋体";
+	font-size: 12px;
+	display: inline;
+}
+
+.list-column-checkbox {
+	height: 75px;
+	line-height: 75px;
+	width: 100px;
+	float: left;
+	text-align: center;
+	vertical-align: center;
+	border: 0;
+	margin-top: 0;
+}
+
+.list-column-checkbox-input {
+	padding-top: 30px; *
+	padding-top: 25px;
+	line-height: 75px;
+	padding-left: 10px; *
+	padding-left: 5px;
+	display: inline;
+	float: left;
+	text-align: center;
+}
+
+.list-column-checkbox-img {
+	padding-top: 15px;
+	display: inline;
+	height: 75px;
+	line-height: 75px;
+	width: 60px;
+	float: left;
+	text-align: center;
+}
+
+.list-column-goods {
+	height: 75px;
+	line-height: 75px;
+	width: 500px;
+	float: left;
+	text-align: left;
+}
+
+.list-column-goods a {
+	margin-left: 5px;
+	text-decoration: none;
+	color: #031C86;
+}
+
+.list-column-goods a:HOVER {
+	text-decoration: underline;
+	color: #CD0000;
+}
+
+.list-column-spec {
+	height: 75px;
+	line-height: 75px;
+	width: 100px;
+	float: left;
+	text-align: center;
+}
+
+.list-column-promotion {
+	height: 75px;
+	line-height: 75px;
+	width: 100px;
+	float: left;
+	text-align: right;
+}
+
+.list-column-price {
+	height: 75px;
+	line-height: 75px;
+	width: 120px;
+	float: left;
+	text-align: right;
+}
+
+.list-column-quantity {
+	height: 75px;
+	line-height: 75px;
+	width: 150px;
+	float: left;
+	text-align: center;
+}
+
+.list-column-action {
+	height: 75px;
+	line-height: 75px;
+	width: 100px;
+	float: left;
+	text-align: center;
+}
+
+.list-column-action a {
+	color: #031C86;
+}
+
+.list-column-action a:hover {
+	color: #CD0000;
+}
+
+#shopingcar-total {
+	height: 60px;
+	width: 1200px; *
+	width: 1202px;
+	float: left;
+	border-left: #e0e0e0 1px solid;
+	border-right: #e0e0e0 1px solid;
+}
+
+#shopingcar-total div {
+	font-family: "宋体";
+	font-size: 12px;
+}
+
+#shopingcar-total-left {
+	text-align: left;
+	display: inline;
+	float: left;
+	width: 800px;
+}
+
+#shopingcar-total-left a {
+	text-decoration: none;
+}
+
+#shopingcar-total-right {
+	margin-top: 5px;
+	margin-right: 10px;
+	display: inline;
+	float: right;
+	width: 210px;
+}
+
+#shopingcar-total-right-left {
+	display: inline;
+	width: 60px;
+	float: left;
+}
+
+#shopingcar-total-right-right {
+	display: inline;
+	width: 150px;
+	float: right;
+}
+
+#shopingcar-total-right-right-top {
+	height: 30px;
+}
+
+#shopingcar-total-right-right-bottom {
+	height: 30px;
+}
+
+#shopingcar-total-right-right-top-left {
+	display: inline;
+	float: left;
+	width: 50px;
+}
+
+#shopingcar-total-right-right-top-right {
+	display: inline;
+	float: right;
+	width: 100px;
+	text-align: right
+}
+
+#shopingcar-total-right-right-bottom-left {
+	display: inline;
+	float: left;
+	width: 50px;
+}
+
+#shopingcar-total-right-right-bottom-right {
+	display: inline;
+	float: right;
+	width: 100px;
+	text-align: right
+}
+
+#shopingcar-totalamount {
+	width: 1200px; *
+	width: 1202px;
+	float: left;
+	height: 50px;
+	background: #f5f5f5;
+	text-align: right;
+	border-bottom: #e0e0e0 solid 1px;
+	border-left: #e0e0e0 solid 1px;
+	border-right: #e0e0e0 solid 1px;
+}
+
+#shopingcar-totalamount  ul li {
+	list-style: none;
+	float: right;
+	text-align: right;
+}
+
+#shopingcar-totalamount-left {
+	display: inline;
+	float: left;
+	width: 1050px;
+	text-align: right;
+	font-family: "宋体";
+	font-size: 12px;
+	font-weight: bold;
+	height: 50px;
+	line-height: 50px;
+}
+
+#shopingcar-totalamount-right {
+	padding-right: 10px;
+	display: inline;
+	float: left;
+	width: 120px;
+	text-align: right;
+	font-family: "宋体";
+	color: #CD2626;
+	font-size: 20px;
+	font-weight: bolder;
+	height: 50px;
+	line-height: 50px;
+}
+
+#shopingcar-button {
+	width: 1200px;
+	height: 50px;
+}
+
+#shopingcar-button-right-button {
+	font-family: "Microsoft yahei";
+	font-weight: 900;
+	font-size: 20px;
+	margin-top: 5px;
+}
+
+#serviceFloors {
+	float: left;
+	margin: 10px 0px;
+}
+
+#copyRight {
+	float: left;
+}
+
+/*推荐区*/
+#footer {
+	width: 1200px;
+	height: 200px;
+	margin-top: 8px; *
+	margin-top: 0px;
+	text-align: left;
+	float: left;
+}
+
+/*step*/
+.step {
+	overflow: hidden;
+	color: #999999;
+	font-weight: bold;
+	margin: 0 auto 10px;
+	zoom: 1;
+	float: right;
+	padding-top: 20px;
+}
+
+.step li {
+	float: left;
+	background: #ededed;
+	position: relative;
+	padding-left: 30px;
+	padding-right: 35px;
+	line-height: 25px;
+	height: 25px;
+	width: 200px; *
+	width: 250px;
+	overflow: hidden;
+	font-size: 12px;
+}
+
+#step1 .fore1,#step2 .fore2,#step3 .fore3,#step4 .fore4 {
+	background: #ffe6bc;
+	color: #ff6600;
+}
+
+#step1 .fore1 b,#step2 .fore2 b,#step3 .fore3 b {
+	background-position: 0 -26px;
+}
+
+#step2 .fore1,#step3 .fore1,#step3 .fore2,#step4 .fore1,#step4 .fore2,#step4 .fore3
+	{
+	background: #bbbbbb;
+	color: #ffffff;
+}
+
+#step2 .fore1 b,#step3 .fore2 b,#step4 .fore3 b {
+	background-position: 0 -78px;
+}
+
+#step3 .fore1 b,#step4 .fore2 b,#step4 .fore1 b {
+	background-position: 0 -52px;
+}

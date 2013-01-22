@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content name="DeliveryHour">
+	<item code="11:00" name="11时"/>
+	<item code="17:00" name="17时"/> 
+</content>

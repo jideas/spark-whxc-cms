@@ -1,0 +1,164 @@
+html,body,h2{
+	margin:0px;
+	padding:0px;
+}
+
+.xwlog{
+	text-align:left;
+	width:500px;
+	height:300px;
+	font-size:12px;
+	position:absolute;
+	*margin-left:50%;
+	*margin-top:18%;
+}
+.xwlog .xwlogtop{
+	color:#FFF;
+	width:100%;
+	height:26px;
+	line-height:26px;
+	font-weight:bold;
+	text-indent:10px;
+}
+.xwlog .xwlogtop h2{
+	background:url(images/d_x.png) repeat-x;
+	margin:0px 5px;
+	font-size:14px;
+	overflow:hidden;
+	height:100%;
+	position:relative;
+}
+
+.xwlog .xwlogtop i,.xwlog .xwlogtop b{
+	position:absolute;
+	top:0px;
+	background:url(images/d_bg.png) no-repeat;
+	height:100%;
+	width:5px;
+	
+}
+.xwlog .xwlogtop i{
+	left:0px;
+	background-position:-46px -8px;
+}
+.xwlog .xwlogtop b{
+	right:0px;
+	background-position:-53px -8px;
+}
+
+
+.xwlog .xwlogtop strong{
+	position:absolute;
+	top:0px;
+	right:80px;
+	width:auto;
+	font-size:12px;
+	font-weight:normal;
+	height:100%;
+}
+
+.xwlog .xwlogtop span{
+	position:absolute;
+	background:url(images/d_bg.png) no-repeat;
+	height:17px;
+	width:44px;
+	top:0px;
+	right:10px;
+	cursor:pointer;
+	z-index:10;
+}
+.xwlog .xwlogtop span.cur{
+	background-position:left -18px;
+}
+
+
+.xwlog .xwlogContaiern{
+	width:100%;
+	position:relative;
+	overflow:hidden;
+}
+.xwlog .xwlogContaiern .xwlogLeft{
+	float:left;
+	background:url(images/d_bg.png) repeat-y -60px 0px;
+	height:100%;
+	width:5px;
+	overflow:hidden;
+}
+.xwlog  .xwlogContaiern .xwlogRight{
+	float:right;
+	background:url(images/d_bg.png) repeat-y right 0px;
+	height:100%;
+	width:5px;
+	overflow:hidden;
+}
+.xwlog .xwlogContaiern .xwlogCon{
+	float:left;
+	width:100%;
+	height:100%;
+	margin:0px -5px;
+}
+.xwlog .xwlogCon .xwlogConLr{
+	height:100%;
+	margin:0px 5px;
+	background:#fff;
+}
+.xwlog .xwlogConLr .xwlogInfo{
+	height:100%;
+	overflow:auto;
+}
+.xwlog .xwlogCon .xwlogIframe{
+	height:100%;
+}
+
+.xwlog .xwlogbot{
+	background:url(images/d_x.png) repeat-x left bottom;
+	position:absolute;
+	left:0px;
+	bottom:0px;
+	width:100%;
+	height:5px;
+}
+.xwlog .xwlogbot i{
+	position:absolute;
+	width:5px;
+	height:100%;
+	overflow:hidden;
+	background:url(images/d_bg.png) no-repeat -46px -2px;
+	top:0px;
+	left:0px;
+}
+.xwlog .xwlogbot b{
+	position:absolute;
+	width:5px;
+	height:100%;
+	overflow:hidden;
+	background:url(images/d_bg.png) no-repeat -53px -2px;
+	top:0px;
+	right:0px;
+}
+.xwlogOut{
+	position:absolute;
+	top:0px;
+	left:0px;
+	background:#ccc;
+	filter:Alpha(Opacity=30);
+	-moz-opacity:0.30;
+	opacity:0.3;
+	z-index:100;
+	width:100%;
+	height:100%;
+
+}
+
+.IconOk {
+	background:url(images/ok.jpg) no-repeat 10px center;
+}
+.IconErr {
+	background:url(images/err.jpg) no-repeat 10px center;
+}
+.IconAtt {
+	background:url(images/att.jpg) no-repeat 10px center;
+}
+.IconWhy {
+	background:url(images/why.jpg) no-repeat 10px center;
+}

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"   "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans> 
+	<!-- 
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+	   <property name="driverClass" value="${jdbc.driverClass}" />
+	   <property name="jdbcUrl" value="${jdbc.jdbcUrl}" />
+	   <property name="user" value="${jdbc.user}" />
+	   <property name="password" value="${jdbc.password}" />
+	   <property name="minPoolSize" value="${jdbc.miniPoolSize}" />
+	   <property name="maxPoolSize" value="${jdbc.maxPoolSize}"/> 
+	   <property name="initialPoolSize" value="${jdbc.initialPoolSize}"/>
+	   <property name="maxIdleTime" value="${jdbc.maxIdleTime}"/>
+	   <property name="acquireIncrement" value="${jdbc.acquireIncrement}"/>
+	   <property name="acquireRetryAttempts" value="${jdbc.acquireRetryAttempts}"/>
+	   <property name="acquireRetryDelay" value="${jdbc.acquireRetryDelay}"/>
+	   <property name="testConnectionOnCheckin" value="${jdbc.testConnectionOnCheckin}"/>
+	   <property name="testConnectionOnCheckout" value="${jdbc.testConnectionOnCheckout}"/>
+	   <property name="automaticTestTable" value="${jdbc.automaticTestTable}"/>
+	   <property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}"/>
+	   <property name="checkoutTimeout" value="${jdbc.checkoutTimeout}"/>
+	</bean>
+	 -->
+	 <!--   -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		  <property name="driverClassName" value="${jdbc.driverClass}" />
+		  <property name="url" value="${jdbc.jdbcUrl}" />
+		  <property name="username" value="${jdbc.user}" />
+		  <property name="password" value="${jdbc.password}" />
+	</bean>
+	
+</beans>

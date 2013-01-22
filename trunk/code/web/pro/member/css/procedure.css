@@ -1,0 +1,71 @@
+/*step*/
+.step {
+	overflow: hidden;
+	color: #999999;
+	font-weight: bold;
+	margin: 0 auto 10px;
+	zoom: 1; 
+	margin-left: 40px;
+	margin-right: 40px;
+	*margin-top:8px;
+}
+
+.step li {
+	float: left;
+	background: #ededed;
+	position: relative;
+	padding-left: 30px;
+	padding-right: 35px;
+	line-height: 25px;
+	height: 25px;
+	width:200px;
+	*width:250px;
+	overflow: hidden;
+	font-size: 12px;
+}
+
+.step li b {
+	position: absolute;
+	width: 22px;
+	height: 25px;
+	background: url('../../../images/page/flow.gif') no-repeat;
+	top: 0;
+	right: -1px;
+}
+
+#step1 .fore1,#step2 .fore2,#step3 .fore3,#step4 .fore4 {
+	background: #ffe6bc;
+	color: #ff6600;
+}
+
+#step1 .fore1 b,#step2 .fore2 b,#step3 .fore3 b {
+	background-position: 0 -26px;
+}
+
+#step2 .fore1,#step3 .fore1,#step3 .fore2,#step4 .fore1,#step4 .fore2,#step4 .fore3
+	{
+	background: #bbbbbb;
+	color: #ffffff;
+}
+
+#step2 .fore1 b,#step3 .fore2 b,#step4 .fore3 b {
+	background-position: 0 -78px;
+}
+
+#step3 .fore1 b,#step4 .fore2 b,#step4 .fore1 b {
+	background-position: 0 -52px;
+}
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+

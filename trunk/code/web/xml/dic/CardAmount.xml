@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content name="CardAmount"> 
+	<item code="100" name="100元"/> 
+	<item code="200" name="200元"/> 
+	<item code="300" name="300元"/> 
+	<item code="500" name="500元"/> 
+	<item code="1000" name="1000元"/>  
+</content>

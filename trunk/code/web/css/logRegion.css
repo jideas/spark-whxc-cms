@@ -1,0 +1,137 @@
+body {
+	margin: 0 auto;
+}
+
+body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,blockquote,fieldset,div,strong,label,em
+	{
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.nav {
+	width: 1200px;
+	margin: 0px auto;
+	position: relative;
+}
+
+.header {
+	position: relative;
+	width: 1200px;
+	height: 91px;
+	vertical-align: top;
+	text-align: center;
+	margin: 0px auto;
+}
+
+.header .logo {
+	float: left;
+}
+
+.header .logo1 {
+	float: left;
+}
+/*搜索 -> 整体布局*/
+.header .search {
+	float:right;
+	height: 91px;
+	width: 370px;
+}
+/*服务热线 -> 整体布局*/
+.header .phone {
+	padding-top: 10px;
+	float: left;
+	width: 370px;
+}
+/*服务热线 -> 图标*/
+.header .i-phone {
+	float: left;
+}
+/*服务热线 -> 号码*/
+.header .phone-num {
+	float: left;
+	color: #dc0f05;
+	font-size: 15px;
+	padding-left: 6px;
+	font-family: '微软雅黑';
+}
+/*搜索文本框*/
+.header .i-search {
+	height: 33px;
+	line-height:33px;
+	float: left;
+	width: 370px;
+}
+.header .i-search li {
+	float: left;
+	list-style: none;
+	height: 33px;
+	line-height: 33px;
+}
+/*搜索文本框 -> 输入框*/
+.header .i-search li.li_input{
+	border-top: 2px solid #22a618;
+	border-left: 2px solid #22a618;
+	border-bottom: 2px solid #22a618;
+	border-right: 0px solid #22a618; 
+	background-image:url("../images/page/logo-search-left.gif");
+	background-position:3px center;
+	background-repeat: no-repeat;
+	height: 29px;
+	line-height: 29px;
+	*height: 33px;
+	*line-height: 33px;
+	width:292px;
+	*width:294px;
+	vertical-align: middle;	
+}
+.header .i-search li input {
+	height: 20px;
+	line-height:20px;
+	margin-left:25px;
+	color: #555555;
+	font-size:16px;
+	display: inline;
+	vertical-align:middle;
+	width: 258px;
+	margin-top:4px;
+	font-family: '微软雅黑';
+	border: none;
+}
+li input:focus{outline: none;}
+/*Firefox*/
+@-moz-document url-prefix()
+{
+	.header .i-search li input {
+		margin-top:-1px;
+	}
+	.header .i-search li.li_img{
+		margin-top:-1px;
+	}
+}
+/*搜索文本框 -> 【搜索】按钮*/
+.header .i-search li img#submitButton{
+	vertical-align: middle;
+	display: inline;
+}
+
+/*搜索关键字*/
+.header .search-key {
+	height: 20px;
+	color: #8c8c8c;
+	padding-top: 4px;
+	text-align: left;
+	overflow: hidden;
+	white-space: nowrap;
+	*white-space: normal;
+	clear: both;
+}
+.header .search-key span {
+	margin-left: 2px;
+}
+.header .search-key a {
+	color: #8c8c8c;
+	padding: 0px 3px;
+	text-decoration: none;
+}
+.header .search-key a:hover {color: #CD0000;text-decoration: underline;}

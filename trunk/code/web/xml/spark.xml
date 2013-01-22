@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spark>
+	<providers>
+		<provider class="com.spark.cms.services.folder.FolderResourceProvider" />
+		<provider class="com.spark.cms.services.goods.impl.GoodsCategoryResourceProvider" />
+	</providers>
+</spark>
