@@ -1,0 +1,21 @@
+/*整体样式*/
+#commonDirection p{
+	line-height: 30px;
+	color: #000000;
+	font-size:14px;
+	font-family: '宋体';
+}
+/*开始文字加粗*/
+#commonDirection p span.bold{
+	font-weight: bold;	
+}
+/*步骤*/
+#commonDirection p.step{
+	font-size: 18px;
+	font-weight: bold;
+	margin: 10px 0px;
+}
+/*内容*/
+#commonDirection p.content{
+	text-indent: 2em;
+}

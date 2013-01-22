@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content name="MaritalStatus">
+	<item code="01" name="保密" />
+	<item code="02" name="未婚" />
+	<item code="03" name="已婚" />
+</content>

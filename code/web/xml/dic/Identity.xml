@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content name="Identity">
+	<item code="01" name="学生" /> 
+	<item code="02" name="在职" /> 
+	<item code="03" name="自由职业" /> 
+	<item code="04" name="家庭主妇" /> 
+	<item code="05" name="退休" />  
+</content>

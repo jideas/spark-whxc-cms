@@ -1,0 +1,66 @@
+* {
+	padding: 0px;
+	margin: 0px;
+}
+body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,blockquote,fieldset,div,strong,label,em
+{
+	margin: 0;
+	padding: 0;
+}
+#chargecontent {
+	width: 1200px;
+	margin: 0 auto;
+}
+#shortcut {
+	padding-bottom: 1px;
+	line-height: 30px;
+	width: 100%;
+	text-align: center;
+	margin: 0 auto;
+	background: url("../../../images/page/page_top1.png") repeat-x top left;
+}
+
+
+.breadcrumb {
+	margin-bottom: 10px;
+	border-bottom: 1px solid #ddd;
+	overflow: hidden;
+	line-height: 30px;
+	text-align: left;
+	vertical-align: baseline;
+	width: 1200px;
+	float: left;
+	height: 30px;
+	margin-top: 2px;
+}
+
+.breadcrumb .my7 a{
+	display: inline;
+	font-weight: bold;
+	line-height: 20px;
+	font-size: 18px;
+	font-family: "microsoft yahei";
+	color: #000000;
+	text-decoration: none;
+}
+
+.breadcrumb span {
+	font-family: "\5b8b\4f53";
+}
+
+#serviceFloors{
+	float: left;
+	margin: 10px 0px;
+}
+#copyRight{
+	float: left;
+}
+#shortcut {
+	padding-bottom: 1px;
+	line-height: 30px;
+	width: 100%;
+	text-align: center;
+	margin: 0 auto;
+	background: url("<%=basePath%>/images/page/page_top1.png") repeat-x top
+		left;
+}

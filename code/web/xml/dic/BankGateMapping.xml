@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content name="BankGateMapping">
+	<item code="icbc" name="0005" />
+	<item code="ccb" name="5010" />
+	<item code="abc" name="4008" />
+	<item code="bcom" name="0025" />
+	<item code="boc" name="8608" />
+	<item code="ceb" name="0027" />
+	<item code="cib" name="0009" />
+	<item code="citic" name="0004" />
+	<item code="cmb" name="6007" />
+	<item code="cmbc" name="0015" />
+	<item code="gdb" name="0026" />
+	<item code="pab" name="2624" />
+	<item code="post" name="0028" />
+	<item code="sdb" name="5924" />
+</content>

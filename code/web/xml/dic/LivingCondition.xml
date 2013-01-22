@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content name="LivingCondition">
+	<item code="01" name="保密" /> 
+	<item code="02" name="和伴侣" /> 
+	<item code="03" name="和室友" /> 
+	<item code="04" name="和父母" /> 
+</content>

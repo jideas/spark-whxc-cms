@@ -1,0 +1,134 @@
+#ordercenter-body {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+#ordercenter-header {
+	width: 1200px;
+	padding-bottom: 5px;
+}
+
+#ordercenter-title {
+	float: left;
+	width: 1200px;
+	height: 40px;
+	border-bottom: #DEDEDE 1px solid;
+	margin-bottom: 8px;;
+}
+
+#ordercenter-menu {
+	display: inline;
+	float: left;
+	width: 150px;
+}
+
+#ordercenter-data {
+	display: inline;
+	float: right;
+	width: 1040px;
+}
+
+#ordercenter-data-title {
+	width: 1032px; *
+	width: 1040px;
+	height: 32px;
+	line-height: 32px;
+	border-bottom: #66CD00 2px solid;
+	float: left;
+	text-align: left;
+	padding-left: 8px;
+	color: #66CD00;
+}
+
+#ordercenter-data-query {
+	width: 1032px; *
+	width: 1038px;
+	height: 32px;
+	line-height: 32px;
+	padding-top: 5px;
+}
+
+#ordercenter-data-query-left {
+	width: 650px; *
+	width: 698px;
+	display: inline;
+	float: left;
+	padding-left: 20px;
+	text-align: left;
+}
+
+#ordercenter-data-query-right {
+	width: 340px;
+	display: inline;
+	float: right;
+	padding-right: 20px;
+	text-align: right;
+}
+
+#ordercenter-data-table {
+	width: 1040px;
+	min-height: 500px; *
+	height: 500px;
+}
+
+table {
+	border: #DEDEDE 1px solid;
+	border-collapse: collapse;
+}
+
+th {
+	color: #424242;
+	font-family: "ËÎÌו";
+	font-size: 12px;
+	font-weight: lighter;
+	height: 30px;
+	text-align: center;
+	border-bottom: #DEDEDE 1px solid;
+}
+
+td {
+	border: #DEDEDE 1px solid;
+	font-family: "ËÎÌו";
+	font-size: 12px;
+	font-weight: lighter;
+	height: 35px;
+	text-align: center;
+}
+
+#ordercenter-data-table a {
+	text-decoration: none;
+	cursor: pointer;
+	color: #031C86;
+}
+
+#ordercenter-data-table td a:HOVER {
+	text-decoration: underline;
+	color: #CD0000;
+}
+
+#ordercenter-data-table td div a:HOVER {
+	text-decoration: none;
+}
+
+.img-list {
+	text-align: left;
+	padding: 6px;
+	*padding: 8px;
+}
+
+.fr {
+	float: right;
+}
+
+#serviceFloors {
+	float: left;
+	margin: 10px 0px;
+}
+
+#copyRight {
+	float: left;
+}
+
+#pagin_div {
+	margin-top: 15px;
+}

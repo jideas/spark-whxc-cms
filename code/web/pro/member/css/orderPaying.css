@@ -1,0 +1,292 @@
+div,span,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,address,big,cite,code,del,em,font,img,ins,small,strong,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend
+	{
+	margin: 0 auto;
+	padding: 0;
+}
+
+.w {
+	width: 1032px;
+}
+
+.main .m {
+	margin-left: 40px;
+	margin-right: 40px
+}
+
+.main .m3 {
+	padding-top: 30px;
+	padding-bottom: 30px;
+	margin-bottom: 30px;
+	margin-left: 0;
+	margin-right: 0
+}
+
+.mt h3 {
+	float: left
+}
+
+#qpay02 {
+	margin-bottom: 20px
+}
+
+#qpay02 .mt .extra {
+	float: left
+}
+
+.main a:link,.main a:visited {
+	color: #005a9d
+}
+
+.m3 {
+	background: #f6fdf6;
+	color: #666666;
+}
+
+.main .m3 {
+	padding-top: 30px;
+	padding-bottom: 30px;
+	margin-bottom: 30px;
+	margin-left: 0;
+	margin-right: 0
+}
+
+.m3 .fore {
+	margin-left: 98px;
+	overflow: hidden
+}
+
+.m3 .list-h li,.mtips li {
+	padding-right: 15px;
+	margin-right: 15px;
+	border-right: 1px solid #cccccc;
+	color: #666666;
+	float: left;
+	margin-top: 5px;
+}
+
+.fr {
+	float: right;
+}
+
+/*fontcolor*/
+.ftx-01,a.flk-01:link,a.flk-01:visited,.flk-01 a:link,.flk-01 a:visited
+	{
+	color: #cc0000;
+}
+
+.ftx-02 {
+	color: #009900;
+	font-size: 14px;
+}
+
+.ftx-03,a.flk-03:link,a.flk-03:visited,.flk-03 a:link,.flk-03 a:visited
+	{
+	color: #999999;
+}
+
+.ftx-04,a.flk-04:link,a.flk-04:visited,.flk-04 a:link,.flk-04 a:visited
+	{
+	color: #ff6600;
+}
+
+.ftx-05,a.flk-05:link,a.flk-05:visited,.flk-05 a:link,.flk-05 a:visited
+	{
+	color: #005ea7;
+}
+
+.ftx-06 {
+	color: #666666;
+}
+
+#payingcontentdiv ul {
+	float: left;
+	margin: 0 auto;
+	padding: 0;
+	list-style: none;
+}
+
+#logo {
+	float: left;
+	width: 330px;
+	padding-top: 5px;
+}
+
+#logo a:link b,#logo a:visited b {
+	top: 11px;
+	left: 190px;
+	width: 69px;
+	height: 34px;
+	cursor: pointer;
+}
+
+#headers {
+	line-height: 25px;
+	height: 25px;
+	width: 1032px; *
+	margin-bottom: -10px;
+}
+
+#headers .step {
+	float: right;
+	display: inline;
+	margin-right: -2px;
+}
+
+body {
+	font: 12px/ 150% Arial, Verdana, "\5b8b\4f53";
+	color: #333;
+	background: #fff;
+	_background-image: url(about:blank);
+	_background-attachment: fixed;
+}
+
+/*step*/
+.step {
+	overflow: hidden;
+	background: #ededed;
+	color: #999999;
+	font-weight: bold;
+	margin: 0 auto 10px;
+	zoom: 1;
+}
+
+.step li {
+	float: left;
+	position: relative;
+	padding-left: 22px; *
+	padding-left: 0px;
+	padding-right: 35px;
+	line-height: 25px;
+	height: 25px;
+	width: 150px; *
+	width: 200px;
+	overflow: hidden;
+}
+
+.step li b {
+	position: absolute;
+	width: 22px;
+	height: 25px;
+	background: url('../../../images/page/flow.gif') no-repeat;
+	top: 0;
+	right: -1px;
+}
+
+#step1 .fore1,#step2 .fore2,#step3 .fore3,#step4 .fore4 {
+	background: #ffe6bc;
+	color: #ff6600; *
+	margin-left: -40px;
+}
+
+#step1 .fore1 b,#step2 .fore2 b,#step3 .fore3 b {
+	background-position: 0 -26px;
+}
+
+#step2 .fore1,#step3 .fore1,#step3 .fore2,#step4 .fore1,#step4 .fore2,#step4 .fore3
+	{
+	background: #bbbbbb;
+	color: #ffffff;
+}
+
+#step2 .fore1 b,#step3 .fore2 b,#step4 .fore3 b {
+	background-position: 0 -78px;
+}
+
+#step3 .fore1 b,#step4 .fore2 b,#step4 .fore1 b {
+	background-position: 0 -52px;
+}
+
+#selectWayDiv {
+	height: 230px;
+	width: 952px;
+	border: #EDD28B solid 1px;
+	display: block;
+	background-color: #FFFDEE;
+	margin-top: -20px;
+	margin-left: 40px;
+}
+
+#selectWayDivTitle {
+	height: 30px;
+	width: 950px;
+	background-color: #FFFFFF;
+}
+
+.selectWayDivTitleLeft01 {
+	width: 80px;
+	line-height: 30px;
+	border-right: #EDD28B solid 1px;
+	display: inline;
+	float: left;
+	height: 30px;
+	background-color: #FFFDEE;
+}
+
+.selectWayDivTitleLeft02 {
+	width: 80px;
+	line-height: 29px;
+	border-right: #EDD28B solid 1px;
+	border-bottom: #EDD28B solid 1px;
+	display: inline;
+	cursor: pointer;
+	float: left;
+	height: 30px;
+}
+
+#selectWayDivTitleRight {
+	width: 786px;
+	height: 30px;
+	border-bottom: #EDD28B solid 1px;
+	display: inline;
+	float: left;
+}
+
+.allWaysDiv {
+	height: 40px;
+	width: 100% px;
+	margin-left: 55px;
+	margin-top: 12px;
+}
+
+.allWaysDiv li {
+	height: 40px;
+	display: inline;
+	float: left;
+	line-height: 38px;
+	margin-left: 40px; *
+	margin-left: 0px;
+}
+
+.bank-logo {
+	border: 1px solid #C6C6C6;
+	padding: 1px;
+	display: inline-block; *
+	display: inline; *
+	zoom: 1;
+	position: relative;
+	height: 40px; *
+	width: 150px;
+}
+
+.allWaysDivLiRadio {
+	height: 40px;
+	line-height: 38px;
+}
+
+#ChooseOkButtonDiv {
+	height: 36px;
+	margin-left: 117px;
+	margin-top: 30px;
+}
+
+#divBottom {
+	margin-top: 10px;
+	background-color: #F3F3F3;
+	line-height: 36px;
+	font-size: 13px;
+}
+
+#chargeValueDiv {
+	margin-left: 50px;
+	margin-top: 30px;
+}

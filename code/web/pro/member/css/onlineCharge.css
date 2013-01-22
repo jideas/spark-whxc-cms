@@ -1,0 +1,60 @@
+.oldmain .left {
+	float: left;
+	width: 150px;
+	margin-right: 10px
+}
+
+.oldmaindiv {
+	width: 1040px;
+	float: right;
+}
+
+.oldmaindiv .oldmaintable {
+	width: 100%;
+	border-left: 1px solid #E6E6E6;
+	border-bottom: 1px solid #E6E6E6;
+	border-right: 1px solid #E6E6E6;
+	border-top: 1px solid #E6E6E6;
+	font-size: 12px;
+}
+
+.oldmaindiv .oldmaintable th {
+	height: 30px;
+	width: 100%;
+	background: url('<%=basePath%>/images/page/sort-bg05.png') repeat-x;
+	alight: left;
+	padding-left: 5px;
+	text-align: left;
+	font-family: "ËÎÌו";
+	font-size: 14px;
+	border-top: 1px solid #E6E6E6;
+}
+
+.oldmaindiv .oldmaintable .table_wrap .payment {
+	margin: 15px auto;
+}
+
+.oldmaindiv .oldmaintable .table_wrap table td {
+	font-size: 12px;
+	height: 30px;
+}
+
+#ordercenter-data-title
+{width:1032px;*width:1040px;height:35px;line-height: 35px;border-bottom: #66CD00 2px solid;float: left;text-align: left;padding-left: 8px;color: #66CD00;}
+ 
+
+button {
+	padding: 0;
+	height: 23px;
+	vertical-align: middle;
+	font-size: 12px;
+	line-height: 20px;
+	cursor: pointer;
+	margin: 0 4px;
+}
+
+.btn-text {
+	height: 22px;
+	width: 60px;
+	margin-top: 2px;
+}

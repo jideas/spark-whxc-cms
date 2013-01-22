@@ -1,0 +1,110 @@
+#loginPageMainDiv {
+	width: 1200px;
+	margin: 0 auto;
+	text-align: left;
+}
+
+#mainLoginDiv {
+	width: 1198px;
+	height: 380px;
+	border: #D1D1D1 solid 1px;
+	border-bottom: 0px;
+}
+
+#topLongDiv {
+	font-size: 16px;
+	line-height: 31px;
+	background-image: url('../../../images/page/page_top1.png');
+	vertical-align: middle;
+}
+
+#contantLoginDiv {
+	width: 100%;
+	height: 330px;
+	display: inline;
+}
+
+#loginLeftDiv {
+	width: 600px;
+	height: 330px;
+	display: inline;
+	float: left;
+}
+
+#loginVerSplitDiv {
+	width: 1px;
+	height: 280px;
+	display: inline;
+	float: left;
+	background-color: #E7E7E7;
+	margin-top: 20;
+}
+
+#loginRightDiv {
+	width: 478px; 
+	*width: 480px;
+	height: 260px;
+	display: inline;
+	float: right;
+}
+
+#loginHSplitDiv {
+	width: 280px;
+	line-height:1px;
+	height: 1px;
+	border-bottom: #E7E7E7 solid 1px;
+	margin-left: 40px;
+	margin-top: 45px; 
+	*margin-top: 60px; 
+}
+
+#button_reg {
+	width: 134px;
+	line-height: 32px;
+	height:32px;
+	margin-left: 110px;
+	cursor: pointer;
+	text-align: center;
+	vertical-align: middle;
+	background-image: url('../../../images/page/button_reg.png') ;
+	list-style-type: none;	
+	display: inline;
+	float:left; 
+}
+
+#loginAdvertisementDiv {
+	width: 280px;
+	height: 130px;
+	margin-left: 40px;
+}
+
+.FieldRow {
+	height: 33px; 
+	margin-top: 28px;
+	margin-left: 80px;
+}
+
+#button_reg:hover {
+	color: red;
+}
+
+#checkCode {
+	cursor: hand;
+	margin-top: 2px; margin-left : 5px;
+	float: left;
+	display: inline;
+	width:65px;
+	height: 15px;
+	color: red;
+	font-size: 16px;
+	font-family: Arial;
+	font-style: italic;
+	border: 0;
+	padding: 2px 3px;
+	letter-spacing: 3px;
+	font-weight: bolder;
+	background-image: url('../../../images/page/checkCodeBg.png');
+	letter-spacing: 3px;
+	font-weight: bolder;
+	margin-left: 5px;
+}
