@@ -120,7 +120,7 @@ public class PayingBillsServiceImpl implements PayingBillsService {
 	 */
 	private boolean chargeSuccess(PayingBillsVo vo) throws ServiceMessage {
 		MemberDealingVo deal = new MemberDealingVo();
-		deal.setAmount(DoubleUtil.strToDouble(vo.getAmount()));
+		deal.setAmount(DoubleUtil.div(DoubleUtil.strToDouble(vo.getAmount()), 100));
 		deal.setDealtype(DealingsType.Charge.getCode());
 		deal.setMemberid(vo.getRelaBillsId());
 		deal.setOccurdate(new Date());

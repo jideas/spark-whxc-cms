@@ -55,7 +55,8 @@ public class GoodsPromotionServiceImpl implements GoodsPromotionService {
 		hql.append(" where t.goodsid=? ");
 		hql.append(" and (t.pcount-t.saledcount)>=? ");
 		hql.append(" and t.isactiving=? ");
-		int n = this.baseDAO.execteBulk(hql.toString(), count, GUID.valueOf(goodsId).toBytes(), count, true);
+		int n = this.baseDAO.execteBulk(hql.toString(), count, GUID.valueOf(
+				goodsId).toBytes(), count, true);
 		if (1 == n) {
 			return new ServiceMessage(true, "");
 		}
@@ -74,16 +75,19 @@ public class GoodsPromotionServiceImpl implements GoodsPromotionService {
 		if (CheckIsNull.isEmpty(vo.getRecid())) {
 			newCreate = true;
 			vo.setRecid(GUID.randomID().toString());
-		} else if (vo.getRecid().equals(PromotionConstant.DefaultFreeDeliveryId)) {
+		} else if (vo.getRecid()
+				.equals(PromotionConstant.DefaultFreeDeliveryId)) {
 			newCreate = this.findGoodsPromotion(vo.getRecid()) == null;
 		}
-		boolean b = this.checkPromotionDouble(vo.getGoodsid(), vo.getRecid()).isOperSuccess();
+		boolean b = this.checkPromotionDouble(vo.getGoodsid(), vo.getRecid())
+				.isOperSuccess();
 		if (!b) {
 			return new ServiceMessage(false, "该金额区间已经存在启用的促销方案！");
 		}
 
 		if (!newCreate) {
-			this.baseDAO.delete(GoodsPromotionPo.class, GUID.valueOf(vo.getRecid()).toBytes());
+			this.baseDAO.delete(GoodsPromotionPo.class, GUID.valueOf(
+					vo.getRecid()).toBytes());
 		}
 		vo.setDisrate(DoubleUtil.div(vo.getDisrate(), 100));
 		this.baseDAO.save(BeanCopy.copy(GoodsPromotionPo.class, vo));
@@ -103,6 +107,7 @@ public class GoodsPromotionServiceImpl implements GoodsPromotionService {
 			return new ServiceMessage(false, "促销方案已不存在！");
 		}
 		vo.setIsactiving(true);
+		vo.setDisrate(DoubleUtil.mul(vo.getDisrate(), 100));
 		return this.createOrModify(vo, login);
 	}
 
@@ -119,6 +124,7 @@ public class GoodsPromotionServiceImpl implements GoodsPromotionService {
 			return new ServiceMessage(false, "促销方案已不存在！");
 		}
 		vo.setIsactiving(false);
+		vo.setDisrate(DoubleUtil.mul(vo.getDisrate(), 100));
 		return this.createOrModify(vo, login);
 	}
 
@@ -136,8 +142,9 @@ public class GoodsPromotionServiceImpl implements GoodsPromotionService {
 		hql.append(" and t.begintime<?");
 		hql.append(" and t.endtime >?");
 		Date date = new Date();
-		List<GoodsPromotionPo> list = this.baseDAO.getGenericByHql(hql.toString(), true, GUID.valueOf(goodsId)
-				.toBytes(), date.getTime(), date.getTime());
+		List<GoodsPromotionPo> list = this.baseDAO.getGenericByHql(hql
+				.toString(), true, GUID.valueOf(goodsId).toBytes(), date
+				.getTime(), date.getTime());
 		if (null == list || list.isEmpty()) {
 			return null;
 		}
@@ -154,7 +161,8 @@ public class GoodsPromotionServiceImpl implements GoodsPromotionService {
 		StringBuilder hql = new StringBuilder();
 		hql.append("from GoodsPromotionPo as t ");
 		hql.append(" where recid=? ");
-		List<GoodsPromotionPo> polist = this.baseDAO.getGenericByHql(hql.toString(), GUID.valueOf(recid).toBytes());
+		List<GoodsPromotionPo> polist = this.baseDAO.getGenericByHql(hql
+				.toString(), GUID.valueOf(recid).toBytes());
 		GoodsPromotionPo po = null;
 		if (polist == null || polist.isEmpty()) {
 			return null;
@@ -170,7 +178,8 @@ public class GoodsPromotionServiceImpl implements GoodsPromotionService {
 	 * @see com.spark.cms.services.goodsPromotion.GoodsPromotionService#getFormList(com.spark.cms.services.goodsPromotion.GetGoodsPromotionListKey)
 	 */
 	@Override
-	public DataModel<GoodsPromotionForm> getFormList(GetGoodsPromotionListKey key) {
+	public DataModel<GoodsPromotionForm> getFormList(
+			GetGoodsPromotionListKey key) {
 		StringBuilder hql = new StringBuilder();
 		hql.append("from GoodsPromotionPo as t ");
 		if (null != key.isOnlyActiving()) {
@@ -180,26 +189,33 @@ public class GoodsPromotionServiceImpl implements GoodsPromotionService {
 		int count = 0;
 		List<GoodsPromotionPo> polist = null;
 		if (null != key.isOnlyActiving()) {
-			count = Integer.parseInt(this.baseDAO.getGenericByHql("select count(t.recid) " + hql.toString(),
+			count = Integer.parseInt(this.baseDAO.getGenericByHql(
+					"select count(t.recid) " + hql.toString(),
 					key.isOnlyActiving()).get(0)
 					+ "");
 			if (key.getPageSize() == 0) {
-				polist = this.baseDAO.getGenericByHql(hql.toString(), key.isOnlyActiving());
+				polist = this.baseDAO.getGenericByHql(hql.toString(), key
+						.isOnlyActiving());
 			} else {
-				polist = this.baseDAO.getGenericByPosition(hql.toString(), (key.getOffset() - 1) * key.getPageSize(),
-						key.getPageSize(), key.isOnlyActiving());
+				polist = this.baseDAO.getGenericByPosition(hql.toString(), (key
+						.getOffset() - 1)
+						* key.getPageSize(), key.getPageSize(), key
+						.isOnlyActiving());
 			}
 		} else {
-			count = Integer.parseInt(this.baseDAO.getGenericByHql("select count(t.recid) " + hql.toString()).get(0)
+			count = Integer.parseInt(this.baseDAO.getGenericByHql(
+					"select count(t.recid) " + hql.toString()).get(0)
 					+ "");
 			if (key.getPageSize() == 0) {
 				polist = this.baseDAO.getGenericByHql(hql.toString());
 			} else {
-				polist = this.baseDAO.getGenericByPosition(hql.toString(), (key.getOffset() - 1) * key.getPageSize(),
-						key.getPageSize());
+				polist = this.baseDAO.getGenericByPosition(hql.toString(), (key
+						.getOffset() - 1)
+						* key.getPageSize(), key.getPageSize());
 			}
 		}
-		List<GoodsPromotionVo> volist = BeanCopy.copys(GoodsPromotionVo.class, polist);
+		List<GoodsPromotionVo> volist = BeanCopy.copys(GoodsPromotionVo.class,
+				polist);
 		List<GoodsPromotionForm> list = new ArrayList<GoodsPromotionForm>();
 		for (GoodsPromotionVo vo : volist) {
 			GoodsPromotionForm form = getShowForm(vo);
@@ -222,14 +238,18 @@ public class GoodsPromotionServiceImpl implements GoodsPromotionService {
 		GoodsPromotionForm form = new GoodsPromotionForm();
 		form.setRecid(vo.getRecid());
 		if (null != vo.getBegintime() && vo.getBegintime() > 0) {
-			form.setBeginTime(DateUtil.dateFromat(vo.getBegintime(), "yyyy-MM-dd HH:mm:ss"));
+			form.setBeginTime(DateUtil.dateFromat(vo.getBegintime(),
+					"yyyy-MM-dd HH:mm:ss"));
 		} else {
 			form.setBeginTime("--");
 		}
 		form.setCount(DoubleUtil.getRoundStr(vo.getPcount()));
-		form.setDisRate(DoubleUtil.getRoundStr(DoubleUtil.mul(vo.getDisrate(), 100)) + "%");
+		form.setDisRate(DoubleUtil.getRoundStr(DoubleUtil.mul(vo.getDisrate(),
+				100))
+				+ "%");
 		if (null != vo.getEndtime() && vo.getEndtime() > 0) {
-			form.setEndTime(DateUtil.dateFromat(vo.getEndtime(), "yyyy-MM-dd HH:mm:ss"));
+			form.setEndTime(DateUtil.dateFromat(vo.getEndtime(),
+					"yyyy-MM-dd HH:mm:ss"));
 		} else {
 			form.setEndTime("--");
 		}
@@ -238,8 +258,10 @@ public class GoodsPromotionServiceImpl implements GoodsPromotionService {
 			return null;
 		}
 		form.setGoodsId(vo.getGoodsid());
-		form.setGoodsName(goodsVo.getGoodsname() + "[" + goodsVo.getGoodsspec() + "]");
-		form.setReserveCount(DoubleUtil.getRoundStr(DoubleUtil.sub(vo.getPcount(), vo.getSaledcount())));
+		form.setGoodsName(goodsVo.getGoodsname() + "[" + goodsVo.getGoodsspec()
+				+ "]");
+		form.setReserveCount(DoubleUtil.getRoundStr(DoubleUtil.sub(vo
+				.getPcount(), vo.getSaledcount())));
 		form.setSalesCount(DoubleUtil.getRoundStr(vo.getSaledcount()));
 		form.setStatus(vo.isIsactiving() ? "启用中" : "已停用");
 		return form;
@@ -260,8 +282,9 @@ public class GoodsPromotionServiceImpl implements GoodsPromotionService {
 		hql.append(" and t.begintime<?");
 		hql.append(" and t.endtime >?");
 		Date date = new Date();
-		List<GoodsPromotionPo> list = this.baseDAO.getGenericByHql(hql.toString(), GUID.valueOf(recid).toBytes(), GUID
-				.valueOf(goodsId).toBytes(), date.getTime(), date.getTime());
+		List<GoodsPromotionPo> list = this.baseDAO.getGenericByHql(hql
+				.toString(), GUID.valueOf(recid).toBytes(), GUID.valueOf(
+				goodsId).toBytes(), date.getTime(), date.getTime());
 		return new ServiceMessage(null == list || list.size() == 0, "");
 	}
 
