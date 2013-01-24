@@ -4,8 +4,7 @@
 <html>
 	<head>
 		<title>新增</title>
-	</head>
-	</head>
+	</head> 
 	<body>
 		<!-- begin of 列表 -->
 		<div id="deliveryPriceToolbar">
