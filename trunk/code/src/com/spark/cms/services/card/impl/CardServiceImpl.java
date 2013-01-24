@@ -594,6 +594,7 @@ public class CardServiceImpl implements CardService {
 	 */
 	private void doWriteGift(CardVo vo, Login login, CardPromotionVo pmt) {
 		GiftVo gift = new GiftVo();
+		gift.setRecid(GUID.randomID().toString());
 		gift.setStatus(GiftStatus.Created.getCode());
 		gift.setGoodscount(pmt.getGoodsCount());
 		gift.setGoodsid(pmt.getGoodsId());
