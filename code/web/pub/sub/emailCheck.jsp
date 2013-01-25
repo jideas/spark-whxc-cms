@@ -110,7 +110,6 @@ margin-left: 300px;
 					<div id="topLongDiv">
 						&nbsp;&nbsp;
 						<b>—È÷§” œ‰</b>
-						</font>
 					</div>
 					<div id="contantLoginDiv1" class="contantLoginDiv">
 						<div style="display: inline; float: left;">

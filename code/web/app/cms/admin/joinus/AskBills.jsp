@@ -5,7 +5,6 @@
 	<head>
 		<title>ÉÌÆ·´ÙÏú</title>
 	</head>
-	</head>
 	<body>
 		<style type="text/css">
 .goodswinleft {

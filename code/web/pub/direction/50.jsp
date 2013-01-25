@@ -7,7 +7,6 @@
 
 	</head>
 	<body>
-	</head>
 
 	<body>
 		<div id="commonDirection">

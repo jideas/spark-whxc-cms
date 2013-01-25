@@ -192,7 +192,6 @@ public class OrderAction extends BaseAction {
 				}
 				if (gv.isFreedelivery()) {
 					freedelivery = true;
-					;
 				}
 				double price = g.getDouble("price");
 				/**
@@ -226,7 +225,7 @@ public class OrderAction extends BaseAction {
 				}
 
 				if ("null" != g.getString("vantagesType") && CheckIsNull.isNotEmpty(g.getString("vantagesType"))
-						&& !g.getString("vantagesType").equals(gv.getVantagestype())) {
+						&& !g.getString("vantagesType").equals(gv.getVantagestype())&&!"true".equals(g.getString("isGift"))) {
 					data.setErrorMsg("商品:" + gv.getGoodsname() + "积分促销信息已过期！");
 					data.setSuccess(false);
 					return data;
@@ -242,7 +241,7 @@ public class OrderAction extends BaseAction {
 					vantages = Double.valueOf(g.getString("vantages"));
 				}
 				if (!vantagesGoods) {
-					if (price != gv.getRealprice()) {
+					if (price != gv.getRealprice()&&!"true".equals(g.getString("isGift"))) {
 						/**
 						 * 商品促销
 						 */
@@ -295,6 +294,8 @@ public class OrderAction extends BaseAction {
 				if (isGift) {
 					odv.setAmount(0d);
 					odv.setPrice(0d);
+					odv.setVantages(0d);
+					odv.setVantagesCost(0d);
 				} else {
 					odv.setAmount(DoubleUtil.mul(price, count, 2));
 					odv.setPrice(price);
@@ -333,7 +334,7 @@ public class OrderAction extends BaseAction {
 				 * 整单促销
 				 */
 				List<ShopingCarGoods> goods = new ArrayList<ShopingCarGoods>();
-				OrderPromotionResult opr = orderPromotionService.findByOrderAmount(info.getTotalamount());
+				OrderPromotionResult opr = orderPromotionService.findByOrderAmount(totalGoodsAmount);
 				if (null != opr) {
 					OrderPromotionVo opv = opr.getVo();
 					if (null != opv && null != opv.getGoodsid() && opv.getGoodscount() > 0) {
@@ -439,10 +440,10 @@ public class OrderAction extends BaseAction {
 					vantages += dv.getVantages();
 				}
 				boi.setTotalamount(totalAmount);
-				boi.setTotalamount(boi.getTotalamount() + info.getDeliveryCost());
 				boi.setVantages(vantages);
 				if (CheckIsNull.isEmpty(dets)) {
 					boi.setDeliveryCost(info.getDeliveryCost());
+					boi.setTotalamount(boi.getTotalamount() + info.getDeliveryCost());
 					if (info.isToDoor() && info.getDeliveryCost() > 0) {
 						if (this.memberService.exeLockDeliveryBalance(info.getMemberid(), true, null) > 0) {
 							boi.setLockedDeliveryBalance(1);

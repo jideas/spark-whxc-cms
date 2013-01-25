@@ -391,7 +391,10 @@ body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,blockquote,fieldset,div,stro
 									for (ShopingCarGoods goods : order.getGoodsList()) {
 							%>
 							<div class="part_goods_row" id="<%=goods.getGoodsId()%>_<%=goods.isVantagesGoods()%>"
-								vantagesGoods="<%=goods.isVantagesGoods()%>">
+								vantagesGoods="<%=goods.isVantagesGoods()%>" isGift="<%=goods.isGift()%>" disrate="<%=goods.getDisrate()%>"
+									vantagesCost="<%=goods.getVantagesCost()%>"
+									vantages="<%=goods.getVantages()%>"
+									vantagesType="<%=goods.getVantagesType()%>" price="<%=goods.getPrice()%>" count="<%=goods.getCount()%>">
 								<div class="row-column-code" id="<%=goods.getGoodsId()%>_<%=goods.isVantagesGoods()%>_code">
 									<%=goods.getGoodsCode()%>
 								</div>
@@ -401,7 +404,7 @@ body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,blockquote,fieldset,div,stro
 									%>[积分商城商品]<%
 										} else {if(goods.isFreedelivery()){
 									%>[免运费]
-									<%}
+									<%}if(goods.isGift()){%>[赠品]<%}
 										if (null != goods.getDisrate()
 															&& goods.getDisrate() > 0
 															|| ((CheckIsNull.isNotEmpty(goods

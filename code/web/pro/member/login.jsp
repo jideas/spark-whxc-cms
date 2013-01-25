@@ -43,7 +43,6 @@
 				<div id="topLongDiv">
 					&nbsp;&nbsp;
 					<b>ÓÃ»§µÇÂ¼</b>
-					</font>
 				</div>
 				<div id="contantLoginDiv">
 					<div id="loginLeftDiv">
