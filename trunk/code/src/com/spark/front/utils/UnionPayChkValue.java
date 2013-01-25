@@ -30,7 +30,7 @@ public class UnionPayChkValue {
 	public static boolean checkVerifyTransResponse(UnionPayForm form, String realPath) {
 		PrivateKey key = new PrivateKey();
 		SecureLink t;
-		boolean flag = key.buildKey(CMS.PayInfo.UnionPayUserNo, 0, realPath + "\\xml\\key\\MerPrK.key");
+		boolean flag = key.buildKey("999999999999999", 0, realPath + "\\xml\\key\\PgPubk.key");
 		if (flag == false) {
 			System.out.println("build key error!");
 			return false;
