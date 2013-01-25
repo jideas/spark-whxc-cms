@@ -108,6 +108,7 @@ public class GoodsPromotionServiceImpl implements GoodsPromotionService {
 		}
 		vo.setIsactiving(true);
 		vo.setDisrate(DoubleUtil.mul(vo.getDisrate(), 100));
+		this.goodsService.modifyGoodsPromotionStatus(vo.getGoodsid(), true);
 		return this.createOrModify(vo, login);
 	}
 
@@ -125,6 +126,7 @@ public class GoodsPromotionServiceImpl implements GoodsPromotionService {
 		}
 		vo.setIsactiving(false);
 		vo.setDisrate(DoubleUtil.mul(vo.getDisrate(), 100));
+		this.goodsService.modifyGoodsPromotionStatus(vo.getGoodsid(), false);
 		return this.createOrModify(vo, login);
 	}
 
