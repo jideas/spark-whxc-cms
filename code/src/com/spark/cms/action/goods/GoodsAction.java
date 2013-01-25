@@ -470,13 +470,13 @@ public class GoodsAction extends BaseAction {
 		double price = 0.0;
 		if (promotion.getDisrate() > 0 && promotion.getDisrate() < 1) {
 			price = DoubleUtil.mul(goods.getRealprice(), promotion.getDisrate());
-			promotionInfo = "," + promotion.getDisrate() + "折";
+			promotionInfo = " " + (promotion.getDisrate() * 10) + "折";
 		}
 		if (goods.isFreedelivery()) {
-			promotionInfo += ",免费送货上门";
+			promotionInfo += " 免费送货上门";
 		}
 		if (goods.getVantagestype().equals("2")) {
-			promotionInfo += ",双倍积分";
+			promotionInfo += " 双倍积分";
 		}
 		return JSONObject.fromObject("{'promotionInfo':'" + promotionInfo + "', 'price':'" + DoubleUtil.getRoundStr(price, 2) + "'}").toString();
 	}
