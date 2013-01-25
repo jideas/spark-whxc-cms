@@ -79,7 +79,7 @@ public class RegistMemberForm {
 		if (!CmsString.matches(RegEx.PassWord, this.getPassword())) {
 			return false;
 		}
-		if (this.getUserName().length() < 8 || this.getUserName().length() > 40) {
+		if (this.getUserName().length() < 2 || this.getUserName().length() > 30) {
 			return false;
 		}
 		if (this.getPassword().length() < 6 || this.getPassword().length() > 16) {
