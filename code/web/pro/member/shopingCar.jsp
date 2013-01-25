@@ -197,7 +197,7 @@
 						</div>
 						<div class="list-column-price">
 							<span id="<%=goods.getGoodsId()%>_<%=goods.isVantagesGoods()%>_price"
-								value="<%=DoubleUtil.getRoundStr(goods.getPrice(), 2)%>"><font
+								value="<%=goods.getPrice()%>"><font
 								color="gray"><%=DoubleUtil.getRoundStr(goods.getPrice(), 2)%></font>
 							</span>
 						</div>
@@ -224,7 +224,7 @@
 								type="text"
 								style="margin-top: 25px; width: 30px; height: 21px; line-height: 21px; border: #C1C1C1 solid 1px; text-align: center; vertical-align: top;"
 								value="<%=DoubleUtil.getRoundStr(goods.getCount(), 0)%>"
-								preValue="<%=DoubleUtil.getRoundStr(goods.getCount(), 0)%>"
+								preValue="<%=DoubleUtil.getRoundStr(goods.getCount(), 0).replaceAll(",","")%>"
 								align="bottom" />
 							<img src="<%=basePath%>/images/page/button_sum.png"
 								style="margin-top: 27px; cursor: pointer;"
