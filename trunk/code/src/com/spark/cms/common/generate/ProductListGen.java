@@ -23,31 +23,30 @@ public class ProductListGen {
 				}
 			}
 			GoodsVo goodsVo = goods.get(i);
+			String promotionInfo = null;
 			if (goodsVo.isPromotion()) {
 				GoodsPromotionVo promotion = promotionService.findByGoodsId(goodsVo.getRecid());
-				String promotionInfo = "";
 				double price = 0.0;
 				if (promotion.getDisrate() > 0 && promotion.getDisrate() < 1) {
 					price = DoubleUtil.mul(goodsVo.getRealprice(), promotion.getDisrate());
-					promotionInfo = "," + promotion.getDisrate() + "折";
+					promotionInfo = " " + (promotion.getDisrate() * 10) + "折";
 				}
 				if (goodsVo.isFreedelivery()) {
-					promotionInfo += ",免费送货上门";
+					promotionInfo += " 免费送货上门";
 				}
 				if (goodsVo.getVantagestype().equals("2")) {
-					promotionInfo += ",双倍积分";
+					promotionInfo += " 双倍积分";
 				}
-				goodsVo.setGoodsname(goodsVo.getGoodsname() + promotionInfo);
 				goodsVo.setRealprice(price);
 			}
-			str += generateProductCell(goodsVo,path);
+			str += generateProductCell(goodsVo,path, promotionInfo);
 		}
 		str += genProductItemEnd();
 		return str;
 	}
 
 	
-	private static String generateProductCell(GoodsVo goodsVo,String path){
+	private static String generateProductCell(GoodsVo goodsVo,String path, String promotionInfo){
 		
 		StringBuffer sb = new StringBuffer();
 		String imgsrc =null;
@@ -63,7 +62,11 @@ public class ProductListGen {
 		sb.append("<div class=\"goodsInfoRowItem\"><div>")
 		  .append("<a class= \"goodsCellImage\" href=\"" + url + "\" target=\"_blank\"><img width=\"140px\" height=\"140px\" src=\""+imgsrc+"\" /></a>")
 		  .append("</div>")
-		  .append("<div class='p-name'>").append("<a href=\"" + url + "\"  target=\"_blank\" class=\"p-name\">").append(goodsVo.getGoodsname()).append("</a></div>")
+		  .append("<div class='p-name'>").append("<a href=\"" + url + "\"  target=\"_blank\" class=\"p-name\">").append(goodsVo.getGoodsname());
+		if (null != promotionInfo) {
+			sb.append("<font color='red'>" + promotionInfo + "</font>");
+		}
+		sb.append("</a></div>")
 		  .append("<div class='p-name'>规格：").append(goodsVo.getGoodsspec()).append("</div>")
 		  .append("<div class=\"p-price\">").append("<strong>￥").append(DoubleUtil.getRoundStr(goodsVo.getRealprice(), 2)).append("/").append(goodsVo.getGoodsunit()).append("</strong></div>")
 		  .append("<div class=\"bellowGoodsSmallInfo\">")
