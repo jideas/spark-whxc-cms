@@ -46,7 +46,7 @@ function validateForm() {
 		$('#userName_input_suf').html('');
 	}
 	var _userNameReg = /^[a-zA-Z]\w*$/;
-	var _userNameReg2 = /^[a-zA-Z0-9_\u4e00-\u9fa5]*$ /;
+	var _userNameReg2 = /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/; 
 	if (userName && !_userNameReg.test(userName)) {
 		if (userName && !_userNameReg2.test(userName)) {
 			$('#userName_input').css('border', 'red solid 2px');
@@ -118,7 +118,7 @@ function validateForm() {
 	if (!validate())// 验证验证码
 	{
 		returnValue = false;
-	}
+	} 
 	return returnValue;
 }
 $(document).ready(function() {
