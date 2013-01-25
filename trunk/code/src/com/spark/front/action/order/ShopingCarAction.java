@@ -430,7 +430,7 @@ public class ShopingCarAction extends BaseAction {
 			sb.append("<div><a title=\""+gv.getGoodsName()+"\" target=\"_blank\" href=\"" + url + "\" >"+goodsName+"</a></div>");
 			sb.append("<div>¹æ¸ñ£º"+gv.getGoodsspec()+"</div>");
 			sb.append("<div><b>£¤"+gv.getRealprice()+"/"+gv.getGoodsunit()+"</b></div>");
-			sb.append("<div><input type=\"button\" recid=\""+gv.getRecid()+"\" value=\"\" onClick=\"shopingCar.addHotGoods(this)\"/></div>");
+			sb.append("<div><input type=\"button\" recid=\""+gv.getGoodsid()+"\" value=\"\" onClick=\"shopingCar.addHotGoods(this)\"/></div>");
 			sb.append("</div>");
 			sb.append("</li>");
 			
