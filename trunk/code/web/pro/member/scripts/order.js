@@ -275,7 +275,8 @@ function Order() {
 		html += "<div id='delivery' class='paytypeExtra'>";
 		html += "&nbsp;送货上门：";
 		html += "<select type='text' id='toDoor' price='"
-				+ $("#toDoor").attr("price") + "' style='width:50px;'>";
+				+ $("#toDoor").attr("price") + "' beginAmount='"
+				+ $("#toDoor").attr("beginAmount") + "' style='width:50px;'>";
 
 		if ($("#toDoor").attr("value") == "是") {
 			html += "<option value='是'";
@@ -297,6 +298,10 @@ function Order() {
 		html += "&nbsp;非包月客户送货上门费用" + $("#toDoor").attr("price")
 				+ "元/次。办理上门送货包月，享更多优惠，点击<a href='" + basePath
 				+ "/pro/member/delivercharge.jsp' target='_blank'>[办理]</a>";
+		if ($("#toDoor").attr("beginAmount") > 0) {
+			html += "。<font color=\"#000000\">[促销信息：整单满" + Number($("#toDoor").attr("beginAmount")).toFixed(2)
+					+ "元，免费送货上门]</font>";
+		}
 		// if ($("#toDoor").attr("value")) {
 		//			
 		// html += "。办理包月送货更多优惠，点击<a href='javascript:void(0)'
@@ -383,6 +388,7 @@ function Order() {
 		html += "</td>";
 
 		html += "<td id='toDoor' price='" + $("#toDoor").attr("price")
+				+ "' beginAmount='" + $("#toDoor").attr("beginAmount")
 				+ "' value='";
 		if ($("#toDoor").val() == "是") {
 			html += "是";
@@ -394,7 +400,11 @@ function Order() {
 				+ $("#toDoor").attr("price") + "元/次。办理上门送货包月，享更多优惠，点击<a href='"
 				+ basePath
 				+ "/pro/member/delivercharge.jsp' target='_blank'>[办理]</a>";
-
+		if ($("#toDoor").attr("beginAmount") > 0) {
+			html += "。<font color=\"#000000\">[促销信息：整单满"
+					+ Number($("#toDoor").attr("beginAmount")).toFixed(2)
+					+ "元，免费送货上门]</font>";
+		}
 		html += "</td>";
 		html += "</tr>";
 
@@ -563,12 +573,16 @@ function Order() {
 		html += "送货上门：";
 		html += "</td>";
 
-		html += "<td id='toDoor' price='" + $("#toDoor").attr("price")
+		html += "<td id='toDoor' price='" + $("#toDoor").attr("price")+"' beginAmount='"+$("#toDoor").attr("beginAmount")
 				+ "' value='" + $("#toDoor").attr("value") + "'>";
 		html += $("#toDoor").attr("value");
 		html += "&nbsp;非包月客户送货上门费用" + $("#toDoor").attr("price")
 				+ "元/次。办理上门送货包月，享更多优惠，点击<a href='" + basePath
 				+ "/pro/member/delivercharge.jsp' target='_blank'>[办理]</a>";
+		if ($("#toDoor").attr("beginAmount") > 0) {
+			html += "。<font color=\"#000000\">[促销信息：整单满" + Number($("#toDoor").attr("beginAmount")).toFixed(2)
+					+ "元，免费送货上门]</font>";
+		}
 		html += "</td>";
 		html += "</tr>";
 
@@ -1019,8 +1033,8 @@ function Order() {
 		if (timeSelector.getSelectedTimeCode()) {
 			var currentDate = new Date();
 			if ($("#deliverDay").val().split("-")[2] == currentDate.getDate()
-					&& (timeSelector.getSelectedTimeCode().toString().split(":")[0] - currentDate
-							.getHours()) < 3) {
+					&& (timeSelector.getSelectedTimeCode().toString()
+							.split(":")[0] - currentDate.getHours()) < 3) {
 				var str = "请提前3小时下单或者重新选择配送时间！";
 				$("#paytype_warning_deliverTime").html(str);
 				success = false;
@@ -1169,54 +1183,50 @@ function Order() {
 		var ga = "";
 		var index = 0;
 		$(".part_goods_row").each(function() {
-			if (0 != index) {
-				ga += ",";
-			}
-			ga += "{";
-			ga += "goodsId:\"" + this.id.split("_")[0] + "\"";
-			var count = "";
-			if ("null" != $(this).attr("count")) {
-				count = $( this).attr("count");
-			}
-			ga += ",count:\"" + count + "\"";
-			var price = "";
-			if ("null" != $( this).attr("price")) {
-				price = $(this).attr("price");
-			}
-			ga += ",price:\"" + price + "\"";
-			var vantagesType = "";
-			if ("null" != $(this).attr("vantagesType")) {
-				vantagesType = $(this)
-						.attr("vantagesType");
-			}
-			ga += ",vantagesType:\"" + vantagesType + "\"";
-			var disrate = "";
-			if ("null" != $(this).attr("disrate")) {
-				disrate = $(this).attr("disrate");
-			}
-			ga += ",disrate:\"" + disrate + "\"";
-			var vantagesGoods = "";
-			if ("null" != $(this).attr("vantagesGoods")) {
-				vantagesGoods = $(this)
-						.attr("vantagesGoods");
-			}
-			ga += ",vantagesGoods:\"" + vantagesGoods + "\"";
-			var vantagesCost = "";
-			if ("null" != $(this).attr("vantagesCost")) {
-				vantagesCost = $(this)
-						.attr("vantagesCost");
-			}
-			ga += ",vantagesCost:\"" + vantagesCost + "\"";
-			ga += ",isGift:\"" + $(this).attr("isGift")
-					+ "\"";
-			var vantages = "";
-			if ("null" != $(this).attr("vantages")) {
-				vantages = $( this).attr("vantages");
-			}
-			ga += ",vantages:\"" + vantages + "\"";
-			ga += "}";
-			index++;
-		});
+					if (0 != index) {
+						ga += ",";
+					}
+					ga += "{";
+					ga += "goodsId:\"" + this.id.split("_")[0] + "\"";
+					var count = "";
+					if ("null" != $(this).attr("count")) {
+						count = $(this).attr("count");
+					}
+					ga += ",count:\"" + count + "\"";
+					var price = "";
+					if ("null" != $(this).attr("price")) {
+						price = $(this).attr("price");
+					}
+					ga += ",price:\"" + price + "\"";
+					var vantagesType = "";
+					if ("null" != $(this).attr("vantagesType")) {
+						vantagesType = $(this).attr("vantagesType");
+					}
+					ga += ",vantagesType:\"" + vantagesType + "\"";
+					var disrate = "";
+					if ("null" != $(this).attr("disrate")) {
+						disrate = $(this).attr("disrate");
+					}
+					ga += ",disrate:\"" + disrate + "\"";
+					var vantagesGoods = "";
+					if ("null" != $(this).attr("vantagesGoods")) {
+						vantagesGoods = $(this).attr("vantagesGoods");
+					}
+					ga += ",vantagesGoods:\"" + vantagesGoods + "\"";
+					var vantagesCost = "";
+					if ("null" != $(this).attr("vantagesCost")) {
+						vantagesCost = $(this).attr("vantagesCost");
+					}
+					ga += ",vantagesCost:\"" + vantagesCost + "\"";
+					ga += ",isGift:\"" + $(this).attr("isGift") + "\"";
+					var vantages = "";
+					if ("null" != $(this).attr("vantages")) {
+						vantages = $(this).attr("vantages");
+					}
+					ga += ",vantages:\"" + vantages + "\"";
+					ga += "}";
+					index++;
+				});
 		return ga;
 	}
 	this.validationValue = function() {

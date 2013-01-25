@@ -47,12 +47,21 @@ public class OrderForm {
 	private List<ShopingCarGoods> vgoodsList;
 	private Long p_vantages;
 	private boolean p_freedelivery;
+	private double beginAmount;
 	private double bagPrice;
 	private double deliverPrice;
 	private List<DicItem> deliverTimeItems;
 	private double vantagesCost;
 	
 	
+	public double getBeginAmount() {
+		return beginAmount;
+	}
+
+	public void setBeginAmount(double beginAmount) {
+		this.beginAmount = beginAmount;
+	}
+
 	public double getVantagesCost() {
 		return vantagesCost;
 	}

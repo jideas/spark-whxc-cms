@@ -321,21 +321,17 @@ public class OrderAction extends BaseAction {
 				}
 
 			}
-			if (info.isToDoor() && !freedelivery) {
-				if (null != deliveryPriceService.getPrice() && deliveryPriceService.getPrice() > deliveryCost) {
-					data.setSuccess(false);
-					data.setErrorMsg("上门送货运费信息已过期！");
-					return data;
-				}
-				info.setDeliveryCost(deliveryCost);
-			}
+			OrderPromotionResult opr = orderPromotionService.findByOrderAmount(totalGoodsAmount);
 			if (hasGift) {
 				/**
 				 * 整单促销
 				 */
 				List<ShopingCarGoods> goods = new ArrayList<ShopingCarGoods>();
-				OrderPromotionResult opr = orderPromotionService.findByOrderAmount(totalGoodsAmount);
 				if (null != opr) {
+					if(opr.isFreeDelivery())
+					{
+						freedelivery = true;
+					}
 					OrderPromotionVo opv = opr.getVo();
 					if (null != opv && null != opv.getGoodsid() && opv.getGoodscount() > 0) {
 						ShopingCarGoods scg = new ShopingCarGoods();
@@ -388,6 +384,20 @@ public class OrderAction extends BaseAction {
 						}
 					}
 				}
+			}
+			if (null != opr) {
+				if(opr.isFreeDelivery())
+				{
+					freedelivery = true;
+				}
+			}
+			if (info.isToDoor() && !freedelivery) {
+				if (null != deliveryPriceService.getPrice() && deliveryPriceService.getPrice() > deliveryCost) {
+					data.setSuccess(false);
+					data.setErrorMsg("上门送货运费信息已过期！");
+					return data;
+				}
+				info.setDeliveryCost(deliveryCost);
 			}
 
 		}
