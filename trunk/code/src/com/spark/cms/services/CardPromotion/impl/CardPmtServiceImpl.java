@@ -67,6 +67,10 @@ public class CardPmtServiceImpl implements CardPmtService {
 			return new ServiceMessage(false, "促销方案已不存在！");
 		}
 		vo.setActiving(true);
+		boolean b = this.checkAmountOk(vo.getAmount(), vo.getRecid());
+		if (!b) {
+			return new ServiceMessage(false, "该金额区间已经存在促销方案！");
+		}
 		return this.createOrModifyPmt(vo, login);
 	}
 
@@ -119,8 +123,8 @@ public class CardPmtServiceImpl implements CardPmtService {
 	private boolean checkAmountOk(double amount, String recid) {
 		StringBuilder hql = new StringBuilder();
 		hql.append("from CardPromotionPo as t ");
-		hql.append(" where t.amount=" + amount);
-		List<CardPromotionPo> polist = this.baseDAO.getGenericByHql(hql.toString());
+		hql.append(" where t.amount=" + amount +" and t.activing=?");
+		List<CardPromotionPo> polist = this.baseDAO.getGenericByHql(hql.toString(),true);
 		for (CardPromotionPo po : polist) {
 			if (GUID.valueOf(po.getRecid()).equals(GUID.valueOf(recid))) {
 				continue;
@@ -146,11 +150,6 @@ public class CardPmtServiceImpl implements CardPmtService {
 			newCreate = true;
 			vo.setRecid(GUID.randomID().toString());
 		}
-		boolean b = this.checkAmountOk(vo.getAmount(), vo.getRecid());
-		if (!b) {
-			return new ServiceMessage(false, "该金额区间已经存在促销方案！");
-		}
-
 		if (!newCreate) {
 			this.baseDAO.delete(CardPromotionPo.class, GUID.valueOf(vo.getRecid()).toBytes());
 		}
