@@ -511,6 +511,18 @@ function SearchResultApp() {
 		var html = "";
 		var columnCount = 4;
 		for (var index = 0; index < resultData.length; index++) {
+			var promotion = null;
+			if (resultData[index].promotion) {
+				promotion = getGoodsPromotion(resultData[index].recid);
+			}
+			
+			var goodsName = resultData[index].goodsname;
+			var price = resultData[index].realprice;
+			if (null != promotion) {
+				goodsName += promotion.promotionInfo;
+				price = promotion.price;
+			}
+			
 			if (index % columnCount == 0) { // row begin
 				html += "<div class=\"goodsInfoRow\">";
 			}
@@ -522,12 +534,12 @@ function SearchResultApp() {
 			html += " src='" + mainWeb + resultData[index].picturepath1 + "' /></a>";
 			html += "</div>";
 			html += "<div class='p-name'>";
-			html += "<a href='" + mainWeb + "/front/toGoodsInfoPage?id=" + resultData[index].recid + "'";
-			html += " class='p-name'>" + resultData[index].goodsname + "</a>";
+			html += "<a id='goods-name-" + resultData[index].recid + "' href='" + mainWeb + "/front/toGoodsInfoPage?id=" + resultData[index].recid + "'";
+			html += " class='p-name'>" + goodsName + "</a>";
 			html += "</div>";
 			html += "<div class='p-name'>¹æ¸ñ£º" + resultData[index].goodsspec + "</div>";
-			html += "<div class='p-price'>";
-			html += "<strong>£¤" + resultData[index].realprice + "/" + resultData[index].goodsunit + "</strong>";
+			html += "<div id='goods-price-" + resultData[index].recid + "' class='p-price'>";
+			html += "<strong>£¤" + price + "/" + resultData[index].goodsunit + "</strong>";
 			html += "</div>";
 			html += "<div class='bellowGoodsSmallInfo'>";
 			html += "<img onclick=\"_searchResultApp.adjustGoodsCount('" + resultData[index].recid + "','-1') \"";
@@ -553,6 +565,23 @@ function SearchResultApp() {
 		$('.categoryPagecontantRight3').html(html);
 	};
 	
+	var getGoodsPromotion = function(goodsId) {
+		var promotion = null;
+		$.ajax({
+			type: 'post',
+			url: mainWeb + '/front/goods/getGoodsPromotion',
+			data: 'goodsId=' + goodsId,
+			dataType: 'json',
+			async: false,
+			success: function(data) {
+				if (data) {
+					promotion = data;
+				}
+			}
+		});
+		return promotion;
+	};
+
 	var renderError = function() {
 		
 	};
