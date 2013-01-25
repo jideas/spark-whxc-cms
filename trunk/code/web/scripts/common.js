@@ -33,9 +33,9 @@ function ChooseImagesWindow(imageSearchText) {
 
 	var loadImagesTable = function(node) {
 		if ((node && node.attributes.code == '0')
-				|| (imageSearchText && $.trim(imageSearchText) != '')) {
+				|| (imageSearchText && $.trim(imageSearchText) != ''&&imageSearchText!='undefinded'&&imageSearchText!='null')) {
 			lastSelectNode = node;
-			if (null == imageSearchText || imageSearchText == 'null') {
+			if (null == imageSearchText || imageSearchText == 'null'||imageSearchText!='undefinded'||imageSearchText!='null') {
 				imageSearchText = '';
 			}
 			var nodeId;
