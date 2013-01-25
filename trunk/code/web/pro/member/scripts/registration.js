@@ -1,4 +1,3 @@
-
 function validateForm() {
 	var returnValue = true;
 	var email = $('#email_input').val();
@@ -47,20 +46,29 @@ function validateForm() {
 		$('#userName_input_suf').html('');
 	}
 	var _userNameReg = /^[a-zA-Z]\w*$/;
+	var _userNameReg2 = /^[a-zA-Z0-9_\u4e00-\u9fa5]*$ /;
+		alert(_userNameReg2.test(userName));
 	if (userName && !_userNameReg.test(userName)) {
-		$('#userName_input').css('border', 'red solid 2px');
-		$('#userName_input_suf')
-				.html('<font color=red >&nbsp;登录名只能是字母数字下划线！</font>');
-		returnValue = false;
+		if (userName && !_userNameReg2.test(userName)) {
+			$('#userName_input').css('border', 'red solid 2px');
+			$('#userName_input_suf')
+					.html('<font color=red >&nbsp;登录名只能是汉字字母数字下划线！</font>');
+			returnValue = false;
+		} else if (userName && (userName.length < 2 || userName.length > 20)) {
+			$('#userName_input').css('border', 'red solid 2px');
+			$('#userName_input_suf')
+					.html('<font color=red >&nbsp;登录名长度需要调整！</font>');
+			returnValue = false;
+		}
 	} else if (userName) {
 		$('#userName_input').css('border', '#ABADB3 solid 1px');
 		$('#userName_input_suf').html('');
-	}
-	if (userName && (userName.length < 8 || userName.length > 30)) {
-		$('#userName_input').css('border', 'red solid 2px');
-		$('#userName_input_suf')
-				.html('<font color=red >&nbsp;登录名长度应该为8到30！</font>');
-		returnValue = false;
+		if (userName && (userName.length < 8 || userName.length > 30)) {
+			$('#userName_input').css('border', 'red solid 2px');
+			$('#userName_input_suf')
+					.html('<font color=red >&nbsp;登录名长度需要调整！</font>');
+			returnValue = false;
+		}
 	}
 	var pass0 = $('#password_input').val();
 	if ($.trim(pass0) == '') {
@@ -114,11 +122,11 @@ function validateForm() {
 	}
 	return returnValue;
 }
-$(document).ready(function() { 
+$(document).ready(function() {
 	var form = $('#registform');
 	form.submit(function() {
 		$.post(form.attr('action'), form.serialize(), function(result, status) {
-					if (result.result) { 
+					if (result.result) {
 						window.location = basePath;
 					} else {
 						if (1 == result.returnObj) {

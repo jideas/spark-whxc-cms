@@ -1,12 +1,14 @@
 #loginPageMainDiv {
 	width: 1200px;
-	height: 460px;
+	height: 490px;
+	*height: 460px;
 	margin: 0 auto; 
 }
 
 #mainRegDiv {
 	width: 1198px;
-	height: 460px;
+	height: 490px;
+	*height: 460px;
 	border: #D1D1D1 solid 1px;
 	border-bottom: 0px;
 }
