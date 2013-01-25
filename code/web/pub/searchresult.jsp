@@ -519,7 +519,7 @@ function SearchResultApp() {
 			var goodsName = resultData[index].goodsname;
 			var price = resultData[index].realprice;
 			if (null != promotion) {
-				goodsName += promotion.promotionInfo;
+				goodsName += "<font  color='red'>" + promotion.promotionInfo + "</font>";
 				price = promotion.price;
 			}
 			
