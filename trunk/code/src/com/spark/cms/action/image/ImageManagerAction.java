@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.spark.cms.action.BaseAction;
 import com.spark.cms.base.utils.UpLoader;
 import com.spark.cms.common.ResponseEntityUtil;
 
@@ -24,7 +25,7 @@ import com.spark.cms.common.ResponseEntityUtil;
  */
 @Controller
 @RequestMapping(value="/image")
-public class ImageManagerAction {
+public class ImageManagerAction extends BaseAction{
 	
 	@RequestMapping(value="/uploadImage")
 	@ResponseBody
@@ -44,6 +45,8 @@ public class ImageManagerAction {
 			try{
 				upLoader.upload(multipartFile);
 			}catch(Exception e){
+				System.out.println(e.getMessage());
+				log.error(e.getMessage());
 			}
 		}
 		return ResponseEntityUtil.getResponseEntity(upLoader);

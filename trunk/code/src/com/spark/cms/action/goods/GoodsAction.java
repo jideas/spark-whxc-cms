@@ -152,9 +152,9 @@ public class GoodsAction extends BaseAction {
 			
 			String inventoryCountStr = jsonObj.getString("inventoryCount");
 			double inventoryCount = 0;
-			if (StringUtil.isNumeric(inventoryCountStr)) {
+			//if (StringUtil.isNumeric(inventoryCountStr)) {
 				inventoryCount = DoubleUtil.strToDouble(inventoryCountStr);
-			}
+			//}
 			boolean isMostSales = jsonObj.getBoolean("isMostSales");
 			boolean isPopular = jsonObj.getBoolean("isPopular");
 			//double realprice = jsonObj.getDouble("realprice");

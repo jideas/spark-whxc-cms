@@ -1,7 +1,6 @@
 package com.spark.cms.action.common;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -88,13 +87,15 @@ public class MessageBorderAction extends BaseAction{
 	@RequestMapping("/messageborder/getMessageborderList")
 	@ResponseBody
 	public DataModel getMessageborderList(@RequestParam(value = "page", required = false) String page,
-			@RequestParam(value = "rows", required = false) String rows){
+			@RequestParam(value = "rows", required = false) String rows,
+			@RequestParam(value = "filter", required = false) String filter){
 		DataModel dm = new DataModel();
-		try{	
+		try{
 			LimitKey lk = new LimitKey();
 			lk.setOffset((Integer.parseInt(page) - 1) * Integer.parseInt(rows));
 			lk.setPageSize(Integer.parseInt(rows));
 			lk.setSortType(SortType.Desc);
+			lk.setSearchText(filter);
 			int count = messageborderService.countMsg(lk);
 			dm.setRows(messageborderService.getMessageborderList(lk));
 			dm.setTotal(count);

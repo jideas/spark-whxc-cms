@@ -12,6 +12,7 @@ public class GetGoodsListKey extends LimitKey {
 	private String[] filterIds;
 	private SortColumn sortColumn = SortColumn.PUBLISHDATE;
 	private int offset = 0;
+	private String searchText = "";
 	
 	private boolean isVantageOnly = false;
 	
@@ -33,6 +34,14 @@ public class GetGoodsListKey extends LimitKey {
 		public String getColumnName() {
 			return this.columnName;
 		}
+	}
+
+	public String getSearchText() {
+		return searchText;
+	}
+
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
 	}
 
 	public Boolean isPublished() {
