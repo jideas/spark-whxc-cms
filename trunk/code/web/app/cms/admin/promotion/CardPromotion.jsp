@@ -5,7 +5,6 @@
 	<head>
 		<title>新增</title>
 	</head>
-	</head>
 	<body>
 		<!-- begin of 列表 -->
 		<div id="cardPmtToolbar">

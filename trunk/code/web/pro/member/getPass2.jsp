@@ -218,7 +218,6 @@ function gotoLoginMail() {
 					</div>
 					<div id="topRightDiv">
 					</div>
-					</font>
 				</div>
 				<div id="step2" class="step">
 					<ul>

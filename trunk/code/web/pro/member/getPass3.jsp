@@ -157,7 +157,6 @@ function validateForm() {
 					</div>
 					<div id="topRightDiv">
 					</div>
-					</font>
 				</div>
 				<div id="step3" class="step">
 					<ul>

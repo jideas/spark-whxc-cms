@@ -6,7 +6,6 @@
 		<title>新增</title>
 		<%@ include file="/common/jqueryui.jsp"%>
 	</head>
-	</head>
 	<body>
 		<!-- begin of 列表 -->
 		<div id="orderPmtToolbar">

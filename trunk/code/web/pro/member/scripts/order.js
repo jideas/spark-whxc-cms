@@ -1088,9 +1088,10 @@ function Order() {
 		orderInfo += ",stationname:\"" + $("#station").attr("value") + "\"";
 		orderInfo += ",totalAmount:\""
 				+ $("#part_total_amounting_right").attr("totalAmount") + "\"";
-		var vantages = Number($("#total_vantages").attr("p_vantages"))
-				+ Number($("#total_vantages").attr("totalVantages"));
+		var vantages = Number($("#total_vantages").attr("totalVantages"));
+		var p_vantages = Number($("#total_vantages").attr("p_vantages"));
 		orderInfo += ",vantages:\"" + vantages + "\"";
+		orderInfo += ",p_vantages:\"" + p_vantages + "\"";
 		orderInfo += ",toDoor:\"" + $("#toDoor").attr("value") + "\"";
 		orderInfo += ",payType:\"" + $("#paytype").attr("code") + "\"";
 		orderInfo += "";
@@ -1174,43 +1175,43 @@ function Order() {
 			ga += "{";
 			ga += "goodsId:\"" + this.id.split("_")[0] + "\"";
 			var count = "";
-			if ("null" != $("#" + this.id + "_count").attr("count")) {
-				count = $("#" + this.id + "_count").attr("count");
+			if ("null" != $(this).attr("count")) {
+				count = $( this).attr("count");
 			}
 			ga += ",count:\"" + count + "\"";
 			var price = "";
-			if ("null" != $("#" + this.id + "_price").attr("price")) {
-				price = $("#" + this.id + "_price").attr("price");
+			if ("null" != $( this).attr("price")) {
+				price = $(this).attr("price");
 			}
 			ga += ",price:\"" + price + "\"";
 			var vantagesType = "";
-			if ("null" != $("#" + this.id + "_vantages").attr("vantagesType")) {
-				vantagesType = $("#" + this.id + "_vantages")
+			if ("null" != $(this).attr("vantagesType")) {
+				vantagesType = $(this)
 						.attr("vantagesType");
 			}
 			ga += ",vantagesType:\"" + vantagesType + "\"";
 			var disrate = "";
-			if ("null" != $("#" + this.id + "_vantages").attr("disrate")) {
-				disrate = $("#" + this.id + "_vantages").attr("disrate");
+			if ("null" != $(this).attr("disrate")) {
+				disrate = $(this).attr("disrate");
 			}
 			ga += ",disrate:\"" + disrate + "\"";
 			var vantagesGoods = "";
-			if ("null" != $("#" + this.id + "_vantages").attr("vantagesGoods")) {
-				vantagesGoods = $("#" + this.id + "_vantages")
+			if ("null" != $(this).attr("vantagesGoods")) {
+				vantagesGoods = $(this)
 						.attr("vantagesGoods");
 			}
 			ga += ",vantagesGoods:\"" + vantagesGoods + "\"";
 			var vantagesCost = "";
-			if ("null" != $("#" + this.id + "_vantages").attr("vantagesCost")) {
-				vantagesCost = $("#" + this.id + "_vantages")
+			if ("null" != $(this).attr("vantagesCost")) {
+				vantagesCost = $(this)
 						.attr("vantagesCost");
 			}
 			ga += ",vantagesCost:\"" + vantagesCost + "\"";
-			ga += ",isGift:\"" + $("#" + this.id + "_vantages").attr("isGift")
+			ga += ",isGift:\"" + $(this).attr("isGift")
 					+ "\"";
 			var vantages = "";
-			if ("null" != $("#" + this.id + "_vantages").attr("vantages")) {
-				vantages = $("#" + this.id + "_vantages").attr("vantages");
+			if ("null" != $(this).attr("vantages")) {
+				vantages = $( this).attr("vantages");
 			}
 			ga += ",vantages:\"" + vantages + "\"";
 			ga += "}";

@@ -83,7 +83,6 @@
 					</div>
 					<div id="topRightDiv">
 					</div>
-					</font>
 				</div>
 				<div id="step4" class="step">
 					<ul>
