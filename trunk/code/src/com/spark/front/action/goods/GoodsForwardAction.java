@@ -251,7 +251,7 @@ public class GoodsForwardAction extends BaseAction {
 			String code = SparkDictionaryManager.getItem(DictionaryType.VantagesType, goods.getVantagestype())
 					.getCode();
 			double d = DoubleUtil.mul(g.getRealprice(), DoubleUtil.strToDouble(code));
-			int vantege = Integer.parseInt(DoubleUtil.getRoundStr(d, 0));
+			int vantege = Integer.parseInt(DoubleUtil.getRoundStrWithOutQfw(d, 0));
 			GoodsPromotionVo pmt = goodsPmtService.findByGoodsId(g.getRecid());
 			if (null != pmt && pmt.getDisrate() > 0 && pmt.getDisrate() < 1) {
 				message = "商品促销中,";
