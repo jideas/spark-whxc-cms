@@ -276,6 +276,10 @@ function ShopingCar() {
 		if (goodsId && "null" != goodsId) {
 			cookieutil.addGoodsToShoppingCar(goodsId, count);
 			setTimeout(this.refreshCar(), 50);
+			if(_productListMenuApp){
+				_productListMenuApp.loasShoppingCharCount();
+			}
+			cmsAlertSuccess("提示","添加成功！");
 		}
 	}
 

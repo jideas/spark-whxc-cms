@@ -72,8 +72,8 @@ border:0px;
 }	
 .channel ul{
 	display:none;
-	margin-top:-15px;
-	*margin-top:-10px;
+	margin-top:-10px;
+	*margin-top:-5px;
 }
 /*栏目内容 -> 栏目子项*/
 .channel ul li{
@@ -85,7 +85,7 @@ border:0px;
 	list-style-position:outside;
 	text-align:left;
 	margin: 6px 0px 0px 20px;
-	*margin: 5px 0px 5px 5px;
+	*margin: 6px 0px 5px 5px;
 	height:20px;
 }
 .channel a{

@@ -5,6 +5,7 @@
 <html>
 	<head>
 		<title>商品展示</title>
+		<meta http-equiv="Content-Type" content="text/html;charset=GBK" />
 		<link rel="shortcut icon" href="<%=basePath%>/images/page/icon-7.ico"
 			type="image/x-icon" />
 		<script type="text/javascript"

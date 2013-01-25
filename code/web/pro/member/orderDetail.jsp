@@ -64,8 +64,8 @@
 
 #paybutton {
 	background-repeat:no-repeat;
-	height: 25px; display : inline;
-	width: 60px;
+	height: 25px;
+	width: 55px;
 	cursor: pointer;
 	background-image: url('<%=basePath%>/images/page/get_sms_code01.png');
 	color: #404040;
@@ -108,7 +108,6 @@
 					%>
 					<div id="paybutton" onselectstart="return false"
 						onclick="order.toPaying('<%=order.getPayType()%>','<%=order.getRecid()%>')">
-						Ö§¸¶
 					</div>
 					<%
 						}

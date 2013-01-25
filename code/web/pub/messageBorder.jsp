@@ -1,12 +1,11 @@
-<%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
-<%@ include file="/pub/common/inc.jsp" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<%@ page language="java" pageEncoding="GBK"%>
+<%@ include file="/pub/common/inc.jsp"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-  <head>
-    <base href="<%=basePath%>">
-    <title>留言板</title>
-    <link rel="shortcut icon" href="<%=basePath%>/images/page/icon-7.ico" type="image/x-icon" />
-    <script type="text/javascript" src="<%=basePath%>/scripts/jquery/jquery.js"></script>
+	<head>
+		<title>留言板</title>
+		<link rel="shortcut icon" href="<%=basePath%>/images/page/icon-7.ico" type="image/x-icon" />
+		<script type="text/javascript" src="<%=basePath%>/scripts/jquery/jquery.js"></script>
 <style>
 /*整体样式*/
 * {
