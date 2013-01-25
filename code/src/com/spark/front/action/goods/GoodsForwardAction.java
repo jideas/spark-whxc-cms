@@ -87,14 +87,14 @@ public class GoodsForwardAction extends BaseAction {
 		mv.addObject(GoodsKey.GoodsName.toString(), goods.getGoodsname());
 		mv.addObject(GoodsKey.GoodsSpec.toString(), goods.getGoodsspec());
 		if (CmsString.isEmpty(sign) || "1".equals(sign)) {
-			mv.addObject(GoodsKey.GoodsPrice.toString(), "￥" + DoubleUtil.getRoundStr(goods.getRealprice()) + "元/份");
+			mv.addObject(GoodsKey.GoodsPrice.toString(), "￥" + DoubleUtil.getRoundStr(goods.getRealprice()) + "元/"+goods.getGoodsunit());
 			String oldPrice = "";
 			if (goods.getOriginalprice() > goods.getRealprice()) {
 				oldPrice = DoubleUtil.getRoundStr(goods.getOriginalprice());
 			} else {
 				oldPrice = DoubleUtil.getRoundStr(DoubleUtil.mul(goods.getRealprice(), 1.2));
 			}
-			mv.addObject(GoodsKey.GoodsOldPrice.toString(), "￥" + oldPrice + "元/份");
+			mv.addObject(GoodsKey.GoodsOldPrice.toString(), "￥" + oldPrice + "元/"+goods.getGoodsunit());
 
 			String code = SparkDictionaryManager.getItem(DictionaryType.VantagesType, goods.getVantagestype())
 					.getCode();
@@ -204,7 +204,7 @@ public class GoodsForwardAction extends BaseAction {
 		}
 		if (pmt.getDisrate() > 0 && pmt.getDisrate() < 1) {
 			mv.addObject(GoodsKey.GoodsPrice.toString(), "￥"
-					+ DoubleUtil.getRoundStr(DoubleUtil.mul(goods.getRealprice(), pmt.getDisrate())) + "元/份");
+					+ DoubleUtil.getRoundStr(DoubleUtil.mul(goods.getRealprice(), pmt.getDisrate())) + "元/"+goods.getGoodsunit());
 			if (goods.isFreedelivery()) {
 				message += ",且享受促销价格";
 			}
@@ -247,7 +247,7 @@ public class GoodsForwardAction extends BaseAction {
 			} else {
 				oldPrice = DoubleUtil.getRoundStr(DoubleUtil.mul(g.getRealprice(), 1.2));
 			}
-			oldPrice = "￥" + oldPrice + "元/份";
+			oldPrice = "￥" + oldPrice + "元/"+goods.getGoodsunit();
 			String code = SparkDictionaryManager.getItem(DictionaryType.VantagesType, goods.getVantagestype())
 					.getCode();
 			double d = DoubleUtil.mul(g.getRealprice(), DoubleUtil.strToDouble(code));
@@ -275,7 +275,7 @@ public class GoodsForwardAction extends BaseAction {
 			if (g.getGoodsType().equals(GoodsType.Booking.getCode())) {
 				bookingText = "";
 			}
-			ss.append(",'￥" + price + "元/份'");
+			ss.append(",'￥" + price + "元/"+goods.getGoodsunit()+"'");
 			ss.append(",'" + message + "'");
 			ss.append(",'" + oldPrice + "'");
 			ss.append(",'" + vantege + "'");
