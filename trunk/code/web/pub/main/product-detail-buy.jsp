@@ -292,8 +292,7 @@
 				</div>
 				<div class="price" style="margin-left: 25px; * margin-left: 37px;">
 					&nbsp;&nbsp;&nbsp;&nbsp;Ô­¼Û£º
-					<font color="gray"><span id="goodsPriceSpan0"
-						style="text-decoration: line-through;"><%=request.getAttribute(GoodsKey.GoodsOldPrice.toString())%></span>
+					<font color="gray"><span id="goodsPriceSpan0"><del><%=request.getAttribute(GoodsKey.GoodsOldPrice.toString())%></del></span>
 					</font>
 				</div>
 				<div class="price" style="margin-left: 25px; * margin-left: 37px;">
