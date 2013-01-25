@@ -530,13 +530,13 @@ public class ChannelAction extends BaseAction {
 	 */
 	@RequestMapping("/channel/modifyPopularKeyWords")
 	@ResponseBody
-	public MessageModel modifyPopularKeyWords(PopularKeyWordsVo popularKeyWordsVo) {
+	public ResponseEntity<MessageModel> modifyPopularKeyWords(PopularKeyWordsVo popularKeyWordsVo) {
 		try {
 			channelService.modifyPopularKeyWords(popularKeyWordsVo);
-			return Success;
+			return ResponseEntityUtil.getResponseEntity(Success);
 		} catch (Exception e) {
 			log.error("∑¢…˙“Ï≥£====" + e.getStackTrace());
-			return Success;
+			return ResponseEntityUtil.getResponseEntity(Failure);
 		}
 	}
 	
@@ -656,7 +656,7 @@ public class ChannelAction extends BaseAction {
 	 */
 	@RequestMapping("/channel/getGoodsForChannelSel")
 	@ResponseBody
-	public DataModel<GoodsVo> getGoodsList(String searchText, String channelId, String categoryId, @RequestParam(value = "page", required = false) String page, @RequestParam(value = "rows", required = false)String rows) {
+	public DataModel<GoodsVo> getGoodsList(String searchText,String channelId, String categoryId, @RequestParam(value = "page", required = false) String page, @RequestParam(value = "rows", required = false)String rows) {
 		DataModel<GoodsVo> dm = new DataModel<GoodsVo>();
 		try {
 			String[] channelGoodsIds = channelService.getChannelGoodsIds(channelId);
@@ -668,8 +668,8 @@ public class ChannelAction extends BaseAction {
 			if (CheckIsNull.isNotEmpty(channelGoodsIds) && channelGoodsIds.length > 0) {
 				key.setFilterIds(channelGoodsIds);
 			}
-			if (StringUtil.isNotEmpty(searchText)) {
-				key.setSearchText(searchText);
+			if(searchText != null){
+				key.setSearchText(searchText.trim());
 			}
 			key.setPublished(true);
 			key.setGoodsCategoryId(categoryId);

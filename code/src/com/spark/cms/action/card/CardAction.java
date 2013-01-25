@@ -68,7 +68,7 @@ public class CardAction extends BaseAction {
 	 */
 	@RequestMapping("/card/importCard")
 	@ResponseBody
-	public String importCard(HttpServletRequest request, HttpServletResponse response) throws ServiceMessage {
+	public ResponseEntity<String> importCard(HttpServletRequest request, HttpServletResponse response) throws ServiceMessage {
 		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
 		Map<String, MultipartFile> multipartFileMap = multipartHttpServletRequest.getFileMap();
 		MultipartFile excel = multipartFileMap.get("excel");
@@ -82,7 +82,7 @@ public class CardAction extends BaseAction {
 			e.printStackTrace();
 		}
 		if (reader.getRowCount() == 0) {
-			return 0 + "";
+			return ResponseEntityUtil.getResponseEntity(0 + "");
 		}
 		int count = 0;
 		for (String[] array : reader.getData()) {
@@ -103,7 +103,7 @@ public class CardAction extends BaseAction {
 				break;
 			}
 		}
-		return count + "";
+		return ResponseEntityUtil.getResponseEntity(count + "");
 	}
 
 	/**

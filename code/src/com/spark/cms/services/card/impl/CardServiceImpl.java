@@ -556,7 +556,7 @@ public class CardServiceImpl implements CardService {
 			CardPromotionVo pmt = this.cardPmtService.findByCardAmount(vo.getAmount());
 			MemberAccountVo balance = this.memberService.getMemberAccountVo(login.getRecid());
 			if (null == pmt) {
-				return new ServiceMessage(true, "充值成功，您的余额为：" + DoubleUtil.getRoundStr(balance.getMoneybalance()) + "元");
+				return new ServiceMessage(true, "充值成功，您的余额为：" + DoubleUtil.getRoundStr(balance.getMoneybalance()) + "元。");
 			}
 			if (pmt.getVantages() > 0) {
 				doWriteVtg(vo, login, pmt.getVantages());
@@ -579,6 +579,7 @@ public class CardServiceImpl implements CardService {
 	 */
 	private void doWriteDealingPmt(CardVo vo, CardPromotionVo pmt, Login login) throws ServiceMessage {
 		MemberDealingVo deal = new MemberDealingVo();
+		deal.setRecid(GUID.randomID().toString());
 		deal.setAmount(pmt.getExtraAmount());
 		deal.setDealtype(DealingsType.Card.getCode());
 		deal.setMemberid(login.getRecid());
@@ -611,6 +612,7 @@ public class CardServiceImpl implements CardService {
 	 */
 	private void doWriteVtg(CardVo vo, Login login, double vantages) throws ServiceMessage {
 		MemberVantagesVo vtg = new MemberVantagesVo();
+		vtg.setRecid(GUID.randomID().toString());
 		vtg.setMemberid(login.getRecid());
 		vtg.setOccurdate(new Date());
 		vtg.setRelabillsid(vo.getRecid());
@@ -629,6 +631,7 @@ public class CardServiceImpl implements CardService {
 	 */
 	private void doWriteDealing(CardVo vo, Login login) throws ServiceMessage {
 		MemberDealingVo deal = new MemberDealingVo();
+		deal.setRecid(GUID.randomID().toString());
 		deal.setAmount(vo.getAmount());
 		deal.setDealtype(DealingsType.Card.getCode());
 		deal.setMemberid(login.getRecid());

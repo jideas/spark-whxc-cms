@@ -92,7 +92,16 @@ public class MessageborderServiceImpl implements MessageborderService {
 	public List<MessageborderVo> getMessageborderList(LimitKey lk) {
 		List<MessageborderVo> mbvList = new ArrayList<MessageborderVo>();
 		
-		StringBuilder sql = new StringBuilder("FROM MessageborderPo p WHERE p.isrecovery = '0' or p.isrecovery = '1' ORDER BY p.msgdate DESC ");
+		StringBuilder sql = new StringBuilder("FROM MessageborderPo p WHERE 1=1 ");
+		if("0".equals(lk.getSearchText())){
+			sql.append(" and p.isrecovery = '0' ");
+		}else if("1".equals(lk.getSearchText())){
+			sql.append(" and p.isrecovery = '1' ");
+		}else{
+			sql.append(" and p.isrecovery = '0' ");
+			sql.append(" or p.isrecovery = '1' ");
+		}
+		sql.append(" ORDER BY p.msgdate DESC ");
 		List<MessageborderPo> messageborderList = genericDAO.getGenericByPosition(sql.toString(), lk.getOffset(), lk.getPageSize());
 		
 		if(messageborderList != null && messageborderList.size() > 0){
@@ -108,7 +117,15 @@ public class MessageborderServiceImpl implements MessageborderService {
 	public int countMsg(LimitKey lk){
 		StringBuffer hsql = new StringBuffer();
 		hsql.append(" select count(recid) from MessageborderPo mbp ");
-		hsql.append(" where mbp.isrecovery = '0' or mbp.isrecovery = '1' ");
+		hsql.append(" where 1=1 ");
+		if("0".equals(lk.getSearchText())){
+			hsql.append(" and mbp.isrecovery = '0' ");
+		}else if("1".equals(lk.getSearchText())){
+			hsql.append(" and mbp.isrecovery = '1' ");
+		}else{
+			hsql.append(" and mbp.isrecovery = '0' ");
+			hsql.append(" or mbp.isrecovery = '1' ");
+		}
 		return genericDAO.getGenericCountByHql(hsql.toString());
 	}
 	
