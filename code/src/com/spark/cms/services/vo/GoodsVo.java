@@ -57,6 +57,8 @@ public class GoodsVo implements java.io.Serializable {
 	private byte[] publishPersonId;
 	private String publishPersonName;
 	private Date publishDate;
+	
+	private boolean isPromotion;
 	// Constructors
 
 	public String getGoodsType() {
@@ -375,5 +377,15 @@ public class GoodsVo implements java.io.Serializable {
 	public void setPublishDate(Date publishDate) {
 		this.publishDate = publishDate;
 	}
+
+	public boolean isPromotion() {
+		return isPromotion;
+	}
+
+	public void setPromotion(boolean isPromotion) {
+		this.isPromotion = isPromotion;
+	}
+	
+	
 	
 }

@@ -42,6 +42,14 @@ public interface GoodsService {
 	 * @return
 	 */
 	public boolean modifyGoodsVo(ModifyGoodsVoTask task);
+	
+	/**
+	 * 更改商品促销状态
+	 * @param goodsId
+	 * @param isPromotion
+	 * @return
+	 */
+	public boolean modifyGoodsPromotionStatus(String goodsId, boolean isPromotion);
 
 	/**
 	 * 修改商品详情

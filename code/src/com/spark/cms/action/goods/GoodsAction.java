@@ -36,10 +36,12 @@ import com.spark.cms.services.goods.GetGoodsListKey;
 import com.spark.cms.services.goods.GoodsAdvanceSearch;
 import com.spark.cms.services.goods.GoodsService;
 import com.spark.cms.services.goods.ModifyGoodsVoTask;
+import com.spark.cms.services.goodsPromotion.GoodsPromotionService;
 import com.spark.cms.services.image.ImageService;
 import com.spark.cms.services.vo.EGoodsCategoryTree;
 import com.spark.cms.services.vo.EGoodsVo;
 import com.spark.cms.services.vo.GoodsContentVo;
+import com.spark.cms.services.vo.GoodsPromotionVo;
 import com.spark.cms.services.vo.GoodsVo;
 import com.spark.cms.services.vo.ImageInfoVo;
 
@@ -47,6 +49,8 @@ import com.spark.cms.services.vo.ImageInfoVo;
 public class GoodsAction extends BaseAction {
 	@Autowired
 	private GoodsService goodsService;
+	@Autowired
+	private GoodsPromotionService promotionService;
 	@Autowired
 	private ImageService imageService;
 	/**
@@ -454,6 +458,27 @@ public class GoodsAction extends BaseAction {
 			log.error("获取图片规格发生异常====" + e.getStackTrace());
 		}
 		return null;
+	}
+	
+	@RequestMapping("/goods/getGoodsPromotion")
+	@ResponseBody
+	public String getGoodsPromotionByIds(String goodsId) {
+		if (null == goodsId) return null;
+		GoodsVo goods = goodsService.getGoodsVo(goodsId);
+		GoodsPromotionVo promotion = promotionService.findByGoodsId(goodsId);
+		String promotionInfo = "";
+		double price = 0.0;
+		if (promotion.getDisrate() > 0 && promotion.getDisrate() < 1) {
+			price = DoubleUtil.mul(goods.getRealprice(), promotion.getDisrate());
+			promotionInfo = "," + promotion.getDisrate() + "折";
+		}
+		if (goods.isFreedelivery()) {
+			promotionInfo += ",免费送货上门";
+		}
+		if (goods.getVantagestype().equals("2")) {
+			promotionInfo += ",双倍积分";
+		}
+		return JSONObject.fromObject("{'promotionInfo':'" + promotionInfo + "', 'price':'" + DoubleUtil.getRoundStr(price, 2) + "'}").toString();
 	}
 	
 }

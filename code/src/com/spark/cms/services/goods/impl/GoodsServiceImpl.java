@@ -222,6 +222,19 @@ public class GoodsServiceImpl implements GoodsService {
 		return result == 1 ? true : false;
 	}
 
+	public boolean modifyGoodsPromotionStatus(String goodsId, boolean isPromotion) {
+		if (StringUtil.isEmpty(goodsId)) return false;
+		try {
+			GoodsPo po = baseDAO.get(GoodsPo.class, GUID.tryValueOf(goodsId).toBytes());
+			po.setPromotion(isPromotion);
+			baseDAO.update(po);
+			return true;
+		} catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	@Override
 	public void modifyGoods(GoodsForm gf, UserExtForm loginUser) throws ServiceMessage {
 		if (CheckIsNull.isEmpty(gf.getRecid())) {
