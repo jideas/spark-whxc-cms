@@ -3,19 +3,14 @@
 <%
 	com.spark.front.manager.PageManager pageManager = com.spark.front.manager.JSPServericeProvider
 			.getPageManager(request);
-	response.setDateHeader("Expires", 0);
-	response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate"); 
-	response.addHeader("Cache-Control", "post-check=0, pre-check=0");
-	response.setHeader("Pragma", "no-cache");
-	response.setContentType("text/html;charset=UTF-8");		
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
 		<title>7号生活馆</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=GBK" />
-		<meta http-equiv="Expires" CONTENT="-1">  
+		<meta http-equiv="Content-Type" content="text/html;charset=GBK" />
+		<meta http-equiv="Expires" CONTENT="0">  
 		<meta http-equiv="Cache-Control" CONTENT="no-cache">
 		<meta http-equiv="Pragma" CONTENT="no-cache">
 		<meta http-equiv="keywords" content="蔬菜 生鲜  超市 7号生活馆 粮油">  
