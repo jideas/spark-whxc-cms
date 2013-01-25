@@ -69,6 +69,12 @@ public class OrderPromotionServiceImpl implements OrderPromotionService {
 			return new ServiceMessage(false, "促销方案已不存在！");
 		}
 		vo.setIsactiving(true);
+		if (!vo.isIsfreedelivery()) {
+			boolean b = this.checkAmountOk(vo.getBeginamount(), vo.getEndamount(), vo.getRecid());
+			if (!b) {
+				return new ServiceMessage(false, "该方案的金额区间已经存在启用的促销！");
+			}
+		}
 		return this.createOrModifyPmt(vo, login);
 	}
 
@@ -123,8 +129,8 @@ public class OrderPromotionServiceImpl implements OrderPromotionService {
 	 */
 	private boolean checkAmountOk(double beginAmount, double endAmount, String recid) {
 		StringBuilder hql = new StringBuilder();
-		hql.append("from OrderPromotionPo as t ");
-		List<OrderPromotionPo> polist = this.baseDAO.getGenericByHql(hql.toString());
+		hql.append("from OrderPromotionPo as t where isactiving=?");
+		List<OrderPromotionPo> polist = this.baseDAO.getGenericByHql(hql.toString(),true);
 		for (OrderPromotionPo po : polist) {
 			if (GUID.valueOf(po.getRecid()).equals(GUID.valueOf(recid)) || po.isIsfreedelivery()) {
 				continue;
@@ -157,12 +163,6 @@ public class OrderPromotionServiceImpl implements OrderPromotionService {
 			vo.setRecid(GUID.randomID().toString());
 		} else if (vo.getRecid().equals(PromotionConstant.DefaultFreeDeliveryId)) {
 			newCreate = this.findOrderPromotion(vo.getRecid()) == null;
-		}
-		if (!vo.isIsfreedelivery()) {
-			boolean b = this.checkAmountOk(vo.getBeginamount(), vo.getEndamount(), vo.getRecid());
-			if (!b) {
-				return new ServiceMessage(false, "该方案的金额区间已经存在启用的促销！");
-			}
 		}
 		if (!newCreate) {
 			this.baseDAO.delete(OrderPromotionPo.class, GUID.valueOf(vo.getRecid()).toBytes());
