@@ -21,7 +21,7 @@
 					</select> </span>
 				<span style="float: right; margin-right: 10px; padding-top: 2px;">
 					<input type="text" name="searchWord" value=""
-						style="width: 200px; height: 18px;" /> <a href="#"
+						style="width: 200px; height: 18px; border:1px solid #CCCCCC;"/> <a href="#"
 					class="easyui-linkbutton" iconCls="icon-search"
 					onclick="goodsPublishAction.searchPublishGoods()">搜索</a> 
 					<a href="#"
@@ -157,7 +157,7 @@
 						var publishGoods = "";
 						var cannelPublish = "";
 						if(rec.published == true){
-							publishGoods = "<a href='#' class='operateChannel' onClick=goodsPublishAction.publishGoods('"+rowIndex+"')>查看商品</a>"
+							publishGoods = "<a href='#' class='operateChannel' onClick=goodsPublishAction.publishGoods('"+rowIndex+"')>发布商品</a>"
 							cannelPublish += "&nbsp;&nbsp;&nbsp;&nbsp;";
 							cannelPublish += "<a href='#' class='operateChannel' onClick=goodsPublishAction.cancelPublished('"+value+"')>取消发布</a>";				
 						}else{
@@ -182,20 +182,20 @@
 				//启用/禁用按钮
 				if(record.value == "1"){
 					goodsPublish_buttonsEnable = false;
-					$("a#editGoodsPublish_addEffactButton").linkbutton('disable');
-					$("a#editGoodsPublish_selectImgButton1").linkbutton('disable');
-					$("a#editGoodsPublish_selectImgButton2").linkbutton('disable');
-					$("a#editGoodsPublish_selectImgButton3").linkbutton('disable');
+					//$("a#editGoodsPublish_addEffactButton").linkbutton('disable');
+					//$("a#editGoodsPublish_selectImgButton1").linkbutton('disable');
+					//$("a#editGoodsPublish_selectImgButton2").linkbutton('disable');
+					//$("a#editGoodsPublish_selectImgButton3").linkbutton('disable');
 					$("#goodsPublish_saveButton").linkbutton('disable');
-					$("#goodsPublish_publishButton").linkbutton('disable');
+					//$("#goodsPublish_publishButton").linkbutton('disable');
 				}else{
 					goodsPublish_buttonsEnable = true;
-					$("a#editGoodsPublish_addEffactButton").linkbutton('enable');
-					$("a#editGoodsPublish_selectImgButton1").linkbutton('enable');
-					$("a#editGoodsPublish_selectImgButton2").linkbutton('enable');
-					$("a#editGoodsPublish_selectImgButton3").linkbutton('enable');
+					//$("a#editGoodsPublish_addEffactButton").linkbutton('enable');
+					//$("a#editGoodsPublish_selectImgButton1").linkbutton('enable');
+					//$("a#editGoodsPublish_selectImgButton2").linkbutton('enable');
+					//$("a#editGoodsPublish_selectImgButton3").linkbutton('enable');
 					$("#goodsPublish_saveButton").linkbutton('enable');
-					$("#goodsPublish_publishButton").linkbutton('enable');
+					//$("#goodsPublish_publishButton").linkbutton('enable');
 				}
 			}
 		});

@@ -412,7 +412,7 @@ table.table_layout thead p.p_img span{
 				for(var i = 0;i < 10;i++){
 					var isExists = false;
 					for(var j = 0;j < arrayObj.length;j++){
-						if(i == j){
+						if(i == arrayObj[j]){
 							isExists = true;
 							break;
 						}
@@ -493,23 +493,23 @@ table.table_layout thead p.p_img span{
 				if(num == 0){
 					editGoodsPublish_editor0.destroy();
 				}else if(num == 1){
-					editGoodsPublish_editor0.destroy();
+					editGoodsPublish_editor1.destroy();
 				}else if(num == 2){
-					editGoodsPublish_editor0.destroy();
+					editGoodsPublish_editor2.destroy();
 				}else if(num == 3){
-					editGoodsPublish_editor0.destroy();
+					editGoodsPublish_editor3.destroy();
 				}else if(num == 4){
-					editGoodsPublish_editor0.destroy();
+					editGoodsPublish_editor4.destroy();
 				}else if(num == 5){
-					editGoodsPublish_editor0.destroy();
+					editGoodsPublish_editor5.destroy();
 				}else if(num == 6){
-					editGoodsPublish_editor0.destroy();
+					editGoodsPublish_editor6.destroy();
 				}else if(num == 7){
-					editGoodsPublish_editor0.destroy();
+					editGoodsPublish_editor7.destroy();
 				}else if(num == 8){
-					editGoodsPublish_editor0.destroy();
+					editGoodsPublish_editor8.destroy();
 				}else if(num == 9){
-					editGoodsPublish_editor0.destroy();
+					editGoodsPublish_editor9.destroy();
 				}				
 			};
 			
@@ -530,7 +530,8 @@ table.table_layout thead p.p_img span{
 						effactStructure += "<input type=\"text\" name=\"effactName_"+num+"\" class=\"disabledEditor\" style=\"background-color:#FFF;\"/>";
 					}					
 				}else{
-					effactStructure += "<input type=\"text\" name=\"effactName_"+num+"\" class=\"disabledEditor\" readonly=\"readonly\"/>";
+					//effactStructure += "<input type=\"text\" name=\"effactName_"+num+"\" class=\"disabledEditor\" readonly=\"readonly\"/>";
+					effactStructure += "<input type=\"text\" name=\"effactName_"+num+"\" class=\"disabledEditor\" style=\"background-color:#FFF;\"/>";
 				}				
 				effactStructure += "</span>";
 				effactStructure += "<span class=\"labelAlignRight\">";
@@ -544,15 +545,16 @@ table.table_layout thead p.p_img span{
 						effactStructure += "<input type=\"text\" name=\"effactOrdinal_"+num+"\" class=\"disabledEditor\" style=\"background-color:#FFF;width:200px;margin-right:100px;\" />";
 					}
 				}else{
-					effactStructure += "<input type=\"text\" name=\"effactOrdinal_"+num+"\" class=\"disabledEditor\" style=\"width:200px;margin-right:100px;\"  readonly=\"readonly\"/>";
+					//effactStructure += "<input type=\"text\" name=\"effactOrdinal_"+num+"\" class=\"disabledEditor\" style=\"width:200px;margin-right:100px;\"  readonly=\"readonly\"/>";
+					effactStructure += "<input type=\"text\" name=\"effactOrdinal_"+num+"\" class=\"disabledEditor\" style=\"background-color:#FFF;width:200px;margin-right:100px;\" />";
 				}
 				effactStructure += "</span>";
 				effactStructure += "<span>";
-				if(goodsPublish_buttonsEnable){
+				//if(goodsPublish_buttonsEnable){
 					effactStructure += "<a href=\"#\" class=\"editGoodsPublish_deleteEffactButton\" onclick=\"editGoodsPublishAction.deleteEffact(" + num + ")\">";
 					effactStructure += "É¾³ıÊÂÏî";
 					effactStructure += "</a>";
-				}
+				//}
 				effactStructure += "</span>";				
 				effactStructure += "</td>";
 				effactStructure += "</tr>";			
