@@ -216,7 +216,6 @@ $(function() {
 			var imageSelectWindow = new ChooseGoodsWindow(true);
 			imageSelectWindow.addConfirmActionListener(function(goodsVo) {
 						$('#goodsId0_cardpmt').val(goodsVo.recid);
-						alert(goodsVo.recid);
 						$("#goodsName0_cardpmt").searchbox(
 								'setValue',
 								goodsVo.goodsname + '[' + goodsVo.goodsspec
