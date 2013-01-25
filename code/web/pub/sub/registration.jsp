@@ -54,7 +54,8 @@ body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,table,th,td,blockquote,field
 	width: 100%; 
 	margin: 0 auto; 
 	text-align: left;
-	height: 522px;
+	height: 552px;
+	*height: 522px;
 	margin-bottom: 10px;
 	border-bottom: #D1D1D1 solid 1px;
 }
