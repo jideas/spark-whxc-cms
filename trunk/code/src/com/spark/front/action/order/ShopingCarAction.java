@@ -412,7 +412,7 @@ public class ShopingCarAction extends BaseAction {
 		for(ChannelGoodsVo gv:list){
 			
 			String imgsrc =path+ gv.getPicturepath1();
-			String url = path + "/front/toGoodsInfoPage?id=" + gv.getRecid();
+			String url = path + "/front/toGoodsInfoPage?id=" + gv.getGoodsid();
 			
 			sb.append("<li>");
 			sb.append("<div class=\"scroll-image\">");
