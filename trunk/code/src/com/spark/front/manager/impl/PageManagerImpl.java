@@ -17,7 +17,6 @@ import com.spark.cms.common.generate.CategoryTreeGen;
 import com.spark.cms.common.generate.FloorGen;
 import com.spark.cms.common.generate.MainFloorGen;
 import com.spark.cms.common.generate.MenuGen;
-import com.spark.cms.common.generate.MessageborderGen;
 import com.spark.cms.common.generate.NewsCenterGen;
 import com.spark.cms.common.generate.ProductListGen;
 import com.spark.cms.common.generate.SearchGen;
@@ -32,6 +31,7 @@ import com.spark.cms.services.form.GoodsForm;
 import com.spark.cms.services.goods.GetGoodsListKey;
 import com.spark.cms.services.goods.GoodsCategoryService;
 import com.spark.cms.services.goods.GoodsService;
+import com.spark.cms.services.goodsPromotion.GoodsPromotionService;
 import com.spark.cms.services.messageborder.MessageborderService;
 import com.spark.cms.services.vo.ChannelAdvertisingVo;
 import com.spark.cms.services.vo.ChannelContentVo;
@@ -47,6 +47,8 @@ import com.spark.front.utils.GoodsHtmlHelper;
 public class PageManagerImpl implements PageManager {
 	@Autowired
 	private GoodsService goodsService;
+	@Autowired
+	private GoodsPromotionService promotionService;
 	@Autowired
 	private ChannelService channelService;
 	@Autowired
@@ -163,7 +165,7 @@ public class PageManagerImpl implements PageManager {
 	 */
 	public String showProuctsList(GetGoodsListKey key, String path) {
 		List<GoodsVo> goodsList = goodsService.getGoodsList(key);
-		return ProductListGen.generateProductList(goodsList, path);
+		return ProductListGen.generateProductList(goodsList, path, promotionService);
 	}
 
 	@Override

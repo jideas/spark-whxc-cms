@@ -53,6 +53,8 @@ public class GoodsPo implements java.io.Serializable {
 	private String publishPersonName;
 	private Date publishDate;
 	
+	private boolean isPromotion;
+	
 	// Constructors
 	@Column(name = "goodsType")
 	public String getGoodsType() {
@@ -98,7 +100,7 @@ public class GoodsPo implements java.io.Serializable {
 			String propertiy2, String propertiy3, String propertiy4, String propertiy5, String picturepath1,
 			String picturepath2, String picturepath3, double saledCount, double inventoryCount,
 			boolean isMostSales, boolean isPopular, boolean isPublished, byte[] publishPersonId, 
-			String publishPersonName, Date publishDate) {
+			String publishPersonName, Date publishDate, boolean isPromotion) {
 		this.recid = recid;
 		this.recver = recver;
 		this.goodscode = goodscode;
@@ -129,6 +131,7 @@ public class GoodsPo implements java.io.Serializable {
 		this.publishPersonId = publishPersonId;
 		this.publishDate = publishDate;
 		this.publishPersonName = publishPersonName;
+		this.isPromotion = isPromotion;
 	}
 
 	// Property accessors
@@ -427,6 +430,13 @@ public class GoodsPo implements java.io.Serializable {
 	public void setPublishDate(Date publishDate) {
 		this.publishDate = publishDate;
 	}
-	
 
+	@Column(name="ISPROMOTION")
+	public boolean isPromotion() {
+		return isPromotion;
+	}
+
+	public void setPromotion(boolean isPromotion) {
+		this.isPromotion = isPromotion;
+	}
 }

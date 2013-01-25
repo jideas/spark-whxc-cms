@@ -656,7 +656,7 @@ public class ChannelAction extends BaseAction {
 	 */
 	@RequestMapping("/channel/getGoodsForChannelSel")
 	@ResponseBody
-	public DataModel<GoodsVo> getGoodsList(String channelId, String categoryId, @RequestParam(value = "page", required = false) String page, @RequestParam(value = "rows", required = false)String rows) {
+	public DataModel<GoodsVo> getGoodsList(String searchText, String channelId, String categoryId, @RequestParam(value = "page", required = false) String page, @RequestParam(value = "rows", required = false)String rows) {
 		DataModel<GoodsVo> dm = new DataModel<GoodsVo>();
 		try {
 			String[] channelGoodsIds = channelService.getChannelGoodsIds(channelId);
@@ -667,6 +667,9 @@ public class ChannelAction extends BaseAction {
 			}
 			if (CheckIsNull.isNotEmpty(channelGoodsIds) && channelGoodsIds.length > 0) {
 				key.setFilterIds(channelGoodsIds);
+			}
+			if (StringUtil.isNotEmpty(searchText)) {
+				key.setSearchText(searchText);
 			}
 			key.setPublished(true);
 			key.setGoodsCategoryId(categoryId);

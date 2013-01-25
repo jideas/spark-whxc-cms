@@ -2,13 +2,16 @@ package com.spark.cms.common.generate;
 
 import java.util.List;
 
+import com.spark.base.common.utils.DoubleUtil;
+import com.spark.cms.services.goodsPromotion.GoodsPromotionService;
+import com.spark.cms.services.vo.GoodsPromotionVo;
 import com.spark.cms.services.vo.GoodsVo;
 
 
 public class ProductListGen {
 	
 	
-	public static String generateProductList(List<GoodsVo> goods,String path){
+	public static String generateProductList(List<GoodsVo> goods,String path, GoodsPromotionService promotionService){
 		if(goods.size()==0)return "";
 		String str = genProductItemBegin();
 		
@@ -19,7 +22,25 @@ public class ProductListGen {
 					str += genProductItemBegin();
 				}
 			}
-			str += generateProductCell(goods.get(i),path);
+			GoodsVo goodsVo = goods.get(i);
+			if (goodsVo.isPromotion()) {
+				GoodsPromotionVo promotion = promotionService.findByGoodsId(goodsVo.getRecid());
+				String promotionInfo = "";
+				double price = 0.0;
+				if (promotion.getDisrate() > 0 && promotion.getDisrate() < 1) {
+					price = DoubleUtil.mul(goodsVo.getRealprice(), promotion.getDisrate());
+					promotionInfo = "," + promotion.getDisrate() + "折";
+				}
+				if (goodsVo.isFreedelivery()) {
+					promotionInfo += ",免费送货上门";
+				}
+				if (goodsVo.getVantagestype().equals("2")) {
+					promotionInfo += ",双倍积分";
+				}
+				goodsVo.setGoodsname(goodsVo.getGoodsname() + promotionInfo);
+				goodsVo.setRealprice(price);
+			}
+			str += generateProductCell(goodsVo,path);
 		}
 		str += genProductItemEnd();
 		return str;
@@ -44,7 +65,7 @@ public class ProductListGen {
 		  .append("</div>")
 		  .append("<div class='p-name'>").append("<a href=\"" + url + "\"  target=\"_blank\" class=\"p-name\">").append(goodsVo.getGoodsname()).append("</a></div>")
 		  .append("<div class='p-name'>规格：").append(goodsVo.getGoodsspec()).append("</div>")
-		  .append("<div class=\"p-price\">").append("<strong>￥").append(goodsVo.getRealprice()).append("/").append(goodsVo.getGoodsunit()).append("</strong></div>")
+		  .append("<div class=\"p-price\">").append("<strong>￥").append(DoubleUtil.getRoundStr(goodsVo.getRealprice(), 2)).append("/").append(goodsVo.getGoodsunit()).append("</strong></div>")
 		  .append("<div class=\"bellowGoodsSmallInfo\">")
 		  .append(" <img  onclick=\"product.setbuyNum('txt_"+goodsVo.getRecid()+"','-1') \" src=\""+path+"/images/page/button_sub.png\" class=\"bellowGoodsSmallInfo_img_minus\" /> ")
 		 
