@@ -7,6 +7,15 @@ public class OrderPromotionResult {
 	private OrderPromotionVo vo;
 
 	private boolean isFreeDelivery;
+	private double beginAmount;
+
+	public double getBeginAmount() {
+		return beginAmount;
+	}
+
+	public void setBeginAmount(double beginAmount) {
+		this.beginAmount = beginAmount;
+	}
 
 	public OrderPromotionResult(OrderPromotionVo vo, boolean isFreeDelivery) {
 		this.vo = vo;

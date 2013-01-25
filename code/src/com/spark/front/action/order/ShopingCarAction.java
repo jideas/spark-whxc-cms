@@ -332,9 +332,11 @@ public class ShopingCarAction extends BaseAction {
 					scg.setVantages(0);
 					goods.add(scg);
 				}
-				if (opr.isFreeDelivery()) {
-					o.setP_freedelivery(true);
-				}
+				
+			}
+			if (opr.isFreeDelivery()) {
+				o.setP_freedelivery(true);
+				o.setBeginAmount(opr.getBeginAmount());
 			}
 			if (null != opv && null != opv.getVantages()
 					&& opv.getVantages() > 0) {
