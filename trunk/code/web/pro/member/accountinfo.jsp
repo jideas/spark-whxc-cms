@@ -255,7 +255,7 @@ function fillForm(form) {
 	}
 	if (form && form.birthday01) {
 		$('#birthday_input1').val( form.birthday01);
-		$('#birthday_input2').val( form.birthday02);
+		$('#birthday_input2').val( parseInt(form.birthday02));
 		$('#birthday_input3').val( form.birthday03);
 	}
 	if (form && form.address) {

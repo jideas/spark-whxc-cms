@@ -176,8 +176,8 @@ function productListToGoodsInfo(recid){
 			<div class="ad-left-top">
 				<img src="<%=basePath%>/images/page/hot-sale-HOT.png" />
 			</div>
-			<A class="next" href="#" onfocus="this.blur()"></A><A class="prev"
-				href="#" onfocus="this.blur()"></A>
+			<A class="next" href="javascript:void(0)" onfocus="this.blur()"></A><A class="prev"
+				href="javascript:void(0)" onfocus="this.blur()"></A>
 			<div id="hot-sale-scroll">
 				<ul></ul>
 			</div>
@@ -273,7 +273,7 @@ function HotSaleApp() {
 			html += "<b>￥" + data[index].realprice + "/" + data[index].goodsunit + "</b>";
 			html += "</div>";
 			html += "<div>";
-			html += "<input type='button' value='' onClick=\"cookieutil.addGoodsToShoppingCar('" + data[index].recid + "',1)\" />";
+			html += "<input type='button' value='' onClick=\"hotsale_hurrybuy('" + data[index].recid + "',1)\" />";
 			html += "</div>";
 			html += "</div>";
 			html += "</li>";
@@ -292,11 +292,19 @@ function HotSaleApp() {
 				hot_sale_timer = setTimeout(func_hot_sale_timer,5000);
 			}
 		});
-	};
-	
+	};	
 	init();
 }
 new HotSaleApp();
+
+//【立即购买】
+function hotsale_hurrybuy(inputid,count){
+	cookieutil.addGoodsToShoppingCar(inputid, count);
+	if(_productListMenuApp){
+		_productListMenuApp.loasShoppingCharCount();
+	}
+	cmsAlertSuccess("提示","添加成功！");
+};
 </script>
 	</body>
 </html>

@@ -17,3 +17,14 @@
   var ShopingCarGoodsCookieName = "<%=ShopingCarGoodsCookieName%>";
   var ShopingCarVantagesGoodsCookieName = "<%=ShopingCarVantagesGoodsCookieName%>";
 </script>
+<script type="text/javascript">
+try{
+	if ((document.characterSet || document.charset).toLowerCase() == 'utf-8' && navigator.userAgent.indexOf("MSIE")>0){
+		var locationStr = ""+window.location;
+		if((locationStr.length -1) == (locationStr.lastIndexOf('#'))){
+			locationStr = locationStr.substring(0,(locationStr.length -1));
+		}
+		window.location = locationStr;
+	}
+}catch (exp) {}
+</script>
