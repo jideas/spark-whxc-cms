@@ -100,7 +100,7 @@ public class GoodsForwardAction extends BaseAction {
 					.getCode();
 
 			double d = DoubleUtil.mul(goods.getRealprice(), DoubleUtil.strToDouble(code));
-			int vantege = Integer.parseInt(DoubleUtil.getRoundStr(d, 0));
+			int vantege = Integer.parseInt(DoubleUtil.getRoundStrWithOutQfw(d, 0));
 			// TODO 积分规则如果不是四舍五入，则取消下面的注释
 			// if (d > vantege) {
 			// vantege++;
