@@ -28,18 +28,18 @@
 				</a>            
 			</li>
 			<li>
-	            <a href="<%=basePath%>/scripts/jslider/slider-images/04.jpg">
-                	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/04_thumb.jpg" class="image3">            
+	            <a href="<%=basePath%>/scripts/jslider/slider-images/04.png">
+                	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/04_thumb.png" class="image3">            
 				</a>            
 			</li>
 			<li>
-	            <a href="<%=basePath%>/scripts/jslider/slider-images/05.jpg">
-                	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/05_thumb.jpg" class="image4">              
+	            <a href="<%=basePath%>/scripts/jslider/slider-images/05.png">
+                	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/05_thumb.png" class="image4">              
 				</a>            
 			</li>
 			<li>
-	            <a href="<%=basePath%>/scripts/jslider/slider-images/06.jpg">
-                	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/06_thumb.jpg" class="image5">              
+	            <a href="<%=basePath%>/scripts/jslider/slider-images/06.png">
+                	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/06_thumb.png" class="image5">              
 				</a>            
 			</li>
 			<li>
