@@ -404,7 +404,7 @@ body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,blockquote,fieldset,div,stro
 									%>[积分商城商品]<%
 										} else {if(goods.isFreedelivery()){
 									%>[免运费]
-									<%}if(goods.isGift()){%>[赠品]<%}
+									<%}if(goods.isGift()||goods.isOtherGift()){%>[赠品]<%}
 										if (null != goods.getDisrate()
 															&& goods.getDisrate() > 0
 															|| ((CheckIsNull.isNotEmpty(goods
@@ -441,7 +441,7 @@ body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,blockquote,fieldset,div,stro
 									vantagesCost="<%=goods.getVantagesCost()%>"
 									vantages="<%=goods.getVantages()%>"
 									vantagesType="<%=goods.getVantagesType()%>"
-									isGift="<%=goods.isGift()%>">
+									isGift="<%=goods.isGift()%>" isOtherGift="<%=goods.isOtherGift()%>">
 									<%=goods.isVantagesGoods() ? DoubleUtil
 							.getRoundStr((0 - goods.getVantagesCost()), 0)
 							: DoubleUtil.getRoundStr(goods.getVantages(), 0)%>

@@ -1219,6 +1219,7 @@ function Order() {
 					}
 					ga += ",vantagesCost:\"" + vantagesCost + "\"";
 					ga += ",isGift:\"" + $(this).attr("isGift") + "\"";
+					ga += ",isOtherGift:\"" + $(this).attr("isOtherGift") + "\"";
 					var vantages = "";
 					if ("null" != $(this).attr("vantages")) {
 						vantages = $(this).attr("vantages");
