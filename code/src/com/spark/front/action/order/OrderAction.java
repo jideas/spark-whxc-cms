@@ -29,12 +29,14 @@ import com.spark.cms.common.Constant.Order.OnlineOrderType;
 import com.spark.cms.services.ServiceMessage;
 import com.spark.cms.services.form.Login;
 import com.spark.cms.services.freeDelivery.DeliveryPriceService;
+import com.spark.cms.services.gift.GiftService;
 import com.spark.cms.services.goods.GoodsService;
 import com.spark.cms.services.goodsPromotion.GoodsPromotionService;
 import com.spark.cms.services.member.MemberService;
 import com.spark.cms.services.order.OrderService;
 import com.spark.cms.services.orderPromotion.OrderPromotionService;
 import com.spark.cms.services.orderPromotion.result.OrderPromotionResult;
+import com.spark.cms.services.vo.GiftVo;
 import com.spark.cms.services.vo.GoodsPromotionVo;
 import com.spark.cms.services.vo.GoodsVo;
 import com.spark.cms.services.vo.MemberVo;
@@ -67,6 +69,10 @@ public class OrderAction extends BaseAction {
 
 	@Autowired
 	private DeliveryPriceService deliveryPriceService;
+	
+	@Autowired
+	private GiftService giftService;
+
 
 	/**
 	 * 新增订单
@@ -103,6 +109,7 @@ public class OrderAction extends BaseAction {
 		double totalVantages = 0;
 		double totalVantagesCost = 0;
 		double totalGoodsAmount = 0;
+		boolean hasOtherGift = false;
 		for (int i = 0; i < jsonArray.size(); i++) {
 			JSONObject jo = jsonArray.getJSONObject(i);
 
@@ -169,6 +176,7 @@ public class OrderAction extends BaseAction {
 			boolean freedelivery = false;
 			boolean hasGift = false;
 			List<JSONObject> gifts = new ArrayList<JSONObject>();
+			List<JSONObject> otherGifts = new ArrayList<JSONObject>();
 			for (int j = 0; j < detArray.size(); j++) {
 				JSONObject g = detArray.getJSONObject(j);
 				String goodsId = g.getString("goodsId");
@@ -202,7 +210,7 @@ public class OrderAction extends BaseAction {
 				if (CheckIsNull.isNotEmpty(g.getString("vantagesCost"))) {
 					vantagesCost = Double.valueOf(g.getString("vantagesCost"));
 				}
-				if (price == 0 && !"true".equals(g.getString("isGift")) && vantagesGoods) {
+				if (price == 0 && !"true".equals(g.getString("isGift"))&&!"true".equals(g.getString("isOtherGift")) && vantagesGoods) {
 					if (!gv.isVantagesGoods() || vantagesCost != gv.getVantagesCost()) {
 						data.setErrorMsg("商品信息已过期！");
 						data.setSuccess(false);
@@ -225,7 +233,7 @@ public class OrderAction extends BaseAction {
 				}
 
 				if ("null" != g.getString("vantagesType") && CheckIsNull.isNotEmpty(g.getString("vantagesType"))
-						&& !g.getString("vantagesType").equals(gv.getVantagestype())&&!"true".equals(g.getString("isGift"))) {
+						&& !g.getString("vantagesType").equals(gv.getVantagestype())&&!"true".equals(g.getString("isGift"))&&!"true".equals(g.getString("isOtherGift"))) {
 					data.setErrorMsg("商品:" + gv.getGoodsname() + "积分促销信息已过期！");
 					data.setSuccess(false);
 					return data;
@@ -241,7 +249,7 @@ public class OrderAction extends BaseAction {
 					vantages = Double.valueOf(g.getString("vantages"));
 				}
 				if (!vantagesGoods) {
-					if (price != gv.getRealprice()&&!"true".equals(g.getString("isGift"))) {
+					if (price != gv.getRealprice()&&!"true".equals(g.getString("isGift"))&&!"true".equals(g.getString("isOtherGift"))) {
 						/**
 						 * 商品促销
 						 */
@@ -286,12 +294,18 @@ public class OrderAction extends BaseAction {
 					}
 				}
 				boolean isGift = "true".equals(g.getString("isGift"));
+				boolean isOtherGift = "true".equals(g.getString("isOtherGift"));
 				if (isGift) {
 					hasGift = true;
 					gifts.add(g);
 				}
+				if(isOtherGift)
+				{
+					hasOtherGift = true;
+					otherGifts.add(g);
+				}
 				OrderDetVo odv = new OrderDetVo();
-				if (isGift) {
+				if (isGift||isOtherGift) {
 					odv.setAmount(0d);
 					odv.setPrice(0d);
 					odv.setVantages(0d);
@@ -399,6 +413,31 @@ public class OrderAction extends BaseAction {
 				}
 				info.setDeliveryCost(deliveryCost);
 			}
+			if(hasOtherGift)
+			{
+				List<GiftVo> gvs = this.giftService.getList(login.getRecid());
+				if(otherGifts.size()!=gvs.size())
+				{
+					data.setSuccess(false);
+					data.setErrorMsg("赠品信息已过期！");
+					return data;
+				}
+				for (JSONObject gift : otherGifts) {
+					boolean has = false;
+					for (GiftVo g : gvs) {
+						if (gift.getString("goodsId").equals(g.getGoodsid())
+								&& Double.valueOf(gift.getString("count")) == g.getGoodscount()) {
+							has = true;
+							break;
+						}
+					}
+					if (!has) {
+						data.setErrorMsg("赠品信息已过期！");
+						data.setSuccess(false);
+						return data;
+					}
+				}
+			}
 
 		}
 
@@ -481,6 +520,10 @@ public class OrderAction extends BaseAction {
 					for (OrderDetVo det : oi.getDets()) {
 						this.goodsService.modifyGoodsSaleCount(det.getGoodsid(), det.getCount());
 					}
+				}
+				if(hasOtherGift)
+				{
+					this.giftService.updateStatus(login.getRecid());
 				}
 			}
 
