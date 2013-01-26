@@ -11,6 +11,7 @@ public class ShopingCarGoods {
 	private double count;
 	private double totalAmount;
 	private boolean gift;
+	private boolean otherGift;
 	private double price;
 	private double vantages;
 	private Double disrate;
@@ -21,6 +22,12 @@ public class ShopingCarGoods {
 	private double vantagesCost;
 	private boolean vantagesGoods;
 	
+	public boolean isOtherGift() {
+		return otherGift;
+	}
+	public void setOtherGift(boolean otherGift) {
+		this.otherGift = otherGift;
+	}
 	public boolean isVantagesGoods() {
 		return vantagesGoods;
 	}

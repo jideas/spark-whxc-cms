@@ -28,15 +28,16 @@ import com.spark.cms.common.Constant;
 import com.spark.cms.services.ServiceMessage;
 import com.spark.cms.services.channel.ChannelService;
 import com.spark.cms.services.channel.GetChannelGoodsListKey;
-import com.spark.cms.services.form.GoodsForm;
 import com.spark.cms.services.form.Login;
 import com.spark.cms.services.freeDelivery.DeliveryPriceService;
+import com.spark.cms.services.gift.GiftService;
 import com.spark.cms.services.goods.GoodsService;
 import com.spark.cms.services.goodsPromotion.GoodsPromotionService;
 import com.spark.cms.services.member.MemberService;
 import com.spark.cms.services.orderPromotion.OrderPromotionService;
 import com.spark.cms.services.orderPromotion.result.OrderPromotionResult;
 import com.spark.cms.services.vo.ChannelGoodsVo;
+import com.spark.cms.services.vo.GiftVo;
 import com.spark.cms.services.vo.GoodsPromotionVo;
 import com.spark.cms.services.vo.GoodsVo;
 import com.spark.cms.services.vo.MemberAddressVo;
@@ -69,6 +70,9 @@ public class ShopingCarAction extends BaseAction {
 	
 	@Autowired
 	private ChannelService channelService;
+	
+	@Autowired
+	private GiftService giftService;
 
 	/**
 	 * 获取购物车商品列表
@@ -370,6 +374,28 @@ public class ShopingCarAction extends BaseAction {
 						goods.add(scg);
 						totalVantagesCost += DoubleUtil.mul(scg.getCount(), scg.getVantagesCost());
 					}
+				}
+			}
+		}
+		List<GiftVo> otherGifts = this.giftService.getList(login.getRecid());
+		if(CheckIsNull.isNotEmpty(otherGifts))
+		{
+			for(GiftVo gift:otherGifts)
+			{
+				ShopingCarGoods scg = new ShopingCarGoods();
+				scg.setGoodsId(gift.getGoodsid());
+				scg.setCount(gift.getGoodscount());
+				scg.setOtherGift(true);
+				GoodsVo v = goodsService.getGoodsVo(gift.getGoodsid());
+				if (null != v) {
+					scg.setOriginalprice(v.getOriginalprice());
+					scg.setGoodsCode(v.getGoodscode());
+					scg.setGoodsName(v.getGoodsname());
+					scg.setPrice(0d);
+					scg.setSpec(v.getGoodsspec());
+					scg.setVantagesType("0");
+					scg.setVantages(0);
+					goods.add(scg);
 				}
 			}
 		}

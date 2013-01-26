@@ -8,7 +8,8 @@ package com.spark.cms.base.constant.gift;
  * 
  */
 public enum GiftStatus {
-	Created("01", "新增");
+	Created("01", "新增"),
+	Taken("02","已领");
 	private String code;
 	private String title;
 
