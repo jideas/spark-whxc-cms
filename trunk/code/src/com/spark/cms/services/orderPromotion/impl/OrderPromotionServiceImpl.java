@@ -97,11 +97,16 @@ public class OrderPromotionServiceImpl implements OrderPromotionService {
 			vo = BeanCopy.copy(OrderPromotionVo.class, polist.get(0));
 		}
 		OrderPromotionVo free = this.findOrderPromotion(PromotionConstant.DefaultFreeDeliveryId);
-		OrderPromotionResult opr = new OrderPromotionResult(vo, null != free);
+		boolean f = false;
+		double beginAmount = 0;
 		if(null!=free)
 		{
-			opr.setBeginAmount(free.getBeginamount());
+			beginAmount = free.getBeginamount();
+			if(free.getBeginamount()<=amount)
+			f = true;
 		}
+		OrderPromotionResult opr = new OrderPromotionResult(vo, f);
+		opr.setBeginAmount(beginAmount);
 		return opr;
 	}
 
