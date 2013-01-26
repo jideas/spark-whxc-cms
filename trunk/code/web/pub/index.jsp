@@ -203,7 +203,7 @@ body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,table,th,td,blockquote,field
 										<a href="javascript:void(0)" onclick="toShopingCar()">»•Ω·À„</a>
 									</li>
 									<li>
-										<img src="<%=basePath%>/images/page/jiesuan-arrow.png" alt="c"
+										<img src="<%=basePath%>/images/page/jiesuan-arrow.png"
 											width="16" height="16" />
 									</li>
 								</ul>
