@@ -299,7 +299,8 @@ function Order() {
 				+ "元/次。办理上门送货包月，享更多优惠，点击<a href='" + basePath
 				+ "/pro/member/delivercharge.jsp' target='_blank'>[办理]</a>";
 		if ($("#toDoor").attr("beginAmount") > 0) {
-			html += "。<font color=\"#000000\">[促销信息：整单满" + Number($("#toDoor").attr("beginAmount")).toFixed(2)
+			html += "。<font color=\"#000000\">[促销信息：整单满"
+					+ Number($("#toDoor").attr("beginAmount")).toFixed(2)
 					+ "元，免费送货上门]</font>";
 		}
 		// if ($("#toDoor").attr("value")) {
@@ -573,14 +574,16 @@ function Order() {
 		html += "送货上门：";
 		html += "</td>";
 
-		html += "<td id='toDoor' price='" + $("#toDoor").attr("price")+"' beginAmount='"+$("#toDoor").attr("beginAmount")
+		html += "<td id='toDoor' price='" + $("#toDoor").attr("price")
+				+ "' beginAmount='" + $("#toDoor").attr("beginAmount")
 				+ "' value='" + $("#toDoor").attr("value") + "'>";
 		html += $("#toDoor").attr("value");
 		html += "&nbsp;非包月客户送货上门费用" + $("#toDoor").attr("price")
 				+ "元/次。办理上门送货包月，享更多优惠，点击<a href='" + basePath
 				+ "/pro/member/delivercharge.jsp' target='_blank'>[办理]</a>";
 		if ($("#toDoor").attr("beginAmount") > 0) {
-			html += "。<font color=\"#000000\">[促销信息：整单满" + Number($("#toDoor").attr("beginAmount")).toFixed(2)
+			html += "。<font color=\"#000000\">[促销信息：整单满"
+					+ Number($("#toDoor").attr("beginAmount")).toFixed(2)
 					+ "元，免费送货上门]</font>";
 		}
 		html += "</td>";
@@ -843,30 +846,36 @@ function Order() {
 		var $stationEditor = $('#station_selector');
 		var $stationPrompt = $("#paytype_warning_station");
 		$.ajax({
-					url : mainWeb + "/front/common/getStation",
-					data : {
-						'areaCode' : areaCode
-					},
-					cache : false,
-					dataType : 'json',
-					success : function(data) {
-						if (data.total > 0) {
-							$stationPrompt.empty();
-							$stationEditor.empty();
-							var stations = data.rows;
-							for (var index = 0; index < stations.length; index++) {
-								var $option = $("<option value='"
-										+ stations[index].recid + "'>"
-										+ stations[index].stationName
-										+ "</option>");
-								$option.appendTo($stationEditor);
-							}
+			url : mainWeb + "/front/common/getStation",
+			data : {
+				'areaCode' : areaCode
+			},
+			cache : false,
+			dataType : 'json',
+			success : function(data) {
+				if (data.total > 0) {
+					$stationPrompt.empty();
+					$stationEditor.empty();
+					var stations = data.rows;
+					var selected = "";
+					for (var index = 0; index < stations.length; index++) {
+						if ($("#station").attr("recid")
+								&& $("#station").attr("recid") == stations[index].recid) {
+							selected = "selected";
 						} else {
-							$stationEditor.empty();
-							$stationPrompt.html('当前选择的地区没有站点，请重新选择地区');
+							selected = "";
 						}
+						var $option = $("<option value='"
+								+ stations[index].recid + "' " + selected + ">"
+								+ stations[index].stationName + "</option>");
+						$option.appendTo($stationEditor);
 					}
-				});
+				} else {
+					$stationEditor.empty();
+					$stationPrompt.html('当前选择的地区没有站点，请重新选择地区');
+				}
+			}
+		});
 	};
 
 	this.addressChangeListener = function(addressStr) {
@@ -1219,7 +1228,8 @@ function Order() {
 					}
 					ga += ",vantagesCost:\"" + vantagesCost + "\"";
 					ga += ",isGift:\"" + $(this).attr("isGift") + "\"";
-					ga += ",isOtherGift:\"" + $(this).attr("isOtherGift") + "\"";
+					ga += ",isOtherGift:\"" + $(this).attr("isOtherGift")
+							+ "\"";
 					var vantages = "";
 					if ("null" != $(this).attr("vantages")) {
 						vantages = $(this).attr("vantages");
