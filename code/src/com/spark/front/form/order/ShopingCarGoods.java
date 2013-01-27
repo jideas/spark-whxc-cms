@@ -21,7 +21,14 @@ public class ShopingCarGoods {
 	private String miniPicturePath;
 	private double vantagesCost;
 	private boolean vantagesGoods;
+	private boolean bookingGoods;
 	
+	public boolean isBookingGoods() {
+		return bookingGoods;
+	}
+	public void setBookingGoods(boolean bookingGoods) {
+		this.bookingGoods = bookingGoods;
+	}
 	public boolean isOtherGift() {
 		return otherGift;
 	}

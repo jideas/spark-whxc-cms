@@ -52,8 +52,25 @@ public class OrderForm {
 	private double deliverPrice;
 	private List<DicItem> deliverTimeItems;
 	private double vantagesCost;
+	private boolean hasBookingGoods = false;
+	private boolean onlyBookingGoods = false;
 	
-	
+	public boolean isOnlyBookingGoods() {
+		return onlyBookingGoods;
+	}
+
+	public void setOnlyBookingGoods(boolean onlyBookingGoods) {
+		this.onlyBookingGoods = onlyBookingGoods;
+	}
+
+	public boolean isHasBookingGoods() {
+		return hasBookingGoods;
+	}
+
+	public void setHasBookingGoods(boolean hasBookingGoods) {
+		this.hasBookingGoods = hasBookingGoods;
+	}
+
 	public double getBeginAmount() {
 		return beginAmount;
 	}

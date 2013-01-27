@@ -491,6 +491,18 @@ public class DateUtil {
 	}
 
 	/**
+	 * 获取明天
+	 */
+	public static String getTomorrow(Date date) {
+		if (CheckIsNull.isEmpty(date))
+			date = new Date(System.currentTimeMillis());
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.HOUR, +24);
+		return dateFromat(calendar.getTime());
+	}
+	
+	/**
 	 * 获取后天
 	 */
 	public static String getTheDayAfterTomorrow(Date date) {
@@ -498,7 +510,7 @@ public class DateUtil {
 			date = new Date(System.currentTimeMillis());
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
-		calendar.add(Calendar.HOUR, +24);
+		calendar.add(Calendar.HOUR, +48);
 		return dateFromat(calendar.getTime());
 	}
 	

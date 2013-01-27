@@ -69,10 +69,9 @@ public class OrderAction extends BaseAction {
 
 	@Autowired
 	private DeliveryPriceService deliveryPriceService;
-	
+
 	@Autowired
 	private GiftService giftService;
-
 
 	/**
 	 * 新增订单
@@ -110,12 +109,22 @@ public class OrderAction extends BaseAction {
 		double totalVantagesCost = 0;
 		double totalGoodsAmount = 0;
 		boolean hasOtherGift = false;
+		Date bdeliverDate = null;
+		Date deliverDate = null;
 		for (int i = 0; i < jsonArray.size(); i++) {
 			JSONObject jo = jsonArray.getJSONObject(i);
 
 			info.setAddress(jo.getString("address"));
-			info.setDeliveryedate(DateUtil
-					.convertStringToDate(jo.getString("deliverTime"), DateUtil.DATE_TIME_PATTERN2));
+			if(CheckIsNull.isNotEmpty(jo.getString("deliverTime")))
+			{
+				deliverDate = DateUtil
+					.convertStringToDate(jo.getString("deliverTime"), DateUtil.DATE_TIME_PATTERN2);
+			}
+			if(CheckIsNull.isNotEmpty(jo.getString("bdeliverTime")))
+			{
+				bdeliverDate = DateUtil
+				.convertStringToDate(jo.getString("bdeliverTime"), DateUtil.DATE_TIME_PATTERN2);
+			}
 			info.setConsignee(jo.getString("consignee"));
 			info.setConsigneetel(jo.getString("mobile"));
 			info.setCreatedate(new Date(System.currentTimeMillis()));
@@ -149,12 +158,6 @@ public class OrderAction extends BaseAction {
 			{
 				data.setSuccess(false);
 				data.setErrorMsg("请填写手机号码！");
-				return data;
-			}
-			if(CheckIsNull.isEmpty(info.getDeliveryedate()))
-			{
-				data.setSuccess(false);
-				data.setErrorMsg("请选择配送时间！");
 				return data;
 			}
 			if(CheckIsNull.isEmpty(info.getStationid()))
@@ -232,13 +235,15 @@ public class OrderAction extends BaseAction {
 					continue;
 				}
 
-				if ("null" != g.getString("vantagesType") && CheckIsNull.isNotEmpty(g.getString("vantagesType"))
-						&& !g.getString("vantagesType").equals(gv.getVantagestype())&&!"true".equals(g.getString("isGift"))&&!"true".equals(g.getString("isOtherGift"))) {
-					data.setErrorMsg("商品:" + gv.getGoodsname() + "积分促销信息已过期！");
-					data.setSuccess(false);
-					return data;
+				if(!("true".equals(g.getString("isGift"))||"true".equals(g.getString("isOtherGift"))))
+				{
+					if ("null" != g.getString("vantagesType") && CheckIsNull.isNotEmpty(g.getString("vantagesType"))
+							&& !g.getString("vantagesType").equals(gv.getVantagestype())) {
+						data.setErrorMsg("商品:" + gv.getGoodsname() + "积分促销信息已过期！");
+						data.setSuccess(false);
+						return data;
+					}
 				}
-
 				double disrate = 0;
 				if (CheckIsNull.isNotEmpty(g.getString("disrate"))) {
 					disrate = Double.valueOf(g.getString("disrate"));
@@ -445,6 +450,13 @@ public class OrderAction extends BaseAction {
 			List<OrderInfo> list = new ArrayList<OrderInfo>();
 			if (CheckIsNull.isNotEmpty(vantagesDets)) {
 				OrderInfo voi = BeanCopy.copy(OrderInfo.class, info);
+				if(null==deliverDate)
+				{
+					data.setSuccess(false);
+					data.setErrorMsg("请选择配送时间！");
+					return data;
+				}
+				voi.setDeliveryedate(deliverDate);
 				voi.setRecid(null);
 				voi.setBillsno(null);
 				voi.setVantagesCost(totalVantagesCost);
@@ -464,6 +476,13 @@ public class OrderAction extends BaseAction {
 				list.add(voi);
 			}
 			if (CheckIsNull.isNotEmpty(dets)) {
+				if(null==deliverDate)
+				{
+					data.setSuccess(false);
+					data.setErrorMsg("请选择配送时间！");
+					return data;
+				}
+				info.setDeliveryedate(deliverDate);
 				info.setVantages(totalVantages);
 				info.setDets(dets);
 				info.setType(OnlineOrderType.Common.getCode());
@@ -477,7 +496,14 @@ public class OrderAction extends BaseAction {
 				list.add(info);
 			}
 			if (CheckIsNull.isNotEmpty(bookingDets)) {
+				if(null==bdeliverDate)
+				{
+					data.setSuccess(false);
+					data.setErrorMsg("请选择预订配送时间！");
+					return data;
+				}
 				OrderInfo boi = BeanCopy.copy(OrderInfo.class, info);
+				boi.setDeliveryedate(bdeliverDate);
 				boi.setRecid(null);
 				boi.setBillsno(null);
 				boi.setType(OnlineOrderType.Booking.getCode());
@@ -540,8 +566,10 @@ public class OrderAction extends BaseAction {
 	private Login getLogin(HttpServletRequest request) {
 		Login login = null;
 		try {
-			if (CheckIsNull.isNotEmpty(request.getSession().getAttribute(Constant.LoginMemberUser)))
-				login = new Login((MemberVo) request.getSession().getAttribute(Constant.LoginMemberUser));
+			if (CheckIsNull.isNotEmpty(request.getSession().getAttribute(
+					Constant.LoginMemberUser)))
+				login = new Login((MemberVo) request.getSession().getAttribute(
+						Constant.LoginMemberUser));
 		} catch (ServiceMessage e) {
 			System.out.println(e.getMessage());
 		}
