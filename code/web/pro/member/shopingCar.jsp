@@ -164,7 +164,7 @@
 							</div>
 						</div>
 						<div class="list-column-goods">
-							<%
+						<%if(goods.isBookingGoods()){%>[预订]<%}
 								if (goods.isVantagesGoods()) {
 							%>[积分商城商品]<%
 								} else { if(goods.isFreedelivery()){

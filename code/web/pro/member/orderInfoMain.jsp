@@ -324,19 +324,34 @@ body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,blockquote,fieldset,div,stro
 									</tr>
 									
 									<!-- 自提配送时间 -->
+									<%if(!order.isOnlyBookingGoods()){%>
 									<tr style="">
 										<td style="text-align: right;">
 											配送时间：
 										</td>
 										<td id="deliverTime"
+											value="<%=DateUtil.getTomorrow(null)%>&nbsp;<%=deliverTimeItems.get(0).getTitle()%>"
+											day="<%=DateUtil.getTomorrow(null)%>"
+											time="<%=deliverTimeItems.get(0).getTitle()%>"
+											timeCode="<%=deliverTimeItems.get(0).getCode()%>"><%=DateUtil.getTomorrow(null)%>&nbsp;<%=deliverTimeItems.get(0).getTitle()%></td>
+										<td>
+											<div id="valuewarning_deliverTime" class="valuewarning"></div>
+										</td>
+									</tr><%} if(order.isHasBookingGoods()){%>
+									<tr style="">
+										<td style="text-align: right;">
+											预订配送时间：
+										</td>
+										<td id="bdeliverTime"
 											value="<%=DateUtil.getTheDayAfterTomorrow(null)%>&nbsp;<%=deliverTimeItems.get(0).getTitle()%>"
 											day="<%=DateUtil.getTheDayAfterTomorrow(null)%>"
 											time="<%=deliverTimeItems.get(0).getTitle()%>"
 											timeCode="<%=deliverTimeItems.get(0).getCode()%>"><%=DateUtil.getTheDayAfterTomorrow(null)%>&nbsp;<%=deliverTimeItems.get(0).getTitle()%></td>
 										<td>
-											<div id="valuewarning_deliverTime" class="valuewarning"></div>
+											<div id="valuewarning_bdeliverTime" class="valuewarning"></div>
 										</td>
-									</tr>
+									</tr><%}%>
+									
 									<tr style="display: ">
 										<td style="text-align: right;">
 											送货上门：
@@ -399,7 +414,7 @@ body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,blockquote,fieldset,div,stro
 									<%=goods.getGoodsCode()%>
 								</div>
 								<div class="row-column-goods" id="<%=goods.getGoodsId()%>_<%=goods.isVantagesGoods()%>_name">
-									<%
+								<%if(goods.isBookingGoods()){%>[预订]<%}
 										if (goods.isVantagesGoods()) {
 									%>[积分商城商品]<%
 										} else {if(goods.isFreedelivery()){
