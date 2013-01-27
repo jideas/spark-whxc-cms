@@ -134,6 +134,8 @@ public class ShopingCarAction extends BaseAction {
 								if (v.isFreedelivery()) {
 									scg.setFreedelivery(true);
 								}
+								if(Constant.Base.GoodsType.Booking.getCode().equals(v.getGoodsType()))
+									scg.setBookingGoods(true);
 								scg.setOriginalprice(v.getOriginalprice());
 								scg.setGoodsCode(v.getGoodscode());
 								scg.setGoodsName(v.getGoodsname());
@@ -255,6 +257,8 @@ public class ShopingCarAction extends BaseAction {
 			maw.setViewName("/pub/sub/login");
 			return maw;
 		}
+		boolean hasBookingGoods = false;
+		boolean onlyBookingGoods = true;
 		OrderForm o = new OrderForm();
 		double totalAmount = 0;
 		double totalVantages = 0;
@@ -303,6 +307,15 @@ public class ShopingCarAction extends BaseAction {
 							scg.setDisrate(gpv.getDisrate());
 						}
 					}
+				}
+				if(Constant.Base.GoodsType.Booking.getCode().equals(v.getGoodsType()))
+				{
+					scg.setBookingGoods(true);
+					hasBookingGoods = true;
+				}
+				else
+				{
+					onlyBookingGoods = false;
 				}
 				goods.add(scg);
 			}
@@ -402,6 +415,8 @@ public class ShopingCarAction extends BaseAction {
 		List<MemberAddressVo> addressList = memberService.getAdressList(login
 				.getRecid());
 //		o.setVgoodsList(vgoodsList);
+		o.setOnlyBookingGoods(onlyBookingGoods);
+		o.setHasBookingGoods(hasBookingGoods);
 		o.setAddressList(addressList);
 		o.setGoodsList(goods);
 		o.setTotalamount(totalAmount);
