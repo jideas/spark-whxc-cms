@@ -62,10 +62,16 @@
 	border-bottom: 1px solid #EEEEEE;
 }
 
-#product-detail_buy .product_buying .code,#product-detail_buy .product_buying .type,#product-detail_buy .product_buying .specif,#product-detail_buy .product_buying .price
-	{
+#product-detail_buy .product_buying .code,
+#product-detail_buy .product_buying .type,
+#product-detail_buy .product_buying .specif,
+#product-detail_buy .product_buying .price{
+	/*
 	height: 30px;
 	line-height: 30px;
+	*/
+	height: 27px;
+	line-height: 27px;
 	color: #000000;
 	font-size: 12px;
 	font-weight: normal;
@@ -93,8 +99,8 @@
 	float: left;
 }
 
-#product-detail_buy #product_buying_button div.oper div.warp_specil,#product-detail_buy #product_buying_button div.oper div.buy_number
-	{
+#product-detail_buy #product_buying_button div.oper div.warp_specil,
+#product-detail_buy #product_buying_button div.oper div.buy_number{
 	height: 35px;
 	line-height: 35px;
 	width: 200px;
@@ -280,12 +286,15 @@
 			<div class="product_buying">
 				<p>
 					<%=request.getAttribute(GoodsKey.GoodsName.toString())%>
+					<span id="bookingText" style="color:#FF0000;font-size: 12px;font-weight: normal;display:<%=request.getAttribute(GoodsKey.IsBooking.toString())%>">
+						(&nbsp;本商品为预定商品，请提前2天下单&nbsp;)
+					</span>
 				</p>
 				<div calss="code"
-					style="margin-left: 25px; height: 40px; line-height: 40px;">
+					style="margin-left: 25px; height: 27px; line-height: 27px;">
 					商品编号：&nbsp;&nbsp;<%=request.getAttribute(GoodsKey.GoodsCode.toString())%>
 				</div>
-				<div class="specif" style="width: 100%; * margin-left: 37px;">
+				<div class="specif" style="width: 100%; * margin-left: 37px;height: 30px;line-height: 30px;">
 					&nbsp;&nbsp;&nbsp;&nbsp;规格：
 					<div id="specSelectDiv"><%=request.getAttribute(GoodsKey.SpecSelector.toString())%>
 					</div>
@@ -306,8 +315,13 @@
 				<div class="price">
 					促销信息：&nbsp;&nbsp;<font id="pmtValue"><%=request.getAttribute(GoodsKey.PromotionInfo.toString())%></font>
 				</div>
+				<!-- 
 				<div class="price" id="bookingText" style="display:<%=request.getAttribute(GoodsKey.IsBooking.toString())%>">
 					预定商品：&nbsp;&nbsp;<font color=red>本商品为预定商品，请提前2天下单。</font>
+				</div>
+				 -->
+				<div class="price" style="height: 25px;line-height: 25px;color: #AAAAAA;">
+					图片仅供参考，商品以实物为准!
 				</div>
 				<div id="product_buying_button">
 					<div class="oper">
