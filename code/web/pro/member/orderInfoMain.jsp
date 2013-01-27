@@ -406,7 +406,7 @@ body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,blockquote,fieldset,div,stro
 									for (ShopingCarGoods goods : order.getGoodsList()) {
 							%>
 							<div class="part_goods_row" id="<%=goods.getGoodsId()%>_<%=goods.isVantagesGoods()%>"
-								vantagesGoods="<%=goods.isVantagesGoods()%>" isGift="<%=goods.isGift()%>" disrate="<%=goods.getDisrate()%>"
+								vantagesGoods="<%=goods.isVantagesGoods()%>" isGift="<%=goods.isGift()%>" isOtherGift="<%=goods.isOtherGift()%>" disrate="<%=goods.getDisrate()%>"
 									vantagesCost="<%=goods.getVantagesCost()%>"
 									vantages="<%=goods.getVantages()%>"
 									vantagesType="<%=goods.getVantagesType()%>" price="<%=goods.getPrice()%>" count="<%=goods.getCount()%>">
