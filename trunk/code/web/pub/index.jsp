@@ -245,7 +245,7 @@ body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,table,th,td,blockquote,field
 	var _indexApp = null;
 	function IndexApp() {
 		this.loasShoppingCharCount = function(count) {
-			if (count < 0) {
+			if (count < 0 || typeof(count) === 'undefined') {
 				count = cookieutil.getShoppingCarGoodsCount();
 			}
 			$('.caddyHead span').html("<b>" + count + "</b>");
@@ -348,23 +348,24 @@ function ShowShoppingCarDetail() {
 				var infoHtml = "";
 				if (null == data || data.length == 0) {
 					//html += "<tr>";
-					//html += "<td style='height:50px;width:100%;float:left;text-align:left;'>购物车中还没有商品，赶紧选购吧！</td>";
+					//html += "<td class='' align='left'>购物车中还没有商品，赶紧选购吧！</td>";
 					//html += "</tr>";
 					$("#noGoods").css("display","block");
 					$("#carShopingOperate").css("display","none");
 					$("#carShopingItems").css("display","none");
-					
 					$table.html(html);
 					
 					//infoHtml += "<div class='caddy_count'>共<span>0</span>类<span>0</span>件商品</div>";
 					//infoHtml += "<div class='caddy_money'>总计:￥<span>0</span>元</div>";
 					$summaryInfo.html(infoHtml);
 					_indexApp.loasShoppingCharCount(0);
-					cookieutil.setShoppingCarGoods(data);
 					return;
 				}
+				$("#noGoods").hide();
+				$("#carShopingItems").show();
+				$("#carShopingOperate").show();
 				/**
-				 *  链接
+				 *  
 				 *
 				 **/
 				var totalCount = 0;
@@ -394,13 +395,13 @@ function ShowShoppingCarDetail() {
 				$table.html(html);
 				if(data.length>5&&($.browser.msie))
 				{$("#carShopingItems").css("height","316px");}
-				
 				//infoHtml += "<div class='caddy_count'>共" + totalCount + "</span>件商品</div>";
 				infoHtml += "<div class='caddy_money'>共" + totalCount + "件商品&nbsp;&nbsp;总计:<span>￥" + totalAmount.toFixed(2) + "</span></div>";
 				infoHtml += "<div class='caddy_goBuy'><a href='" + mainWeb + "/front/shopingCar/getGoods'><img src=" + basePath + "/images/page/addToShoppingCar_01.png width='122px' height='32px' /></a></div>";
 				$summaryInfo.html(infoHtml);
 				
 				_indexApp.loasShoppingCharCount(data.length);
+				cookieutil.setShoppingCarGoods(data);
 				addDeleteAction();
 			}
 		});
@@ -408,12 +409,23 @@ function ShowShoppingCarDetail() {
 	};
 	
 	var addDeleteAction = function() {
+		// 普通商品
 		$("a[id|='shpcar_del']").each(function() {
 			var goodsId =  $(this).attr('id').split('-')[1];
 			$(this).unbind('click');
 			$(this).bind('click', function() {
 				$('#shpcar_row-' + goodsId).remove();
 				cookieutil.removeGoodsFromShoppingCar(goodsId);
+				$table.trigger('change');
+			});
+		});
+		// 积分商品
+		$("a[id|='shpcar_del_vantage']").each(function() {
+			var goodsId =  $(this).attr('id').split('-')[1];
+			$(this).unbind('click');
+			$(this).bind('click', function() {
+				$('#shpcar_row-' + goodsId).remove();
+				cookieutil.removeVantegeGoodsFromShoppingCar(goodsId);
 				$table.trigger('change');
 			});
 		});
