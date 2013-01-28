@@ -431,7 +431,7 @@ public class OrderAction extends BaseAction {
 					boolean has = false;
 					for (GiftVo g : gvs) {
 						if (gift.getString("goodsId").equals(g.getGoodsid())
-								&& Double.valueOf(gift.getString("count")) == g.getGoodscount()) {
+								&& Double.valueOf(gift.getString("count")).equals(g.getGoodscount())) {
 							has = true;
 							break;
 						}
