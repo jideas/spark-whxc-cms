@@ -110,6 +110,7 @@ public class MemberServiceImpl implements MemberService {
 		ap.setRecid(p.getRecid());
 		ap.setMoneybalance(v.getMoneybalance());
 		ap.setVantages(v.getVantages());
+		ap.setPaypassword(v.getPaypassword());
 		this.baseDao.save(ap);
 		MemberInfoPo info = new MemberInfoPo();
 		info.setRecid(p.getRecid());

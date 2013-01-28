@@ -29,8 +29,17 @@ public class MemberForm implements java.io.Serializable {
 	private long birthday;
 	private String sex;
 	private String address;
+	private String paypassword;
 
 	// Constructors
+
+	public String getPaypassword() {
+		return paypassword;
+	}
+
+	public void setPaypassword(String paypassword) {
+		this.paypassword = paypassword;
+	}
 
 	public String getAddress() {
 		return address;
