@@ -27,6 +27,7 @@ import com.spark.base.common.utils.DateUtil;
 import com.spark.base.common.utils.DoubleUtil;
 import com.spark.cms.action.BaseAction;
 import com.spark.cms.base.utils.ExcelReadHelper;
+import com.spark.cms.base.utils.encrypt.MD5;
 import com.spark.cms.common.Constant;
 import com.spark.cms.common.DataModel;
 import com.spark.cms.common.MessageModel;
@@ -122,6 +123,11 @@ public class MemberAction extends BaseAction {
 				v.setAddress(str[index++]);
 				v.setMoneybalance(Double.valueOf(str[index++]));
 				v.setVantages(Double.valueOf(str[index++]));
+				String payPass = str[index++];
+				if(CheckIsNull.isNotEmpty(payPass))
+				{
+					v.setPaypassword(new MD5().getMD5ofStr(payPass));
+				}
 				this.memberService.createMember(v);
 			}
 			return data.size()+"";
