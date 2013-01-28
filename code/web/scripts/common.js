@@ -34,14 +34,14 @@ function ChooseImagesWindow(imageSearchText) {
 	var loadImagesTable = function(node) {
 		if ((node && node.attributes.code == '0')
 				|| (imageSearchText && $.trim(imageSearchText) != ''&&imageSearchText!='undefinded'&&imageSearchText!='null')) {
-			lastSelectNode = node;
-			if (null == imageSearchText || imageSearchText == 'null'||imageSearchText!='undefinded'||imageSearchText!='null') {
+				lastSelectNode = node;
+			if (null == imageSearchText || imageSearchText == 'null'||imageSearchText=='undefinded'||imageSearchText=='null') {
 				imageSearchText = '';
 			}
 			var nodeId;
 			if (node && node.attributes.code == '0') {
 				nodeId = node.id;
-			}
+			} 
 			$.post(mainWeb + '/admin/images/getImages', {
 						folderId : nodeId,
 						text : imageSearchText
@@ -51,7 +51,7 @@ function ChooseImagesWindow(imageSearchText) {
 							str = str
 									+ '<tr height="30px;"><td colspan="3" align="right" width="100%"><input type="text" id="imageSearchInput" value="'
 									+ imageSearchText
-									+ '" style="width:150px;"/><input id="imageSearchButton" type="button" value="ËÑË÷" onclick=""/></td></tr>';
+									+ '" style="width:150px;"/><input id="imageSearchButton" type="button" value="ËÑË÷"/></td></tr>';
 							str = str + '</table> ';
 							$rightArea.html(str);
 							$('#imageSearchButton').click(function() {
@@ -64,7 +64,7 @@ function ChooseImagesWindow(imageSearchText) {
 						str = str
 								+ '<tr height="30px;"><td colspan="3" align="right" width="100%"><input id="imageSearchInput" type="text" value="'
 								+ imageSearchText
-								+ '" style="width:150px;"/><input id="imageSearchButton" type="button" value="ËÑË÷" onclick=""/></td></tr>';
+								+ '" style="width:150px;"/><input id="imageSearchButton" type="button" value="ËÑË÷"/></td></tr>';
 						var x = 0;
 						for (var i = 0; i < result.length;) {
 							str = str + '<tr> ';
@@ -176,11 +176,11 @@ function ChooseImagesWindow(imageSearchText) {
 			str = str
 					+ '<tr height="30px;"><td colspan="3" align="right" width="100%"><input type="text" id="imageSearchInput" value="'
 					+ imageSearchText
-					+ '" style="width:150px;"/><input id="imageSearchButton" type="button" value="ËÑË÷" onclick=""/></td></tr>';
+					+ '" style="width:150px;"/><input id="imageSearchButton" type="button" value="ËÑË÷"/></td></tr>';
 			str = str + '</table> ';
 			$rightArea.html(str);
 		}
-		$('#imageSearchButton').click(function() {
+		$('#imageSearchButton').click(function() { 
 					imageSearchText = $.trim($('#imageSearchInput').val());
 					loadImagesTable(lastSelectNode)
 				});
