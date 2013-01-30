@@ -525,6 +525,10 @@ public class OrderAction extends BaseAction {
 						}
 					}
 				}
+				else
+				{
+					boi.setDeliveryCost(0d);
+				}
 				list.add(boi);
 			}
 			List<String> ids = this.orderService.createOrders(list);
