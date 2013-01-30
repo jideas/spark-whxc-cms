@@ -330,10 +330,10 @@ body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,blockquote,fieldset,div,stro
 											配送时间：
 										</td>
 										<td id="deliverTime"
-											value="<%=DateUtil.getTomorrow(null)%>&nbsp;<%=deliverTimeItems.get(0).getTitle()%>"
-											day="<%=DateUtil.getTomorrow(null)%>"
-											time="<%=deliverTimeItems.get(0).getTitle()%>"
-											timeCode="<%=deliverTimeItems.get(0).getCode()%>"><%=DateUtil.getTomorrow(null)%>&nbsp;<%=deliverTimeItems.get(0).getTitle()%></td>
+											value=""
+											day=""
+											time=""
+											timeCode=""></td>
 										<td>
 											<div id="valuewarning_deliverTime" class="valuewarning"></div>
 										</td>
@@ -343,10 +343,10 @@ body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,blockquote,fieldset,div,stro
 											预订配送时间：
 										</td>
 										<td id="bdeliverTime"
-											value="<%=DateUtil.getTheDayAfterTomorrow(null)%>&nbsp;<%=deliverTimeItems.get(0).getTitle()%>"
-											day="<%=DateUtil.getTheDayAfterTomorrow(null)%>"
-											time="<%=deliverTimeItems.get(0).getTitle()%>"
-											timeCode="<%=deliverTimeItems.get(0).getCode()%>"><%=DateUtil.getTheDayAfterTomorrow(null)%>&nbsp;<%=deliverTimeItems.get(0).getTitle()%></td>
+											value=""
+											day=""
+											time=""
+											timeCode=""></td>
 										<td>
 											<div id="valuewarning_bdeliverTime" class="valuewarning"></div>
 										</td>
