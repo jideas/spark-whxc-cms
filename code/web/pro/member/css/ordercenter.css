@@ -71,12 +71,12 @@
 	height: 500px;
 }
 
-table {
+#ordercenter-data-table table {
 	border: #DEDEDE 1px solid;
 	border-collapse: collapse;
 }
 
-th {
+#ordercenter-data-table table th {
 	color: #424242;
 	font-family: "ËÎÌו";
 	font-size: 12px;
@@ -86,7 +86,7 @@ th {
 	border-bottom: #DEDEDE 1px solid;
 }
 
-td {
+#ordercenter-data-table table td {
 	border: #DEDEDE 1px solid;
 	font-family: "ËÎÌו";
 	font-size: 12px;
