@@ -11,6 +11,9 @@ public class CategoryTreeGen {
 		 if (null == cateoryNodeList) return "";
 		 for(int i=0;i<cateoryNodeList.length;i++){
 			 LightGoodsCategoryTree.CategoryNode node = cateoryNodeList[i];
+			 /* 修改原因：暂时不显示“营养健康”*/			  
+			 if("227744F75612FAE43624FACBC8C3761A".equals(node.getId())) continue;
+			 
 			 if(i==0){
 				 str += getFirstCategoryHead(true);
 			 }else{
