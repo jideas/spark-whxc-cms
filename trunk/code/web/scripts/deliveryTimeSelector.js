@@ -25,6 +25,7 @@ function DeliveryTimeSelector(pListId) {
 		$.ajax({
 					url : basePath + '/front/common/getDeliveryTimeList',
 					async : false,
+					cache : false,
 					// data: {'parentId': parentId},
 					success : function(data) {
 						dataList = data.rows;
@@ -37,6 +38,11 @@ function DeliveryTimeSelector(pListId) {
 		$pList.empty();
 		var dataList = getDataList(null);
 		var defaultIndex = 0;
+		var $doption = null;
+
+		$doption = $("<option value='' selected></option>");
+
+		$doption.appendTo($pList);
 		for (var index = 0; index < dataList.length; index++) {
 			var $option = null;
 
@@ -45,7 +51,7 @@ function DeliveryTimeSelector(pListId) {
 
 			$option.appendTo($pList);
 		}
-		
+
 	};
 
 	var registChangeAction = function() {
