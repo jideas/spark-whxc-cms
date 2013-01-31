@@ -595,7 +595,7 @@
 	 			success: function(data) {
 	 				if (data) {
 	 					if(data[0]==""||data[0]=="undefined"){
-	 						$(".categoryPagecontantRight3").html("");
+	 						$(".categoryPagecontantRight3").html("<div style='font-size:14px;margin-top:25px;'>±ß«∏£¨‘›Œﬁ…Ã∆∑!</div>");
 		 					product.setPage(data[1],data[2],data[3]);
 		 					if(Number(data[2])>=1){
 		 						product.setPageSize(data[2]);
