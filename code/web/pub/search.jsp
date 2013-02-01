@@ -46,7 +46,7 @@ body {
 /*热卖*/
 #product_hot-sale {
 	width: 1200px;
-	height: 200px;
+	height: 180px;
 	margin: 5px 0px;
 	text-align: left;
 	z-index: 0;
@@ -88,7 +88,10 @@ body {
 	*height: 793px; 
 	z-index: 0;
 }
-
+#categoryPagecontantLeft2 {
+	height: 945px;
+	*height: 930px;
+}
 /*分类展示*/
 #product_category-show {
 	position: relative;
@@ -135,14 +138,13 @@ body {
 			<div id="product_hot-sale">
 				<jsp:include page="main/hotsale.jsp" flush="true" />
 			</div>
-			<div id="product_content">
-				<div id="product_promation">
-					<div id="product_lastest-view">
+			<div id="product_content" style="height: 945px;*height: 932px;">
+				<div id="product_promation" style="height: 947px;*height: 930px;">
+					<div id="product_lastest-view" style="height: 945px;*height: 930px;">
 						<jsp:include page="main/lastest-view.jsp" flush="true" />
 					</div>
 				</div>
-				<div id="product_category-show">
-					<!-- jsp:include page="main/category-show.jsp" flush="true" /> -->
+				<div id="product_category-show" style="height: 945px;*height: 932px;">
 					<jsp:include page="searchresult.jsp" flush="true" />
 				</div>
 			</div>
