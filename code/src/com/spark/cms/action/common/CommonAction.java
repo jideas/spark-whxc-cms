@@ -159,7 +159,7 @@ public class CommonAction extends BaseAction {
 		if (StringUtil.isEmpty(searchKey)) return "/pub/search";
 		GetGoodsListKey key = new GetGoodsListKey();
 		key.setOffset(0);
-		key.setPageSize(SearchConstant.PAGESIZE);
+		key.setPageSize(12);
 		key.setPublished(true);
 		key.setSearchText(searchKey);
 		key.setSortColumn(GetGoodsListKey.SortColumn.PRICE);
