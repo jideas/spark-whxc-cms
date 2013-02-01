@@ -374,7 +374,7 @@ String initData = (String)request.getAttribute(SearchConstant.INITRESULT);
 </style>
 	</head>
 	<body>
-		<div class="categoryPagecontantRight">
+		<div class="categoryPagecontantRight" style="height: 946px;*height: 932px;">
 			<!-- begin of Àà±ðË¢Ñ¡ -->
 			<div class="categoryPagecontantRight1">
 				<div class="categoryPagecontantRight1Left">
@@ -408,7 +408,7 @@ String initData = (String)request.getAttribute(SearchConstant.INITRESULT);
 			  		<span class="buttonInitClassPageDown" id="v_nextPageButton"></span>
 				</div>
 			</div>
-			<div class="categoryPagecontantRight3">
+			<div class="categoryPagecontantRight3" style="height: 800px;width: 100%;clear: both;">
 			</div>
 			<div id="pageManagerDiv" class='pagin pagin-m fr'></div>
 		</div>
@@ -416,7 +416,7 @@ String initData = (String)request.getAttribute(SearchConstant.INITRESULT);
 <script type="text/javascript">
 var _searchResultApp = null;
 var _initSearchDataStr = '<%=initData%>';
-var _pageSize = '<%=SearchConstant.PAGESIZE %>';
+var _pageSize = '12';
 $(document).ready(function() {
 	_searchResultApp = new SearchResultApp();
 });
