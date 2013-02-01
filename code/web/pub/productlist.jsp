@@ -89,6 +89,10 @@ body {
 	*height: 793px; 
 	z-index: 0;
 }
+#categoryPagecontantLeft2 {
+	height:790px;
+	*height: 793px;
+}
 
 /*分类展示*/
 #product_category-show {
