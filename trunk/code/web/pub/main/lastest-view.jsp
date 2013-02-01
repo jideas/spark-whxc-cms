@@ -6,8 +6,6 @@
 		<style type="text/css">
 #categoryPagecontantLeft2 {
 	width: 218px;
-	height:790px;
-	*height: 793px;
 	border: #D9D9D9 solid 1px;
 }
 
