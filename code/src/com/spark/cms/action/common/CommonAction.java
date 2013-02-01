@@ -114,8 +114,8 @@ public class CommonAction extends BaseAction {
 	public String getGoodsList(String searchKey, int pageNumber, double priceBegin, double priceEnd, String sortType, String sortWay) {
 		try {
 			GetGoodsListKey key = new GetGoodsListKey();
-			key.setOffset((pageNumber - 1) * SearchConstant.PAGESIZE);
-			key.setPageSize(SearchConstant.PAGESIZE);
+			key.setOffset((pageNumber - 1) * 12);
+			key.setPageSize(12);
 			key.setPublished(true);
 			key.setSearchText(searchKey);
 			if (priceBegin >= 0) {
