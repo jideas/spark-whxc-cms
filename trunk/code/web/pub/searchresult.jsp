@@ -506,7 +506,8 @@ function SearchResultApp() {
 	
 	var renderData = function(resultData) {
 		if (resultData == null || resultData.length < 1) {
-			
+			$('.categoryPagecontantRight3').html("<div style='height:50px;line-height:50px;font-size:13px;'>抱歉，暂未搜索到相应商品！</div>");
+			return;
 		}
 		var html = "";
 		var columnCount = 4;
