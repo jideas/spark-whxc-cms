@@ -82,7 +82,8 @@ public class CardServiceImpl implements CardService {
 		hql.append("' ");
 		List<Object> params = new ArrayList<Object>();
 		String dateColumn = "createdate";
-		if (key.getStatus() == CardStatus.Created || key.getStatus() == CardStatus.Printed) {
+		if (key.getStatus() == CardStatus.Created
+				|| key.getStatus() == CardStatus.Printed) {
 			dateColumn = "createdate";
 		} else if (key.getStatus() == CardStatus.Actived) {
 			dateColumn = "activedate";
@@ -108,15 +109,19 @@ public class CardServiceImpl implements CardService {
 			hql.append(" t.amount= " + key.getAmount() + " ");
 		}
 		hql.append(" order by ");
-		hql.append(" t." + key.getSortField().getField() + " " + key.getSortType().name());
-		int count = Integer.parseInt(this.baseDAO.getGenericByHql("select count(t.recid) " + hql.toString(),
-				params.toArray()).get(0)
+		hql.append(" t." + key.getSortField().getField() + " "
+				+ key.getSortType().name());
+		int count = Integer.parseInt(this.baseDAO.getGenericByHql(
+				"select count(t.recid) " + hql.toString(), params.toArray())
+				.get(0)
 				+ "");
 		if (key.getPageSize() == 0) {
-			list = this.baseDAO.getGenericByHql(hql.toString(), params.toArray());
+			list = this.baseDAO.getGenericByHql(hql.toString(), params
+					.toArray());
 		} else {
-			list = this.baseDAO.getGenericByPosition(hql.toString(), (key.getOffset() - 1) * key.getPageSize(), key
-					.getPageSize(), params.toArray());
+			list = this.baseDAO.getGenericByPosition(hql.toString(), (key
+					.getOffset() - 1)
+					* key.getPageSize(), key.getPageSize(), params.toArray());
 		}
 		return new DataModel<CardVo>(BeanCopy.copys(CardVo.class, list), count);
 	}
@@ -128,7 +133,8 @@ public class CardServiceImpl implements CardService {
 	 */
 	@Override
 	public CardVo find(String recid) {
-		return BeanCopy.copy(CardVo.class, this.baseDAO.get(CardVo.class, GUID.valueOf(recid).toBytes()));
+		return BeanCopy.copy(CardVo.class, this.baseDAO.get(CardVo.class, GUID
+				.valueOf(recid).toBytes()));
 	}
 
 	/*
@@ -149,7 +155,8 @@ public class CardServiceImpl implements CardService {
 	 *      java.lang.String)
 	 */
 	@Override
-	public List<CardVo> createCards(double amount, int count, String secretKey, Date lastDate, Login login) {
+	public List<CardVo> createCards(double amount, int count, String secretKey,
+			Date lastDate, Login login) {
 		if (login == null) {
 			return null;
 		}
@@ -169,7 +176,8 @@ public class CardServiceImpl implements CardService {
 			e.printStackTrace();
 			return null;
 		}
-		String cardNo = sheetNumberService.exeGetSheetNumber(SheetNumberType.CardNumber, true);
+		String cardNo = sheetNumberService.exeGetSheetNumber(
+				SheetNumberType.CardNumber, true);
 		cardNo = cardNo.substring(9);
 		List<String> list = makeSixteenStr(count);
 		List<CardVo> volist = new ArrayList<CardVo>();
@@ -182,14 +190,16 @@ public class CardServiceImpl implements CardService {
 			vo.setCreatorid(login.getRecid());
 			vo.setLastDate(lastDate.getTime() + 24 * 3600000 - 1);
 			vo.setSecretkey(saveKey);
-			String sheetNo = sheetNumberService.exeGetSheetNumber(SheetNumberType.CardOrdinal, true);
+			String sheetNo = sheetNumberService.exeGetSheetNumber(
+					SheetNumberType.CardOrdinal, true);
 			vo.setOrdinal(sheetNo);
 			vo.setCardno(CMS.CardNoPrefix + cardNo + list.get(i));
 			try {
 				String pass = list.get(i + count);
-				System.err.println("面值卡卡号：" + vo.getCardno() + ",密码：" + pass);
-				vo.setPassword(EncryptionUtil.encryptAES(EncryptionUtil.encryptAES(pass, secretKey),
-						CMS.CommonSecretKey));
+				// System.err.println("面值卡卡号：" + vo.getCardno() + ",密码：" +
+				// pass);
+				vo.setPassword(EncryptionUtil.encryptAES(EncryptionUtil
+						.encryptAES(pass, secretKey), CMS.CommonSecretKey));
 			} catch (Exception e) {
 				e.printStackTrace();
 				return null;
@@ -271,7 +281,8 @@ public class CardServiceImpl implements CardService {
 		ss.append("'");
 		ss.append(CardStatus.Created.getCode());
 		ss.append("' or t.status='" + CardStatus.Printed.getCode() + "')");
-		int count = this.baseDAO.execteBulk(ss.toString(), GUID.valueOf(cardId).toBytes());
+		int count = this.baseDAO.execteBulk(ss.toString(), GUID.valueOf(cardId)
+				.toBytes());
 		if (count != 1) {
 			throw new ServiceMessage("部分数据不能删除，请检查！");
 		}
@@ -284,7 +295,8 @@ public class CardServiceImpl implements CardService {
 	 *      com.spark.cms.services.form.Login)
 	 */
 	@Override
-	public void exeActiveCards(List<String> cardIds, Login login) throws ServiceMessage {
+	public void exeActiveCards(List<String> cardIds, Login login)
+			throws ServiceMessage {
 		if (null == login) {
 			return;
 		}
@@ -331,7 +343,8 @@ public class CardServiceImpl implements CardService {
 	 *      List, com.spark.cms.services.form.Login)
 	 */
 	@Override
-	public void exeReActivingCards(List<String> cardIds, Login login) throws ServiceMessage {
+	public void exeReActivingCards(List<String> cardIds, Login login)
+			throws ServiceMessage {
 		List<Object> params = new ArrayList<Object>();
 		StringBuilder ss = new StringBuilder("update CardPo as t set");
 		ss.append(" status=");
@@ -375,7 +388,8 @@ public class CardServiceImpl implements CardService {
 	 *      com.spark.cms.services.form.Login)
 	 */
 	@Override
-	public void exePrintCards(List<String> cardIds, Login login) throws ServiceMessage {
+	public void exePrintCards(List<String> cardIds, Login login)
+			throws ServiceMessage {
 		StringBuilder ss = new StringBuilder("update CardPo as t set");
 		ss.append(" status=");
 		ss.append("'" + CardStatus.Printed.getCode() + "'");
@@ -410,8 +424,8 @@ public class CardServiceImpl implements CardService {
 	 *      List, java.lang.String, com.spark.cms.services.form.Login)
 	 */
 	@Override
-	public void exeDistributeCards(List<String> cardIds, String stationId, String personName, Login login)
-			throws ServiceMessage {
+	public void exeDistributeCards(List<String> cardIds, String stationId,
+			String personName, Login login) throws ServiceMessage {
 		if (null == login) {
 			return;
 		}
@@ -449,7 +463,8 @@ public class CardServiceImpl implements CardService {
 		ss.append("'");
 		ss.append(CardStatus.Actived.getCode());
 		ss.append("' or t.status ='" + CardStatus.Distributed.getCode() + "')");
-		int count = this.baseDAO.execteBulk(ss.toString(), params.toArray(new Object[params.size()]));
+		int count = this.baseDAO.execteBulk(ss.toString(), params
+				.toArray(new Object[params.size()]));
 		if (count != cardIds.size()) {
 			throw new ServiceMessage("部分数据操作失败，请检查！");
 		} else {
@@ -457,7 +472,8 @@ public class CardServiceImpl implements CardService {
 				CardDistributeLogPo dis = new CardDistributeLogPo();
 				dis.setCardid(GUID.valueOf(s).toBytes());
 				dis.setRecid(GUID.randomID().toBytes());
-				dis.setDistributepersonid(GUID.valueOf(login.getRecid()).toBytes());
+				dis.setDistributepersonid(GUID.valueOf(login.getRecid())
+						.toBytes());
 				dis.setDistributeperson(login.getName());
 				dis.setDistributedate(new Date());
 				dis.setResponsibleperson(personName);
@@ -470,7 +486,8 @@ public class CardServiceImpl implements CardService {
 		StringBuilder hql = new StringBuilder();
 		hql.append(" from CardPo as t");
 		hql.append(" where t.cardno=?");
-		List<CardPo> polist = this.baseDAO.getGenericByHql(hql.toString(), cardNo);
+		List<CardPo> polist = this.baseDAO.getGenericByHql(hql.toString(),
+				cardNo);
 		if (polist == null || polist.isEmpty()) {
 			return null;
 		}
@@ -486,7 +503,9 @@ public class CardServiceImpl implements CardService {
 		ss.append("useddate=?");
 		ss.append(",");
 		ss.append("usedperson=");
-		ss.append("'" + (CheckIsNull.isNotEmpty(login.getName()) ? login.getName() : login.getUsername()) + "'");
+		ss.append("'"
+				+ (CheckIsNull.isNotEmpty(login.getName()) ? login.getName()
+						: login.getUsername()) + "'");
 		ss.append(",usedpersonid=");
 		ss.append(" ? ");
 		ss.append(" where ");
@@ -501,8 +520,9 @@ public class CardServiceImpl implements CardService {
 		ss.append(CardStatus.Distributed.getCode());
 		ss.append("'");
 		ss.append(")");
-		int count = this.baseDAO.execteBulk(ss.toString(), new Date(), GUID.valueOf(login.getRecid()).toBytes(), GUID
-				.valueOf(vo.getRecid()).toBytes());
+		int count = this.baseDAO.execteBulk(ss.toString(), new Date(), GUID
+				.valueOf(login.getRecid()).toBytes(), GUID.valueOf(
+				vo.getRecid()).toBytes());
 		return count;
 	}
 
@@ -513,7 +533,8 @@ public class CardServiceImpl implements CardService {
 	 *      com.spark.cms.services.form.Login)
 	 */
 	@Override
-	public ServiceMessage exeUseCard(String cardNo, String password, Login login) throws ServiceMessage {
+	public ServiceMessage exeUseCard(String cardNo, String password, Login login)
+			throws ServiceMessage {
 		if (CheckIsNull.isEmpty(cardNo)) {
 			return new ServiceMessage(false, "卡号不可以为空！");
 		}
@@ -533,14 +554,16 @@ public class CardServiceImpl implements CardService {
 		}
 		String saveKey;
 		try {
-			saveKey = EncryptionUtil.decryptAES(vo.getSecretkey(), CMS.CommonSecretKey);
+			saveKey = EncryptionUtil.decryptAES(vo.getSecretkey(),
+					CMS.CommonSecretKey);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 		String dataPass = null;
 		try {
-			dataPass = EncryptionUtil.encryptAES(EncryptionUtil.encryptAES(password, saveKey), CMS.CommonSecretKey);
+			dataPass = EncryptionUtil.encryptAES(EncryptionUtil.encryptAES(
+					password, saveKey), CMS.CommonSecretKey);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -553,10 +576,14 @@ public class CardServiceImpl implements CardService {
 			throw new ServiceMessage("部分数据操作失败，请检查！");
 		} else {
 			doWriteDealing(vo, login);
-			CardPromotionVo pmt = this.cardPmtService.findByCardAmount(vo.getAmount());
-			MemberAccountVo balance = this.memberService.getMemberAccountVo(login.getRecid());
+			CardPromotionVo pmt = this.cardPmtService.findByCardAmount(vo
+					.getAmount());
+			MemberAccountVo balance = this.memberService
+					.getMemberAccountVo(login.getRecid());
 			if (null == pmt) {
-				return new ServiceMessage(true, "充值成功，您的余额为：" + DoubleUtil.getRoundStr(balance.getMoneybalance()) + "元。");
+				return new ServiceMessage(true, "充值成功，您的余额为："
+						+ DoubleUtil.getRoundStr(balance.getMoneybalance())
+						+ "元。");
 			}
 			if (pmt.getVantages() > 0) {
 				doWriteVtg(vo, login, pmt.getVantages());
@@ -566,8 +593,10 @@ public class CardServiceImpl implements CardService {
 				doWriteGift(vo, login, pmt);
 			}
 			balance = this.memberService.getMemberAccountVo(login.getRecid());
-			return new ServiceMessage(true, "充值成功，您的余额为：" + DoubleUtil.getRoundStr(balance.getMoneybalance())
-					+ "元,积分余额：" + DoubleUtil.getRoundStr(balance.getVantages(), 0) + "分。");
+			return new ServiceMessage(true, "充值成功，您的余额为："
+					+ DoubleUtil.getRoundStr(balance.getMoneybalance())
+					+ "元,积分余额："
+					+ DoubleUtil.getRoundStr(balance.getVantages(), 0) + "分。");
 		}
 
 	}
@@ -577,7 +606,8 @@ public class CardServiceImpl implements CardService {
 	 * @param login
 	 * @throws ServiceMessage
 	 */
-	private void doWriteDealingPmt(CardVo vo, CardPromotionVo pmt, Login login) throws ServiceMessage {
+	private void doWriteDealingPmt(CardVo vo, CardPromotionVo pmt, Login login)
+			throws ServiceMessage {
 		MemberDealingVo deal = new MemberDealingVo();
 		deal.setRecid(GUID.randomID().toString());
 		deal.setAmount(pmt.getExtraAmount());
@@ -610,7 +640,8 @@ public class CardServiceImpl implements CardService {
 	 * 
 	 * @throws ServiceMessage
 	 */
-	private void doWriteVtg(CardVo vo, Login login, double vantages) throws ServiceMessage {
+	private void doWriteVtg(CardVo vo, Login login, double vantages)
+			throws ServiceMessage {
 		MemberVantagesVo vtg = new MemberVantagesVo();
 		vtg.setRecid(GUID.randomID().toString());
 		vtg.setMemberid(login.getRecid());
@@ -666,7 +697,8 @@ public class CardServiceImpl implements CardService {
 		ss.append("'");
 		ss.append(CardStatus.Created.getCode());
 		ss.append("'");
-		int count = this.baseDAO.execteBulk(ss.toString(), new Date(), GUID.valueOf(cardId).toBytes());
+		int count = this.baseDAO.execteBulk(ss.toString(), new Date(), GUID
+				.valueOf(cardId).toBytes());
 		if (count != 1) {
 			throw new ServiceMessage("部分数据操作失败，请检查！");
 		}
@@ -697,15 +729,17 @@ public class CardServiceImpl implements CardService {
 		}
 		hql.append(")");
 		hql.append(" order by t.cardno");
-		List<CardPo> polist = this.baseDAO.getGenericByHql(hql.toString(), params.toArray());
+		List<CardPo> polist = this.baseDAO.getGenericByHql(hql.toString(),
+				params.toArray());
 		List<CardVo> volist = BeanCopy.copys(CardVo.class, polist);
 		for (int i = 0; i < volist.size(); i++) {
 			CardVo vo = volist.get(i);
 			String password = vo.getPassword();
 			try {
-				password = EncryptionUtil.decryptAES(password, CMS.CommonSecretKey);
-				password = EncryptionUtil.decryptAES(password, EncryptionUtil.decryptAES(vo.getSecretkey(),
-						CMS.CommonSecretKey));
+				password = EncryptionUtil.decryptAES(password,
+						CMS.CommonSecretKey);
+				password = EncryptionUtil.decryptAES(password, EncryptionUtil
+						.decryptAES(vo.getSecretkey(), CMS.CommonSecretKey));
 				vo.setPassword(password);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -731,7 +765,8 @@ public class CardServiceImpl implements CardService {
 		password = EncryptionUtil.encryptAES(password, vo.getSecretkey());
 		password = EncryptionUtil.encryptAES(password, CMS.CommonSecretKey);
 		vo.setPassword(password);
-		vo.setSecretkey(EncryptionUtil.encryptAES(vo.getSecretkey(), CMS.CommonSecretKey));
+		vo.setSecretkey(EncryptionUtil.encryptAES(vo.getSecretkey(),
+				CMS.CommonSecretKey));
 		vo.setStatus(CardStatus.Distributed.getCode());
 		this.baseDAO.save(BeanCopy.copy(CardPo.class, vo));
 	}
