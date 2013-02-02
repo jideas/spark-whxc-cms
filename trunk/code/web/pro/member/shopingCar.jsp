@@ -160,7 +160,7 @@
 							</div>
 							<div class="list-column-checkbox-img">
 								<img style="border:#DEDEDE 0.5px solid;" width="50px" height="50px"
-									src="<%=basePath%>/<%=goods.getMiniPicturePath()%>"></img>
+									src="<%=basePath%><%=goods.getMiniPicturePath()%>"></img>
 							</div>
 						</div>
 						<div class="list-column-goods">
