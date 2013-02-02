@@ -12,7 +12,7 @@ com.spark.cms.services.channel.ChannelService channelService = com.spark.front.m
 <body>
 	<div class="header">
 		<div class="logo">
-			<a href="<%=basePath%>"><img src="<%=basePath%>/images/page/logo.png" alt="返回7号生活馆首页" /></a>
+			<a href="<%=basePath%>/"><img src="<%=basePath%>/images/page/logo.png" alt="返回7号生活馆首页" /></a>
 		</div>
 		<div class="logo1">
 			<img src="<%=basePath%>/images/page/index-top-pic.png" />
