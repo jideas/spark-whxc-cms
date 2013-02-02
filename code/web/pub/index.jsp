@@ -373,7 +373,7 @@ function ShowShoppingCarDetail() {
 				for (var index = 0; index < data.length; index++) {
 					html += "<tr id='shpcar_row-" + data[index].goodsId + "' onmouseover='caddy_tr_over(this)' onmouseout='caddy_tr_out(this)'>";
 					html += "<td class='cardShop_img'>";
-					html += "	<img style='width:50px;height:50px;' src=" + basePath + "/" + data[index].miniPicturePath + " />";
+					html += "	<img style='width:50px;height:50px;' src=" + mainWeb + data[index].miniPicturePath + " />";
 					html += "</td>";
 					html += "<td class='carShop_direction'>";
 					html += "	<a href='" + mainWeb + "/front/toGoodsInfoPage?id=" + data[index].goodsId  + "'> " + data[index].goodsName + "(" + data[index].spec + ")" + "</a>";
