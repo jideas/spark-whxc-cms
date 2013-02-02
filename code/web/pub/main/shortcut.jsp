@@ -103,7 +103,7 @@ function toOrderCenter()
 				<div class="cutkey">
 					<ul>
 						<li>
-							<span style="width: 40px;"><a href="<%=basePath%>">首页</a></span><span style="width: 60px;"><a href="javascript:void(0)"
+							<span style="width: 40px;"><a href="<%=basePath%>/">首页</a></span><span style="width: 60px;"><a href="javascript:void(0)"
 								onclick="toOrderCenter()" style="vertical-align: baseline;zoom:1;">我的7号</a></span>
 							<span><img
 									src="<%=basePath%>/images/page/page_top_gift.png"
