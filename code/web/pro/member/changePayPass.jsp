@@ -580,7 +580,7 @@ function ChangePasswordApp() {
 									<div
 										style="display: inline; float: left; line-height: 20px; margin-top: 10px;">
 										<font color="black" style="font-size: 12px;">&nbsp;&nbsp;修改支付密码已完成，您可以</font>&nbsp;
-										<a href="<%=basePath%>" style="font-size: 12px; color: blue">去购物</a>
+										<a href="<%=basePath%>/" style="font-size: 12px; color: blue">去购物</a>
 										<font color="black" style="font-size: 12px;">&nbsp;啦。</font>
 										&nbsp;&nbsp;
 									</div>
