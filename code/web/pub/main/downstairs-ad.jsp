@@ -18,12 +18,10 @@
 }
 
 #downstairs-ad div.downstairs-ad-first {
-	width: 895px;
 	float: left;
 }
 
 #downstairs-ad div.downstairs-ad-last {
-	width: 305px;
 	float: right;
 }
 </style>
@@ -31,8 +29,8 @@
 $(function(){ 
 	$.post(mainWeb+'/front/getDownStairImages',function(result){
 		if(result.result){
-			$('#downstair-ad01').html('<a target="_blank" href="'+result.returnObj[2]+'"><img height="107px" width="895" src="'+mainWeb+result.returnObj[0]+'" /></a>');
-			$('#downstair-ad02').html('<a target="_blank" href="'+result.returnObj[3]+'"><img height="107px" width="305" src="'+mainWeb+result.returnObj[1]+'" /></a>');
+			$('#downstair-ad01').html('<a target="_blank" href="'+result.returnObj[2]+'"><img height="107px" src="'+mainWeb+result.returnObj[0]+'" /></a>');
+			$('#downstair-ad02').html('<a target="_blank" href="'+result.returnObj[3]+'"><img height="107px" src="'+mainWeb+result.returnObj[1]+'" /></a>');
 		}else{
 			$('#downstairs-ad').hide();
 		}
