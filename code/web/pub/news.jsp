@@ -275,7 +275,7 @@ function loadNewsList(channelId,_this){
 				<jsp:include page="/pub/common/productlistmenu.jsp" flush="true" />
 			</div>
 			<div id="product_hot-sale">
-				您的位置：<a href="<%=basePath%>" target="_blank">首页</a>
+				您的位置：<a href="<%=basePath%>/" target="_blank">首页</a>
 					<span>&gt;</span>
 					<span class="content_tip"><a href='javascript:void(0)' onClick='loadNewsList("<%=request.getAttribute("channelId")%>",this)'><%=request.getAttribute("channelTitle")%></a></span>
 					<span>&gt;</span>
