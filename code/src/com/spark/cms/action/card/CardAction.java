@@ -68,9 +68,11 @@ public class CardAction extends BaseAction {
 	 */
 	@RequestMapping("/card/importCard")
 	@ResponseBody
-	public ResponseEntity<String> importCard(HttpServletRequest request, HttpServletResponse response) throws ServiceMessage {
+	public ResponseEntity<String> importCard(HttpServletRequest request,
+			HttpServletResponse response) throws ServiceMessage {
 		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
-		Map<String, MultipartFile> multipartFileMap = multipartHttpServletRequest.getFileMap();
+		Map<String, MultipartFile> multipartFileMap = multipartHttpServletRequest
+				.getFileMap();
 		MultipartFile excel = multipartFileMap.get("excel");
 
 		ExcelReadHelper reader = new ExcelReadHelper();
@@ -86,16 +88,30 @@ public class CardAction extends BaseAction {
 		}
 		int count = 0;
 		for (String[] array : reader.getData()) {
-			if (CmsString.isEmpty(array[0]) || CmsString.isEmpty(array[1]) || CmsString.isEmpty(array[2])
-					|| CmsString.isEmpty(array[3]) || CmsString.isEmpty(array[4])) {
+			if (CmsString.isEmpty(array[0]) || CmsString.isEmpty(array[1])
+					|| CmsString.isEmpty(array[2])
+					|| CmsString.isEmpty(array[3])
+					|| CmsString.isEmpty(array[4])) {
 				continue;
 			}
 			CardVo vo = new CardVo();
-			vo.setOrdinal(DoubleUtil.getRoundStrWithOutQfw(DoubleUtil.strToDouble(array[0], 0), 0));
-			vo.setCardno(DoubleUtil.getRoundStrWithOutQfw(DoubleUtil.strToDouble(array[1], 0), 0));
-			vo.setPassword(DoubleUtil.getRoundStrWithOutQfw(DoubleUtil.strToDouble(array[2], 0), 0));
+			vo.setOrdinal(DoubleUtil.getRoundStrWithOutQfw(DoubleUtil
+					.strToDouble(array[0], 0), 0));
+			try {
+				vo.setCardno(DoubleUtil.getRoundStrWithOutQfw(DoubleUtil
+						.strToDouble(array[1], 0), 0));
+			} catch (Exception e) {
+				vo.setCardno(array[1]);
+			}
+			try {
+				vo.setPassword(DoubleUtil.getRoundStrWithOutQfw(DoubleUtil
+						.strToDouble(array[2], 0), 0));
+			} catch (Exception e) {
+				vo.setPassword(array[2]);
+			}
 			vo.setAmount(DoubleUtil.strToDouble(array[3]));
-			vo.setLastDate(DateUtil.convertStringToDate(array[4] + " 23:59:59", DateUtil.DATE_TIME_PATTERN2).getTime());
+			vo.setLastDate(DateUtil.convertStringToDate(array[4] + " 23:59:59",
+					DateUtil.DATE_TIME_PATTERN2).getTime());
 			try {
 				this.cardService.exeImportExcel(vo);
 				count++;
@@ -115,11 +131,13 @@ public class CardAction extends BaseAction {
 			@RequestParam(value = "ids[]", required = true)
 			String[] ids) {
 		try {
-			Login login = new Login((UserExtForm) session.getAttribute(Constant.LoginAdminUser));
+			Login login = new Login((UserExtForm) session
+					.getAttribute(Constant.LoginAdminUser));
 			if (null == login || CheckIsNull.isEmpty(login.getRecid())) {
 				return new ServiceMessage(false, "请先登录！").getMessageModel();
 			}
-			List<CardVo> list = this.cardService.getVoListPrintingByIds(ArrayUtils.arrayToList(ids));
+			List<CardVo> list = this.cardService
+					.getVoListPrintingByIds(ArrayUtils.arrayToList(ids));
 			return new ServiceMessage(true, "", list).getMessageModel();
 		} catch (Throwable e) {
 			log.error("批量印发面值卡发生异常====" + e.getStackTrace());
@@ -132,13 +150,16 @@ public class CardAction extends BaseAction {
 	 */
 	@RequestMapping("/card/batchPrint")
 	@ResponseBody
-	public ResponseEntity<MessageModel> batchPrint(HttpSession session, @RequestParam(value = "ids[]", required = true)
-	String[] ids) {
+	public ResponseEntity<MessageModel> batchPrint(HttpSession session,
+			@RequestParam(value = "ids[]", required = true)
+			String[] ids) {
 		try {
-			Login login = new Login((UserExtForm) session.getAttribute(Constant.LoginAdminUser));
+			Login login = new Login((UserExtForm) session
+					.getAttribute(Constant.LoginAdminUser));
 			// TODO 这里添加打印的程序，最好下面的代码移到打印service
 			try {
-				this.cardService.exePrintCards(ArrayUtils.arrayToList(ids), login);
+				this.cardService.exePrintCards(ArrayUtils.arrayToList(ids),
+						login);
 			} catch (ServiceMessage e) {
 				return e.getMessageModel();
 			}
@@ -157,12 +178,16 @@ public class CardAction extends BaseAction {
 	public ResponseEntity<MessageModel> batchDistribute(HttpSession session,
 			@RequestParam(value = "ids[]", required = true)
 			String[] ids, @RequestParam(value = "stationId", required = true)
-			String stationId, @RequestParam(value = "personName", required = true)
+			String stationId,
+			@RequestParam(value = "personName", required = true)
 			String personName) {
 		try {
-			Login login = new Login((UserExtForm) session.getAttribute(Constant.LoginAdminUser));
+			Login login = new Login((UserExtForm) session
+					.getAttribute(Constant.LoginAdminUser));
 			try {
-				this.cardService.exeDistributeCards(ArrayUtils.arrayToList(ids), stationId, personName, login);
+				this.cardService.exeDistributeCards(
+						ArrayUtils.arrayToList(ids), stationId, personName,
+						login);
 			} catch (ServiceMessage e) {
 				e.printStackTrace();
 				return e.getMessageModel();
@@ -194,14 +219,18 @@ public class CardAction extends BaseAction {
 	 */
 	@RequestMapping("/card/addCard")
 	@ResponseBody
-	public ResponseEntity<MessageModel> createCard(HttpSession session, CreateCardForm form) {
+	public ResponseEntity<MessageModel> createCard(HttpSession session,
+			CreateCardForm form) {
 		try {
-			Login login = new Login((UserExtForm) session.getAttribute(Constant.LoginAdminUser));
+			Login login = new Login((UserExtForm) session
+					.getAttribute(Constant.LoginAdminUser));
 			Date lastDate = DateUtil.convertStringToDate(form.getLastDate());
 			if (lastDate.getTime() < new Date().getTime()) {
-				return new ServiceMessage(false, "有效期截至日期不能早于今天！").getMessageModel();
+				return new ServiceMessage(false, "有效期截至日期不能早于今天！")
+						.getMessageModel();
 			}
-			cardService.createCards(form.getAmount(), form.getCount(), form.getSecretKey(), lastDate, login);
+			cardService.createCards(form.getAmount(), form.getCount(), form
+					.getSecretKey(), lastDate, login);
 			return ResponseEntityUtil.getResponseEntity(Success);
 		} catch (Throwable e) {
 			log.error("新增面值卡发生异常====" + e.getStackTrace());
@@ -214,10 +243,12 @@ public class CardAction extends BaseAction {
 	 */
 	@RequestMapping("/card/cancelCard")
 	@ResponseBody
-	public ResponseEntity<MessageModel> cancelCard(HttpSession session, @RequestParam(value = "id", required = true)
-	String id) {
+	public ResponseEntity<MessageModel> cancelCard(HttpSession session,
+			@RequestParam(value = "id", required = true)
+			String id) {
 		try {
-			Login login = new Login((UserExtForm) session.getAttribute(Constant.LoginAdminUser));
+			Login login = new Login((UserExtForm) session
+					.getAttribute(Constant.LoginAdminUser));
 			cardService.exeStopCard(id, login);
 			return ResponseEntityUtil.getResponseEntity(Success);
 		} catch (Throwable e) {
@@ -231,8 +262,9 @@ public class CardAction extends BaseAction {
 	 */
 	@RequestMapping("/card/deleteCard")
 	@ResponseBody
-	public ResponseEntity<MessageModel> deleteCard(@RequestParam(value = "id", required = true)
-	String id) {
+	public ResponseEntity<MessageModel> deleteCard(
+			@RequestParam(value = "id", required = true)
+			String id) {
 		try {
 			cardService.delete(id);
 			return ResponseEntityUtil.getResponseEntity(Success);
@@ -250,7 +282,8 @@ public class CardAction extends BaseAction {
 	@RequestMapping("/card/getAmountList")
 	@ResponseBody
 	public List<DicItem> getAmountList() {
-		List<DicItem> list = SparkDictionaryManager.getDicItemsList(DictionaryType.CardAmount);
+		List<DicItem> list = SparkDictionaryManager
+				.getDicItemsList(DictionaryType.CardAmount);
 		return list;
 	}
 
@@ -262,7 +295,8 @@ public class CardAction extends BaseAction {
 	@RequestMapping("/card/getAmountSelectList")
 	@ResponseBody
 	public List<DicItem> getAmountSelectList() {
-		List<DicItem> list = SparkDictionaryManager.getDicItemsList(DictionaryType.CardAmount);
+		List<DicItem> list = SparkDictionaryManager
+				.getDicItemsList(DictionaryType.CardAmount);
 		list.add(0, new DicItem("0", "全部"));
 		return list;
 	}
@@ -274,13 +308,17 @@ public class CardAction extends BaseAction {
 	 */
 	@RequestMapping("/card/getDistributedList")
 	@ResponseBody
-	public DataModel<CardShowForm> getDistributedList(@RequestParam(value = "cardType", required = false)
-	String cardType, @RequestParam(value = "beginDate", required = false)
-	String beginDate, @RequestParam(value = "endDate", required = false)
-	String endDate, @RequestParam(value = "page", required = false)
-	String page, @RequestParam(value = "rows", required = false)
-	String rows) {
-		return getList(cardType, beginDate, endDate, page, rows, CardStatus.Distributed);
+	public DataModel<CardShowForm> getDistributedList(
+			@RequestParam(value = "cardType", required = false)
+			String cardType,
+			@RequestParam(value = "beginDate", required = false)
+			String beginDate,
+			@RequestParam(value = "endDate", required = false)
+			String endDate, @RequestParam(value = "page", required = false)
+			String page, @RequestParam(value = "rows", required = false)
+			String rows) {
+		return getList(cardType, beginDate, endDate, page, rows,
+				CardStatus.Distributed);
 	}
 
 	/**
@@ -290,13 +328,17 @@ public class CardAction extends BaseAction {
 	 */
 	@RequestMapping("/card/getUsedList")
 	@ResponseBody
-	public DataModel<CardShowForm> getUsedList(@RequestParam(value = "cardType", required = false)
-	String cardType, @RequestParam(value = "beginDate", required = false)
-	String beginDate, @RequestParam(value = "endDate", required = false)
-	String endDate, @RequestParam(value = "page", required = false)
-	String page, @RequestParam(value = "rows", required = false)
-	String rows) {
-		return getList(cardType, beginDate, endDate, page, rows, CardStatus.Used);
+	public DataModel<CardShowForm> getUsedList(
+			@RequestParam(value = "cardType", required = false)
+			String cardType,
+			@RequestParam(value = "beginDate", required = false)
+			String beginDate,
+			@RequestParam(value = "endDate", required = false)
+			String endDate, @RequestParam(value = "page", required = false)
+			String page, @RequestParam(value = "rows", required = false)
+			String rows) {
+		return getList(cardType, beginDate, endDate, page, rows,
+				CardStatus.Used);
 	}
 
 	/**
@@ -306,13 +348,17 @@ public class CardAction extends BaseAction {
 	 */
 	@RequestMapping("/card/getStopedList")
 	@ResponseBody
-	public DataModel<CardShowForm> getStopedList(@RequestParam(value = "cardType", required = false)
-	String cardType, @RequestParam(value = "beginDate", required = false)
-	String beginDate, @RequestParam(value = "endDate", required = false)
-	String endDate, @RequestParam(value = "page", required = false)
-	String page, @RequestParam(value = "rows", required = false)
-	String rows) {
-		return getList(cardType, beginDate, endDate, page, rows, CardStatus.Canceled);
+	public DataModel<CardShowForm> getStopedList(
+			@RequestParam(value = "cardType", required = false)
+			String cardType,
+			@RequestParam(value = "beginDate", required = false)
+			String beginDate,
+			@RequestParam(value = "endDate", required = false)
+			String endDate, @RequestParam(value = "page", required = false)
+			String page, @RequestParam(value = "rows", required = false)
+			String rows) {
+		return getList(cardType, beginDate, endDate, page, rows,
+				CardStatus.Canceled);
 	}
 
 	/**
@@ -322,13 +368,17 @@ public class CardAction extends BaseAction {
 	 */
 	@RequestMapping("/card/getActivedList")
 	@ResponseBody
-	public DataModel<CardShowForm> getActivedList(@RequestParam(value = "cardType", required = false)
-	String cardType, @RequestParam(value = "beginDate", required = false)
-	String beginDate, @RequestParam(value = "endDate", required = false)
-	String endDate, @RequestParam(value = "page", required = false)
-	String page, @RequestParam(value = "rows", required = false)
-	String rows) {
-		return getList(cardType, beginDate, endDate, page, rows, CardStatus.Actived);
+	public DataModel<CardShowForm> getActivedList(
+			@RequestParam(value = "cardType", required = false)
+			String cardType,
+			@RequestParam(value = "beginDate", required = false)
+			String beginDate,
+			@RequestParam(value = "endDate", required = false)
+			String endDate, @RequestParam(value = "page", required = false)
+			String page, @RequestParam(value = "rows", required = false)
+			String rows) {
+		return getList(cardType, beginDate, endDate, page, rows,
+				CardStatus.Actived);
 	}
 
 	/**
@@ -338,13 +388,17 @@ public class CardAction extends BaseAction {
 	 */
 	@RequestMapping("/card/getPrintedList")
 	@ResponseBody
-	public DataModel<CardShowForm> getPrintedList(@RequestParam(value = "cardType", required = false)
-	String cardType, @RequestParam(value = "beginDate", required = false)
-	String beginDate, @RequestParam(value = "endDate", required = false)
-	String endDate, @RequestParam(value = "page", required = false)
-	String page, @RequestParam(value = "rows", required = false)
-	String rows) {
-		return getList(cardType, beginDate, endDate, page, rows, CardStatus.Printed);
+	public DataModel<CardShowForm> getPrintedList(
+			@RequestParam(value = "cardType", required = false)
+			String cardType,
+			@RequestParam(value = "beginDate", required = false)
+			String beginDate,
+			@RequestParam(value = "endDate", required = false)
+			String endDate, @RequestParam(value = "page", required = false)
+			String page, @RequestParam(value = "rows", required = false)
+			String rows) {
+		return getList(cardType, beginDate, endDate, page, rows,
+				CardStatus.Printed);
 	}
 
 	/**
@@ -354,17 +408,21 @@ public class CardAction extends BaseAction {
 	 */
 	@RequestMapping("/card/getNewList")
 	@ResponseBody
-	public DataModel<CardShowForm> getNewList(@RequestParam(value = "cardType", required = false)
-	String cardType, @RequestParam(value = "beginDate", required = false)
-	String beginDate, @RequestParam(value = "endDate", required = false)
-	String endDate, @RequestParam(value = "page", required = false)
-	String page, @RequestParam(value = "rows", required = false)
-	String rows) {
-		return getList(cardType, beginDate, endDate, page, rows, CardStatus.Created);
+	public DataModel<CardShowForm> getNewList(
+			@RequestParam(value = "cardType", required = false)
+			String cardType,
+			@RequestParam(value = "beginDate", required = false)
+			String beginDate,
+			@RequestParam(value = "endDate", required = false)
+			String endDate, @RequestParam(value = "page", required = false)
+			String page, @RequestParam(value = "rows", required = false)
+			String rows) {
+		return getList(cardType, beginDate, endDate, page, rows,
+				CardStatus.Created);
 	}
 
-	private DataModel<CardShowForm> getList(String cardType, String beginDate, String endDate, String page,
-			String rows, CardStatus status) {
+	private DataModel<CardShowForm> getList(String cardType, String beginDate,
+			String endDate, String page, String rows, CardStatus status) {
 		GetCardListKey key = new GetCardListKey();
 		key.setStatus(status);
 		key.setPageSize(Integer.valueOf(rows));
@@ -403,7 +461,8 @@ public class CardAction extends BaseAction {
 			@RequestParam(value = "ids[]", required = true)
 			String[] ids) {
 		try {
-			Login login = new Login((UserExtForm) session.getAttribute(Constant.LoginAdminUser));
+			Login login = new Login((UserExtForm) session
+					.getAttribute(Constant.LoginAdminUser));
 			List<String> list = new ArrayList<String>();
 			for (String id : ids) {
 				list.add(id);
@@ -430,7 +489,8 @@ public class CardAction extends BaseAction {
 			@RequestParam(value = "ids[]", required = true)
 			String[] ids) {
 		try {
-			Login login = new Login((UserExtForm) session.getAttribute(Constant.LoginAdminUser));
+			Login login = new Login((UserExtForm) session
+					.getAttribute(Constant.LoginAdminUser));
 			List<String> list = new ArrayList<String>();
 			for (String id : ids) {
 				list.add(id);

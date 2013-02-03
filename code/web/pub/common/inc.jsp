@@ -7,6 +7,8 @@
 	String GoodsSplitRegex = com.spark.front.utils.FrontConstant.GoodsSplitRegex;
 	String ShopingCarGoodsCookieName = com.spark.front.utils.FrontConstant.ShopingCarGoodsCookieName;
 	String ShopingCarVantagesGoodsCookieName = com.spark.front.utils.FrontConstant.ShopingCarVantagesGoodsCookieName;
+	
+	basePath = webURLContext;
 %>
 <script type="text/javascript">
   var mainWeb = "<%=basePath%>";
