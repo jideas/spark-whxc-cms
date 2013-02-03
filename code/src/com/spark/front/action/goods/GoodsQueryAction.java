@@ -69,7 +69,7 @@ public class GoodsQueryAction extends BaseAction {
 					price = (DoubleUtil.getRoundStr(DoubleUtil.mul(form.getRealprice(), pmt.getDisrate())));
 				}
 				gflist.add(GoodsHtmlHelper.getSmallGoodsHtml(id, form.getPicturepath2(), form.getGoodsname(), form.getGoodsspec(),
-						price, request.getContextPath()));
+						price,form.getGoodsunit(), request.getContextPath()));
 			}
 			return new ServiceMessage(true, "ур╣╫ак", gflist).getMessageModel();
 		} catch (Throwable e) {

@@ -51,11 +51,11 @@ public class MenuGen {
 	}
 	
 	private static String getMenuItemBegin(String path){
-		return "<ul><li id='" + MainMenu.home.name() + "'><a href=\"" + path + "\">首页</a></li>";
+		return "<ul><li id='" + MainMenu.home.name() + "'><a href=\"" + path + "/\">首页</a></li>";
 	}
 	
 	private static String getMenuItemBeginIndex(String path){
-		return "<ul><li class=\"current\" id='" + MainMenu.home.name() + "'><a href=\"" + path + "\">首页</a></li>";
+		return "<ul><li class=\"current\" id='" + MainMenu.home.name() + "'><a href=\"" + path + "/\">首页</a></li>";
 	}
 	private static String getMenuItemEnd(){
 		return "</ul>";

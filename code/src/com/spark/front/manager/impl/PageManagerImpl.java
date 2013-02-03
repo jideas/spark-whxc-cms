@@ -332,7 +332,7 @@ public class PageManagerImpl implements PageManager {
 			}
 			str += GoodsHtmlHelper.getItemBeginOrEnd(true);
 			str += GoodsHtmlHelper.getSmallGoodsHtml(goodsVo.getRecid(), imgsrc, goodsVo.getGoodsname(), goodsVo
-					.getGoodsspec(), String.valueOf(goodsVo.getRealprice()), path);
+					.getGoodsspec(), String.valueOf(goodsVo.getRealprice()),goodsVo.getGoodsunit(), path);
 			str += GoodsHtmlHelper.getItemBeginOrEnd(false);
 		}
 		str += "</div>";
