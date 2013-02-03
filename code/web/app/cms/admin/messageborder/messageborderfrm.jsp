@@ -8,6 +8,12 @@
 	</head>
 	<body>
 		<!-- begin of 留言列表 -->
+		<div id="messagebordrerFilterToolbar" style="height: 23px;line-height: 23px;padding-top: 3px;padding-left: 5px;">
+			<select id="messageborderfilterSelect" class="easyui-combobox" style="width: 100px;">
+				<option value="-1">全部</option>
+				<option value="0">未回复</option>
+				<option value="1">已回复</option>
+			</select></div>
 		<table id="messageborderDatagrid">
 		</table>
 		<!-- end of 留言列表 -->
@@ -50,6 +56,14 @@ $(function(){
 		$(msgcontentDialogDebug[i]).dialog("destroy");
 	}
 	
+	//初始化
+	$("select#messageborderfilterSelect").combobox({
+		onSelect:function(record){
+			//加载发布商品
+			messageborderAction.reload();
+		}
+	});
+	
 	//初始化 --> 定义留言列表列
 	$('#messageborderDatagrid').datagrid({
 		remoteSort:false,
@@ -59,16 +73,17 @@ $(function(){
 		rownumbers:true,
 		fitColumns:true,
 		singleSelect:true,
+		toolbar:"#messagebordrerFilterToolbar",
 		pagination:true,
 		url:"<%=mainWeb%>/admin/messageborder/getMessageborderList",
 		columns:[[
 			{field:'msgcreator',title:'留言人',width:100,align:'center',sortable:true},
 			{field:'msgcontent',title:'留言内容',width:300,align:'center',sortable:true,
 				formatter:function(value,rec){
-					if(value.length > 15){
-						return "<span title='"+value+"'>"+value.substring(0,15)+"..."+"</span>";
+					if(value != null && value.length > 40){
+						return "<span title='"+value+"'>"+value.substring(0,40)+"..."+"</span>";
 					}else{
-						return value;
+						return "<span>"+value+"</span>";
 					}
 				}
 			},
@@ -81,7 +96,7 @@ $(function(){
 						return "<span sytle='color:#F00;'>已回复</span>";
 					}
 				}
-			},				
+			},
 			{field:'recid',title:'操作',width:75,align:'center',sortable:true,
 				formatter:function(value,rec){
 					var view = "<a href='#' class='operateChannel' onClick=messageborderAction.viewMsg('"+value+"','"+rec.msgcreator+"','"+rec.msgcontent+"')>查看</a>";
@@ -148,9 +163,10 @@ $(function(){
 				  complete: function(data) {
 				  	$.messager.alert('提示','留言修改成功!','info');
 				  	$("#msgcontentDialog").dialog("close");
-				    $('#messageborderDatagrid').datagrid('reload');
+				   	//加载发布商品
+					messageborderAction.reload();
 				  }
-			}); 
+			});
 		}
 		
 		//回复
@@ -166,7 +182,8 @@ $(function(){
 				  complete: function(data) {
 				  	$.messager.alert('提示','留言回复成功!','info');
 				  	$("#msgcontentDialog").dialog("close");
-				    $('#messageborderDatagrid').datagrid('reload');
+				   	//加载发布商品
+					messageborderAction.reload();
 				  }
 			}); 
 		}
@@ -179,11 +196,22 @@ $(function(){
 						  url: '<%=mainWeb%>/admin/messageborder/deleteMsg',
 						  data:{recid:recid},
 						  complete: function(data) {
-						    $('#messageborderDatagrid').datagrid('reload');
+							//加载发布商品
+							messageborderAction.reload();					
 						  }
 					});  
 		      	}
 	      	});
+		}
+		
+		//重新加载数据
+		this.reload = function(){ debugger;
+			//加载发布商品
+			var filter = $("#messageborderfilterSelect").combobox("getValue");
+			$('#messageborderDatagrid').datagrid('loadData', { total: 0, rows: [] });
+			$("#messageborderDatagrid").datagrid('reload',{
+				filter:filter
+			});
 		}
 	}
 });

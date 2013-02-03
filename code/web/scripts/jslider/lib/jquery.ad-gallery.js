@@ -673,13 +673,13 @@
         /*自定义开始*/
         var img_links = [
         	'http://www.yc777.com.cn',
-        	'http://www.chinavegetable.com.cn',
         	'http://www.yc777.com.cn',
-        	'http://www.chinavegetable.com.cn',
         	'http://www.yc777.com.cn',
-        	'http://www.chinavegetable.com.cn',
         	'http://www.yc777.com.cn',
-        	'http://www.chinavegetable.com.cn'
+        	'http://www.yc777.com.cn',
+        	'http://www.yc777.com.cn',
+        	'http://www.yc777.com.cn',
+        	'http://www.yc777.com.cn'
         	];
         var link = $('<a href="'+ img_links[index] +'" target="_blank"></a>');
         link.append(img);

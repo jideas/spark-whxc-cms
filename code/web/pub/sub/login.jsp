@@ -71,10 +71,10 @@ body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,table,th,td,blockquote,field
 			<div id="loginContent">
 				<jsp:include page='/pro/member/login.jsp?url=<%=obj%>' flush="true" />
 			</div>
-			<div id="serviceFloors">
+			<div id="serviceFloors" style="background-color: #F00;">
 				<jsp:include page="/pub/main/service.jsp" flush="true" />
 			</div>
-			<div id="copyRight">
+			<div id="copyRight" style="background-color: #0F0;">
 				<jsp:include page="/pub/main/copyRight.jsp" flush="true" />
 			</div>
 		</div>
