@@ -4,7 +4,9 @@
 <%@page import="com.spark.cms.services.form.UserExtForm"%>
 <%
   request.setCharacterEncoding("GBK");
-  String mainWeb = request.getContextPath();
+  String mainWeb = request.getScheme() + "://"
+	+ request.getServerName() + ":" + request.getServerPort()
+	+ request.getContextPath();
   String jqueryUIPath = mainWeb+"/scripts/jqueryui";
  
   UserExtForm user = (UserExtForm)request.getSession().getAttribute(Constant.LoginAdminUser);
