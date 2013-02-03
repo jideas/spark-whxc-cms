@@ -17,7 +17,7 @@ public class GoodsHtmlHelper {
 	 * @param price
 	 * @return
 	 */
-	public static String getSmallGoodsHtml(String id, String imgUrl, String name, String spec, String price, String basePath) {
+	public static String getSmallGoodsHtml(String id, String imgUrl, String name, String spec, String price,String unit, String basePath) {
 		String url = basePath + "/front/toGoodsInfoPage?id=" + id;
 		StringBuilder ss = new StringBuilder();
 		ss.append(" <div>");
@@ -30,7 +30,7 @@ public class GoodsHtmlHelper {
 		ss.append(" </div>");
 		ss.append(" <div class=\"p-price\"><strong>£¤");
 		ss.append(price);
-		ss.append("/·Ý</strong></div><div class=\"bellowGoodsSmallInfo\"></div>");
+		ss.append("/"+unit+"</strong></div><div class=\"bellowGoodsSmallInfo\"></div>");
 		return ss.toString();
 	}
 	

@@ -51,20 +51,16 @@ public class ChargeAction extends BaseAction {
 			if (null == login || CheckIsNull.isEmpty(login.getRecid())) {
 				return new ServiceMessage(false, "请先登录！", 0).getMessageModel();
 			}
-			if (CmsString.matches(RegEx.OnlyNumber, cardNo)
-					&& CmsString.matches(RegEx.OnlyNumber, password)) {
-				ServiceMessage sMessage = this.cardService.exeUseCard(cardNo,
-						password, login);
-				return sMessage.getMessageModel();
-			}
-			return new ServiceMessage(false, "充值卡信息不正确，请检查！", 0)
-					.getMessageModel();
+			ServiceMessage sMessage = this.cardService.exeUseCard(cardNo,
+					password, login);
+			return sMessage.getMessageModel();
 		} catch (ServiceMessage e) {
 			return e.getMessageModel();
 		} catch (Throwable e) {
 			log.error("充值发生异常====" + e.getStackTrace());
 			e.printStackTrace();
-			return new ServiceMessage(false, "出现异常情况，请重试！", 0).getMessageModel();
+			return new ServiceMessage(false, "出现异常情况，请重试！", 0)
+					.getMessageModel();
 		}
 	}
 }

@@ -1,7 +1,5 @@
 package com.spark.cms.services.vo;
 
-import java.util.Date;
-
 @SuppressWarnings("serial")
 public class MessageborderVo implements java.io.Serializable {
 	private String recid;

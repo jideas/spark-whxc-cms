@@ -118,19 +118,19 @@ public class QuestionAction extends BaseAction{
 				qv.setQuestion801("1");
 			}else if("802".equals(q8[i])){
 				qv.setQuestion802("1");
-			}else if("803".equals("1")){
-				qv.setQuestion803(q8[i]);
-			}else if("804".equals("1")){
+			}else if("803".equals(q8[i])){
+				qv.setQuestion803("1");
+			}else if("804".equals(q8[i])){
 				qv.setQuestion804("1");
 			}else if("805".equals(q8[i])){
 				qv.setQuestion805("1");
 			}else if("806".equals(q8[i])){
-				qv.setQuestion808("1");
-			}else if("807".equals("1")){
+				qv.setQuestion806("1");
+			}else if("807".equals(q8[i])){
 				qv.setQuestion807("1");
 			}else if("808".equals(q8[i])){
 				qv.setQuestion808("1");
-			}			
+			}
 		}
 		qv.setQuestion9(q9 == null ? "" : q9);
 		

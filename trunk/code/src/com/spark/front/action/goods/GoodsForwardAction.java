@@ -162,7 +162,7 @@ public class GoodsForwardAction extends BaseAction {
 				price = (DoubleUtil.getRoundStr(DoubleUtil.mul(form.getRealprice(), pmt.getDisrate())));
 			}
 			htmllist.add(GoodsHtmlHelper.getSmallGoodsHtml(form.getRecid(), form.getPicturepath2(),
-					form.getGoodsname(), form.getGoodsspec(), price, basePath));
+					form.getGoodsname(), form.getGoodsspec(), price,form.getGoodsunit(), basePath));
 		}
 		mv.addObject(GoodsKey.SameCategoryPopularGoods.toString(), htmllist);
 	}

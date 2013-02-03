@@ -52,7 +52,10 @@ public class FrontAction extends BaseAction{
 	public List<String> getMenuHtml(HttpServletRequest request) {
 		List<String> menuHtml = new ArrayList<String>();
 		try {
-			menuHtml.add(pageManager.getMenuHtml(request.getContextPath()));
+//			request.getScheme() + "://"	+ request.getServerName() + ":" + request.getServerPort();
+			String webURLContext = request.getScheme() + "://"
+					+ request.getServerName() + ":" + request.getServerPort();
+			menuHtml.add(pageManager.getMenuHtml(webURLContext));
 			return menuHtml;
 		} catch (Exception e) {
 			log.error("获取菜单发生异常====" + e.getStackTrace());
