@@ -1,6 +1,7 @@
 package com.spark.front.action.order;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -108,6 +109,7 @@ public class OrderAction extends BaseAction {
 		double totalVantages = 0;
 		double totalVantagesCost = 0;
 		double totalGoodsAmount = 0;
+		double bookingGoodsAmount = 0;
 		boolean hasOtherGift = false;
 		Date bdeliverDate = null;
 		Date deliverDate = null;
@@ -333,7 +335,7 @@ public class OrderAction extends BaseAction {
 				odv.setVantagesType(gv.getVantagestype());
 				if (GoodsType.Booking.getCode().equals(gv.getGoodsType())) {
 					bookingDets.add(odv);
-					totalGoodsAmount -= odv.getAmount();
+					bookingGoodsAmount += odv.getAmount();
 					totalVantages -= odv.getVantages();
 				} else {
 					dets.add(odv);
@@ -368,11 +370,7 @@ public class OrderAction extends BaseAction {
 							scg.setVantages(0);
 							goods.add(scg);
 						}
-						if (info.isToDoor() && !freedelivery && info.getDeliveryCost() == 0 && !opr.isFreeDelivery()) {
-							data.setErrorMsg("整单免运费促销信息已过期！");
-							data.setSuccess(false);
-							return data;
-						}
+						
 					}
 					if ((null == jo.getString("p_vantages") ? 0 : Double.valueOf(jo.getString("p_vantages"))) > 0) {
 						if (null == opv || null == opv.getVantages() || opv.getVantages() <= 0) {
@@ -418,6 +416,11 @@ public class OrderAction extends BaseAction {
 				}
 				info.setDeliveryCost(deliveryCost);
 			}
+			if (info.isToDoor() && !freedelivery && info.getDeliveryCost() == 0 && !opr.isFreeDelivery()) {
+				data.setErrorMsg("整单免运费促销信息已过期！");
+				data.setSuccess(false);
+				return data;
+			}
 			if(hasOtherGift)
 			{
 				List<GiftVo> gvs = this.giftService.getList(login.getRecid());
@@ -456,6 +459,41 @@ public class OrderAction extends BaseAction {
 					data.setErrorMsg("请选择配送时间！");
 					return data;
 				}
+				else
+				{
+					if(new Date(System.currentTimeMillis()).after(deliverDate))
+					{
+						data.setSuccess(false);
+						data.setErrorMsg("配送时间不正确，请重新选择！");
+						return data;
+					}
+					else
+					{
+						Calendar cal = Calendar.getInstance();
+						cal.setTime(new Date(System.currentTimeMillis()));
+						int toHour = cal.get(Calendar.HOUR_OF_DAY);
+						cal.setTime(deliverDate);
+						int dHour = cal.get(Calendar.HOUR_OF_DAY);
+						if(DateUtil.trunc(System.currentTimeMillis(), Calendar.DATE)==DateUtil.trunc(deliverDate.getTime(), Calendar.DATE))
+						{
+							if(0<=toHour&&toHour<=12)
+							{
+								if(dHour==11)
+								{
+									data.setSuccess(false);
+									data.setErrorMsg("当日0到12时，请选择17时或以后配送！");
+									return data;
+								}
+							}
+							else
+							{
+								data.setSuccess(false);
+								data.setErrorMsg("当日12到0时，请选择次日或以后配送！");
+								return data;
+							}
+						}
+					}
+				}
 				voi.setDeliveryedate(deliverDate);
 				voi.setRecid(null);
 				voi.setBillsno(null);
@@ -482,11 +520,46 @@ public class OrderAction extends BaseAction {
 					data.setErrorMsg("请选择配送时间！");
 					return data;
 				}
+				else
+				{
+					if(new Date(System.currentTimeMillis()).after(deliverDate))
+					{
+						data.setSuccess(false);
+						data.setErrorMsg("配送时间不正确，请重新选择！");
+						return data;
+					}
+					else
+					{
+						Calendar cal = Calendar.getInstance();
+						cal.setTime(new Date(System.currentTimeMillis()));
+						int toHour = cal.get(Calendar.HOUR_OF_DAY);
+						cal.setTime(deliverDate);
+						int dHour = cal.get(Calendar.HOUR_OF_DAY);
+						if(DateUtil.trunc(System.currentTimeMillis(), Calendar.DATE)==DateUtil.trunc(deliverDate.getTime(), Calendar.DATE))
+						{
+							if(0<=toHour&&toHour<=12)
+							{
+								if(dHour==11)
+								{
+									data.setSuccess(false);
+									data.setErrorMsg("当日0到12时，请选择17时或以后配送！");
+									return data;
+								}
+							}
+							else
+							{
+								data.setSuccess(false);
+								data.setErrorMsg("当日12到0时，请选择次日或以后配送！");
+								return data;
+							}
+						}
+					}
+				}
 				info.setDeliveryedate(deliverDate);
 				info.setVantages(totalVantages);
 				info.setDets(dets);
 				info.setType(OnlineOrderType.Common.getCode());
-				info.setTotalamount(totalGoodsAmount);
+				info.setTotalamount(totalGoodsAmount-bookingGoodsAmount);
 				info.setTotalamount(info.getTotalamount() + info.getDeliveryCost());
 				if (info.isToDoor()) {
 					if (this.memberService.exeLockDeliveryBalance(info.getMemberid(), true, null) > 0) {
@@ -501,6 +574,19 @@ public class OrderAction extends BaseAction {
 					data.setSuccess(false);
 					data.setErrorMsg("请选择预订配送时间！");
 					return data;
+				}
+				else
+				{
+					Calendar cal = Calendar.getInstance();
+					cal.setTime(new Date(DateUtil.getDayStartTime(System.currentTimeMillis())));
+					cal.add(Calendar.DAY_OF_MONTH, 2);
+					long minDay = cal.getTimeInMillis();
+					if(minDay>bdeliverDate.getTime())
+					{
+						data.setSuccess(false);
+						data.setErrorMsg("预订商品须提前两天下单，请重新选择预订赔送时间！");
+						return data;
+					}
 				}
 				OrderInfo boi = BeanCopy.copy(OrderInfo.class, info);
 				boi.setDeliveryedate(bdeliverDate);
