@@ -13,7 +13,8 @@
 		<meta http-equiv="Expires" CONTENT="0">  
 		<meta http-equiv="Cache-Control" CONTENT="no-cache">
 		<meta http-equiv="Pragma" CONTENT="no-cache">
-		<meta http-equiv="keywords" content="Êß²Ë ÉúÏÊ  ³¬ÊÐ 7ºÅÉú»î¹Ý Á¸ÓÍ">  
+		<meta http-equiv="keywords" content="Êß²Ë ÉúÏÊ  ³¬ÊÐ 7ºÅÉú»î¹Ý Á¸ÓÍ">
+		<meta property="qc:admins" content="14642270706137776375636" />  
 		
 		<script type="text/javascript"
 			src="<%=basePath%>/scripts/jquery/jquery.js"></script>
