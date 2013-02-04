@@ -1125,7 +1125,7 @@ function Order() {
 				&& timeSelector.getSelectedTimeCode()) {
 			var currentDate = new Date();
 			if ($("#deliverDay").val().split("-")[2] == currentDate.getDate()) {
-				if (0 <= currentDate.getHours() && currentDate.getHours() <= 12) {
+				if (0 <= currentDate.getHours() && currentDate.getHours() < 12) {
 					if (timeSelector.getSelectedTimeCode().toString()
 							.split(":")[0] == 11) {
 						var str = "当日0时到中午12时只能选择17时或以后配送！";
