@@ -476,7 +476,7 @@ public class OrderAction extends BaseAction {
 						int dHour = cal.get(Calendar.HOUR_OF_DAY);
 						if(DateUtil.trunc(System.currentTimeMillis(), Calendar.DATE)==DateUtil.trunc(deliverDate.getTime(), Calendar.DATE))
 						{
-							if(0<=toHour&&toHour<=12)
+							if(0<=toHour&&toHour<12)
 							{
 								if(dHour==11)
 								{
@@ -537,7 +537,7 @@ public class OrderAction extends BaseAction {
 						int dHour = cal.get(Calendar.HOUR_OF_DAY);
 						if(DateUtil.trunc(System.currentTimeMillis(), Calendar.DATE)==DateUtil.trunc(deliverDate.getTime(), Calendar.DATE))
 						{
-							if(0<=toHour&&toHour<=12)
+							if(0<=toHour&&toHour<12)
 							{
 								if(dHour==11)
 								{
