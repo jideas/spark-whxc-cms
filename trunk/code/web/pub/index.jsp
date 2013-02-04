@@ -8,13 +8,12 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
-		<title>7号生活馆</title>
+		<title>7号生活馆 生鲜超市 一点到家 服务社区 方便居民</title>
 		<meta http-equiv="Content-Type" content="text/html;charset=GBK" />
 		<meta http-equiv="Expires" CONTENT="0">  
 		<meta http-equiv="Cache-Control" CONTENT="no-cache">
 		<meta http-equiv="Pragma" CONTENT="no-cache">
-		<meta http-equiv="keywords" content="蔬菜 生鲜  超市 7号生活馆 粮油">
-		<meta property="qc:admins" content="14642270706137776375636" />  
+		<meta http-equiv="keywords" content="武汉买菜,武昌买菜,汉口买菜,汉阳买菜,湖北买菜,7号买菜,七号买菜,湖北特产">
 		
 		<script type="text/javascript"
 			src="<%=basePath%>/scripts/jquery/jquery.js"></script>
