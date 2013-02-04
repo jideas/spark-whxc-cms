@@ -12,10 +12,15 @@
       <div class="ad-nav" style="margin-top:-5px;">
         <div class="ad-thumbs">
           <ul class="ad-thumb-list">
+          	<li>
+	            <a href="<%=basePath%>/scripts/jslider/slider-images/00.jpg" id="img000">
+                	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/00_thumb.jpg" class="image0">
+				</a>            
+			</li>
             <li>
 	            <a href="<%=basePath%>/scripts/jslider/slider-images/01.jpg" id="img001">
                 	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/01_thumb.jpg" class="image0">              
-				</a>            
+				</a>
 			</li>
            <li>
 	            <a href="<%=basePath%>/scripts/jslider/slider-images/02.jpg">
