@@ -637,6 +637,7 @@ public class ChannelServiceImpl implements ChannelService {
 		String hql = (String) queryInfo.get(QueryInfo.HQL.name());
 		Object[] parameters = (Object[]) queryInfo.get(QueryInfo.PARAMETERS.name());
 		List<ChannelContentVo> rl = new ArrayList<ChannelContentVo>();
+		hql += " order by createdate desc";
 		List<ChannelContentPo> list = this.baseDAO.getGenericByHql(hql, parameters);
 		
 		if (CheckIsNull.isNotEmpty(list)) {
