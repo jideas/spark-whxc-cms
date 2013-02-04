@@ -23,7 +23,7 @@ public class GetCardListKey extends LimitKey {
 	 */
 	private double amount;
 	
-	private SortField sortField = SortField.CreateDate;
+	private SortField sortField = SortField.CardNo;
 
 	public CardStatus getStatus() {
 		return status;
@@ -50,7 +50,7 @@ public class GetCardListKey extends LimitKey {
 	}
 
 	public enum SortField {
-		CreateDate("createdate"), ;
+		CreateDate("createdate"),CardNo("cardno") ;
 
 		private String field;
 
