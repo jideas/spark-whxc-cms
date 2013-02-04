@@ -226,6 +226,7 @@ $(function() {
 			var cardType = $('#addValueType').combobox('getValue');
 			var beginDate = $('#beginDate').datebox('getValue');
 			var endDate = $('#endDate').datebox('getValue');
+					$('#addCardDatagrid').datagrid('clearSelections');
 			$('#addCardDatagrid').datagrid('reload', {
 						cardType : cardType,
 						beginDate : beginDate,

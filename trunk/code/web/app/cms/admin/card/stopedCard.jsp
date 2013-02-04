@@ -130,6 +130,7 @@ $(function() {
 					var cardType = $('#selectAmountList4').combobox('getValue');
 					var beginDate4 = $('#beginDate4').datebox('getValue');
 					var endDate4 = $('#endDate4').datebox('getValue');
+					$('#stopedCardDatagrid').datagrid('clearSelections');
 					$('#stopedCardDatagrid').datagrid('reload', {
 								cardType : cardType,
 								beginDate : beginDate4,
