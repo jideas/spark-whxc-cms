@@ -139,6 +139,7 @@ $(function() {
 					var cardType = $('#selectAmountList').combobox('getValue');
 					var beginDate1 = $('#beginDate1').datebox('getValue');
 					var endDate1 = $('#endDate1').datebox('getValue');
+					$('#printedCardDatagrid').datagrid('clearSelections');
 					$('#printedCardDatagrid').datagrid('reload', {
 								cardType : cardType,
 								beginDate : beginDate1,
@@ -195,7 +196,7 @@ $(function() {
 								ids += ",";
 							}
 						}
-					}
+					} 
 					return ids;
 				}
 			}

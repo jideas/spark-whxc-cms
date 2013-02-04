@@ -182,6 +182,7 @@ $(function() {
 					var cardType = $('#selectAmountList3').combobox('getValue');
 					var beginDate3 = $('#beginDate3').datebox('getValue');
 					var endDate3 = $('#endDate3').datebox('getValue');
+					$('#distributedCardDatagrid').datagrid('clearSelections');
 					$('#distributedCardDatagrid').datagrid('reload', {
 								cardType : cardType,
 								beginDate : beginDate3,
