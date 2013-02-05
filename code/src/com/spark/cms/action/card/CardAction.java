@@ -316,9 +316,10 @@ public class CardAction extends BaseAction {
 			@RequestParam(value = "endDate", required = false)
 			String endDate, @RequestParam(value = "page", required = false)
 			String page, @RequestParam(value = "rows", required = false)
-			String rows) {
+			String rows,@RequestParam(value = "cardNO", required = false)
+			String cardNO) {
 		return getList(cardType, beginDate, endDate, page, rows,
-				CardStatus.Distributed);
+				CardStatus.Distributed,cardNO);
 	}
 
 	/**
@@ -336,9 +337,10 @@ public class CardAction extends BaseAction {
 			@RequestParam(value = "endDate", required = false)
 			String endDate, @RequestParam(value = "page", required = false)
 			String page, @RequestParam(value = "rows", required = false)
-			String rows) {
+			String rows,@RequestParam(value = "cardNO", required = false)
+			String cardNO) {
 		return getList(cardType, beginDate, endDate, page, rows,
-				CardStatus.Used);
+				CardStatus.Used,cardNO);
 	}
 
 	/**
@@ -356,9 +358,10 @@ public class CardAction extends BaseAction {
 			@RequestParam(value = "endDate", required = false)
 			String endDate, @RequestParam(value = "page", required = false)
 			String page, @RequestParam(value = "rows", required = false)
-			String rows) {
+			String rows,@RequestParam(value = "cardNO", required = false)
+			String cardNO) {
 		return getList(cardType, beginDate, endDate, page, rows,
-				CardStatus.Canceled);
+				CardStatus.Canceled,cardNO);
 	}
 
 	/**
@@ -376,9 +379,10 @@ public class CardAction extends BaseAction {
 			@RequestParam(value = "endDate", required = false)
 			String endDate, @RequestParam(value = "page", required = false)
 			String page, @RequestParam(value = "rows", required = false)
-			String rows) {
+			String rows,@RequestParam(value = "cardNO", required = false)
+			String cardNO) {
 		return getList(cardType, beginDate, endDate, page, rows,
-				CardStatus.Actived);
+				CardStatus.Actived,cardNO);
 	}
 
 	/**
@@ -396,9 +400,10 @@ public class CardAction extends BaseAction {
 			@RequestParam(value = "endDate", required = false)
 			String endDate, @RequestParam(value = "page", required = false)
 			String page, @RequestParam(value = "rows", required = false)
-			String rows) {
+			String rows,@RequestParam(value = "cardNO", required = false)
+			String cardNO) {
 		return getList(cardType, beginDate, endDate, page, rows,
-				CardStatus.Printed);
+				CardStatus.Printed,cardNO);
 	}
 
 	/**
@@ -416,13 +421,14 @@ public class CardAction extends BaseAction {
 			@RequestParam(value = "endDate", required = false)
 			String endDate, @RequestParam(value = "page", required = false)
 			String page, @RequestParam(value = "rows", required = false)
-			String rows) {
+			String rows,@RequestParam(value = "cardNO", required = false)
+			String cardNO) {
 		return getList(cardType, beginDate, endDate, page, rows,
-				CardStatus.Created);
+				CardStatus.Created,cardNO);
 	}
 
 	private DataModel<CardShowForm> getList(String cardType, String beginDate,
-			String endDate, String page, String rows, CardStatus status) {
+			String endDate, String page, String rows, CardStatus status,String cardNO) {
 		GetCardListKey key = new GetCardListKey();
 		key.setStatus(status);
 		key.setPageSize(Integer.valueOf(rows));
@@ -444,6 +450,8 @@ public class CardAction extends BaseAction {
 				log.error("结束时间转换发生异常====" + e.getStackTrace());
 			}
 		}
+		cardNO = cardNO == null ? "" : cardNO;
+		key.setSearchText(cardNO);
 		DataModel<CardVo> list = this.cardService.getList(key);
 		List<CardShowForm> forms = new ArrayList<CardShowForm>();
 		for (CardVo vo : list.getRows()) {
