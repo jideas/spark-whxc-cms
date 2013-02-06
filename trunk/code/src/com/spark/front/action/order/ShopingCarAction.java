@@ -25,6 +25,7 @@ import com.spark.base.common.utils.DoubleUtil;
 import com.spark.base.common.utils.StringUtil;
 import com.spark.cms.action.BaseAction;
 import com.spark.cms.common.Constant;
+import com.spark.cms.common.Constant.Base.GoodsType;
 import com.spark.cms.services.ServiceMessage;
 import com.spark.cms.services.channel.ChannelService;
 import com.spark.cms.services.channel.GetChannelGoodsListKey;
@@ -384,6 +385,15 @@ public class ShopingCarAction extends BaseAction {
 					if (v.isVantagesGoods()) {
 						scg.setVantagesGoods(true);
 						scg.setVantagesCost(v.getVantagesCost());
+						if(v.getGoodsType().equals(GoodsType.Booking.getCode()))
+						{
+							hasBookingGoods = true;
+							scg.setBookingGoods(true);
+						}
+						else
+						{
+							onlyBookingGoods = false;
+						}
 						goods.add(scg);
 						totalVantagesCost += DoubleUtil.mul(scg.getCount(), scg.getVantagesCost());
 					}
