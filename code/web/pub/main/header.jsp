@@ -27,7 +27,7 @@ com.spark.cms.services.channel.ChannelService channelService = com.spark.front.m
 			<div class="i-search">
 				<form action='<%=basePath%>/front/search' id='searchform' method='get' accept-charset="utf-8"  onsubmit="document.charset='utf-8'">
 					<ul>
-						<li class="li_input"><input name='searchKey' type="text" id='searchKey_main'/></li>
+						<li class="li_input"><input name='searchKey' type="text" id='searchKey_main' autocomplete="off" x-webkit-speech x-webkit-grammar="builtin:translate"/></li>
 						<li class="li_img"><img id='submitButton' src="<%=basePath%>/images/page/logo-search-right.gif" style="cursor: pointer;"/>					
 					</ul>
 				</form>
