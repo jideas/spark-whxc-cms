@@ -129,7 +129,7 @@ public  class FloorGen {
 		String ret = "<li><div class=\"product_image\"><a style=\" width:140;height:140;border:0\" href=\"" + url + "\" target=\"_blank\"><img width=\"140px\" height=\"140px\" src=\""+imgsrc+"\" /></a></div>";
 				ret += "<div class=\"product_name\">"+"<a target=\"_blank\" href=\"" + url + "\">"+goodVo.getGoodsName()+"</a></div>";
 				ret += "<div class=\"product_type\">"+"¹æ¸ñ£º"+goodVo.getGoodsspec()+"</div>";
-				ret += "<div class=\"product_price\">"+"£¤"+goodVo.getRealprice()+"/·Ý"+"</div></li>";
+				ret += "<div class=\"product_price\">"+"£¤"+goodVo.getRealprice()+"/"+goodVo.getGoodsunit()+"</div></li>";
 				
 		return ret;
 	}
