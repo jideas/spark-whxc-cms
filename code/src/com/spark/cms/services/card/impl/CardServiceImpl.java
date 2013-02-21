@@ -108,6 +108,10 @@ public class CardServiceImpl implements CardService {
 			hql.append(" and ");
 			hql.append(" t.amount= " + key.getAmount() + " ");
 		}
+		if(key.getSearchText() != null){
+			hql.append(" and ");
+			hql.append(" t.cardno like '%" + key.getSearchText() + "%' ");
+		}
 		hql.append(" order by ");
 		hql.append(" t." + key.getSortField().getField() + " "
 				+ key.getSortType().name());
