@@ -543,6 +543,8 @@ public class FrontAction extends BaseAction{
 		key.setSortType(SortType.Asc);
 		key.setPriceBegin(0);
 		key.setPriceEnd(Constant.ONE_YUAN_UPPER_LIMIT);
+		//≤È—Ø°∞ ﬂ≤À¿‡°±
+		key.setGoodsCategoryId("124ACEA916AABA4B22CACD6C5B7C87A2");
 		List<GoodsVo> vantageGoodsList = goodsService.getGoodsList(key);
 		
 		SearchResultInfo initResult = new SearchResultInfo();
