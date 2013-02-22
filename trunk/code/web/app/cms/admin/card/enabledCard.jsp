@@ -13,7 +13,10 @@
 			开始日期：
 			<input id="beginDate2" type="text" class="easyui-datebox" />
 			结束日期：
-			<input id="endDate2" type="text" class="easyui-datebox" /></span>
+			<input id="endDate2" type="text" class="easyui-datebox" />
+			<input type="text" name="enabledCard_searchcardno" style="width:100px;border:1px solid #CCCCCC;"/>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="activedCardAction.refreshCards()">卡号查询</a>
+			</span>
 			<span style="float: right; padding-right: 5px;"> <a href="#"
 				class="easyui-linkbutton" iconCls="icon-print"
 				onclick="activedCardAction.distributeCard()">分 发</a> </span>
@@ -176,11 +179,13 @@ $(function() {
 					var cardType = $('#selectAmountList2').combobox('getValue');
 					var beginDate2 = $('#beginDate2').datebox('getValue');
 					var endDate2 = $('#endDate2').datebox('getValue');
+					var cardNO = $.trim($("input[name='enabledCard_searchcardno']").val());
 					$('#activedCardDatagrid').datagrid('clearSelections');
 					$('#activedCardDatagrid').datagrid('reload', {
 								cardType : cardType,
 								beginDate : beginDate2,
-								endDate : endDate2
+								endDate : endDate2,
+								cardNO : cardNO
 							}); // 刷新面值卡列表信息
 				}
 
