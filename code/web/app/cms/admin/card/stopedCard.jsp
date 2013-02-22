@@ -12,6 +12,8 @@
 					id="selectAmountList4" name="selectAmountList4"> 开始日期： <input
 					id="beginDate4" type="text" class="easyui-datebox" /> 结束日期： <input
 					id="endDate4" type="text" class="easyui-datebox" />
+					<input type="text" name="stopedCard_searchcardno" style="width:100px;border:1px solid #CCCCCC;"/>
+					<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="stopedCardAction.refreshCards()">卡号查询</a>
 			</span>
 		</div>
 		<table id="stopedCardDatagrid" toolbar="#stopedCardToolbar">
@@ -130,11 +132,13 @@ $(function() {
 					var cardType = $('#selectAmountList4').combobox('getValue');
 					var beginDate4 = $('#beginDate4').datebox('getValue');
 					var endDate4 = $('#endDate4').datebox('getValue');
+						var cardNO = $.trim($("input[name='stopedCard_searchcardno']").val());
 					$('#stopedCardDatagrid').datagrid('clearSelections');
 					$('#stopedCardDatagrid').datagrid('reload', {
 								cardType : cardType,
 								beginDate : beginDate4,
-								endDate : endDate4
+								endDate : endDate4,
+								cardNO : cardNO
 							}); // 刷新面值卡列表信息
 				}
 

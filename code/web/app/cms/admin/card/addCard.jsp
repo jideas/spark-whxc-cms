@@ -12,7 +12,10 @@
 			<span style="float: left; padding-right: 5px;"> 面值： <input
 					id="addValueType" name="addValueType"> 开始日期： <input
 					id="beginDate" type="text" class="easyui-datebox" /> 结束日期： <input
-					id="endDate" type="text" class="easyui-datebox" /> </span>
+					id="endDate" type="text" class="easyui-datebox" />
+			<input type="text" name="addCard_searchcardno" style="width:100px;border:1px solid #CCCCCC;"/>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="addCardAction.refreshCards()">卡号查询</a>	
+			</span>
 			<span style="float: right; padding-right: 5px;"> <a href="#"
 				class="easyui-linkbutton" iconCls="icon-add"
 				onclick="addCardAction.addCard()">新 增</a> <a href="#"
@@ -226,14 +229,16 @@ $(function() {
 			var cardType = $('#addValueType').combobox('getValue');
 			var beginDate = $('#beginDate').datebox('getValue');
 			var endDate = $('#endDate').datebox('getValue');
-					$('#addCardDatagrid').datagrid('clearSelections');
+			var cardNO = $.trim($("input[name='addCard_searchcardno']").val());
+			$('#addCardDatagrid').datagrid('clearSelections');
 			$('#addCardDatagrid').datagrid('reload', {
 						cardType : cardType,
 						beginDate : beginDate,
-						endDate : endDate
+						endDate : endDate,
+						cardNO : cardNO
 					}); // 刷新面值卡列表信息
 		}
-		
+				
 		this.importCards = function(){
 			$('#ImportCardDialog').dialog('open').dialog('setTitle', '导入面值卡');
 		}
