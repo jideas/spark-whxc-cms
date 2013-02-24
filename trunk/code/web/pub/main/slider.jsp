@@ -50,12 +50,7 @@
 			<li>
 	            <a href="<%=basePath%>/scripts/jslider/slider-images/07.jpg">
                 	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/07_thumb.jpg" class="image6">              
-				</a>            
-			</li>
-			<li>
-	            <a href="<%=basePath%>/scripts/jslider/slider-images/08.jpg">
-                	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/08_thumb.jpg" class="image7">
-				</a>            
+				</a>
 			</li>
           </ul>
         </div>
