@@ -8,14 +8,14 @@
 </head>
 <body>
     <div id="gallery" class="ad-gallery">
-      <div class="ad-image-wrapper"></div>     
+      <div class="ad-image-wrapper"></div>
       <div class="ad-nav" style="margin-top:-5px;">
         <div class="ad-thumbs">
           <ul class="ad-thumb-list">
-          	<li>
-	            <a href="<%=basePath%>/scripts/jslider/slider-images/00.jpg" id="img000">
-                	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/00_thumb.jpg" class="image0">
-				</a>            
+	          <li>
+	            <a href="<%=basePath%>/scripts/jslider/slider-images/011.jpg">
+                	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/011_thumb.jpg" class="image11">              
+				</a>
 			</li>
             <li>
 	            <a href="<%=basePath%>/scripts/jslider/slider-images/01.jpg" id="img001">
@@ -61,11 +61,10 @@
         </div>
       </div>
     </div>
-</body>
- <script type="text/javascript">
+<script type="text/javascript" defer="defer">
 	$('.ad-gallery').adGallery({
-		width: 730, 
-		height: 400, 
+		width: 730,
+		height: 400,
 		thumb_opacity: 0.7,
 	  	start_at_index: 0,
 	  	update_window_hash: false, 
@@ -129,5 +128,6 @@
 		}
 	  }
 	});
-  </script>
+  </script>    
+</body>
 </html>
