@@ -476,19 +476,19 @@ public class OrderAction extends BaseAction {
 						int dHour = cal.get(Calendar.HOUR_OF_DAY);
 						if(DateUtil.trunc(System.currentTimeMillis(), Calendar.DATE)==DateUtil.trunc(deliverDate.getTime(), Calendar.DATE))
 						{
-							if(0<=toHour&&toHour<12)
+							if(0<=toHour&&toHour<11)
 							{
 								if(dHour==11)
 								{
 									data.setSuccess(false);
-									data.setErrorMsg("当日0到12时，请选择17时或以后配送！");
+									data.setErrorMsg("当日0到11时，请选择17时或以后配送！");
 									return data;
 								}
 							}
 							else
 							{
 								data.setSuccess(false);
-								data.setErrorMsg("当日12到0时，请选择次日或以后配送！");
+								data.setErrorMsg("当日11到0时，请选择次日或以后配送！");
 								return data;
 							}
 						}
@@ -537,19 +537,19 @@ public class OrderAction extends BaseAction {
 						int dHour = cal.get(Calendar.HOUR_OF_DAY);
 						if(DateUtil.trunc(System.currentTimeMillis(), Calendar.DATE)==DateUtil.trunc(deliverDate.getTime(), Calendar.DATE))
 						{
-							if(0<=toHour&&toHour<12)
+							if(0<=toHour&&toHour<11)
 							{
 								if(dHour==11)
 								{
 									data.setSuccess(false);
-									data.setErrorMsg("当日0到12时，请选择17时或以后配送！");
+									data.setErrorMsg("当日0到11时，请选择17时或以后配送！");
 									return data;
 								}
 							}
 							else
 							{
 								data.setSuccess(false);
-								data.setErrorMsg("当日12到0时，请选择次日或以后配送！");
+								data.setErrorMsg("当日11到0时，请选择次日或以后配送！");
 								return data;
 							}
 						}

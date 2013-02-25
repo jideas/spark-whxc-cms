@@ -1125,17 +1125,17 @@ function Order() {
 				&& timeSelector.getSelectedTimeCode()) {
 			var currentDate = new Date();
 			if ($("#deliverDay").val().split("-")[2] == currentDate.getDate()) {
-				if (0 <= currentDate.getHours() && currentDate.getHours() < 12) {
+				if (0 <= currentDate.getHours() && currentDate.getHours() < 11) {
 					if (timeSelector.getSelectedTimeCode().toString()
 							.split(":")[0] == 11) {
-						var str = "当日0时到中午12时只能选择17时或以后配送！";
+						var str = "当日0时到11时只能选择17时或以后配送！";
 						$("#paytype_warning_deliverTime").html(str);
 						success = false;
 					} else {
 						$("#paytype_warning_deliverTime").html("");
 					}
 				} else {
-					var str = "当日12时后只能选择次日或以后配送！";
+					var str = "当日11时后只能选择次日或以后配送！";
 					$("#paytype_warning_deliverTime").html(str);
 					success = false;
 				}
