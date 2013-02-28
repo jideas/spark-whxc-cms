@@ -3,8 +3,10 @@ package com.spark.cms.services.order.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.spark.base.common.utils.CheckIsNull;
 import com.spark.base.common.utils.DateUtil;
 import com.spark.base.hibernate.GenericDAO;
@@ -13,9 +15,9 @@ import com.spark.cms.base.constant.SheetNumberType;
 import com.spark.cms.base.utils.BeanCopy;
 import com.spark.cms.common.Constant;
 import com.spark.cms.common.Constant.Order.OnlineOrderStatus;
+import com.spark.cms.common.Constant.OrderEnum.PayType;
 import com.spark.cms.dao.po.EffectedOrderDetPo;
 import com.spark.cms.dao.po.EffectedOrderPo;
-import com.spark.cms.dao.po.MemberDeliveryPo;
 import com.spark.cms.dao.po.OrderDetPo;
 import com.spark.cms.dao.po.OrderLogPo;
 import com.spark.cms.dao.po.OrderPo;
@@ -326,9 +328,12 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void exeEffectiveOrder(String orderId) throws ServiceMessage {
+	public void exeEffectiveOrder(String orderId,PayType payType) throws ServiceMessage {
 		if (CheckIsNull.isEmpty(orderId)) {
 			throw new ServiceMessage("orderId不能为空！");
+		}
+		if (CheckIsNull.isEmpty(payType)) {
+			throw new ServiceMessage("付款方式不能为空！");
 		}
 		OrderPo p = this.genericDAO.get(OrderPo.class, GUID.valueOf(orderId)
 				.toBytes());
@@ -345,6 +350,7 @@ public class OrderServiceImpl implements OrderService {
 		EffectedOrderPo ep = new EffectedOrderPo();
 		ep = BeanCopy.copy(EffectedOrderPo.class, p);
 		ep.setStatus(OnlineOrderStatus.Effected.getCode());
+		ep.setPayType(payType.getCode());
 		this.genericDAO.save(ep);
 		this.genericDAO.delete(OrderPo.class, GUID.valueOf(orderId).toBytes());
 		StringBuffer hsql = new StringBuffer();
