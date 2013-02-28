@@ -16,6 +16,7 @@ import com.spark.cms.base.constant.payment.PayingBillStatus;
 import com.spark.cms.base.constant.payment.PayingBillType;
 import com.spark.cms.base.utils.BeanCopy;
 import com.spark.cms.common.Constant.MemberEnum.DealingsType;
+import com.spark.cms.common.Constant.OrderEnum.PayType;
 import com.spark.cms.dao.po.PayingBillsPo;
 import com.spark.cms.services.ServiceMessage;
 import com.spark.cms.services.member.MemberService;
@@ -108,7 +109,7 @@ public class PayingBillsServiceImpl implements PayingBillsService {
 	private boolean orderSuccess(PayingBillsVo vo) throws Throwable {
 		String ids[] = vo.getRelaBillsId().split(",");
 		for (String orderId : ids) {
-			this.orderService.exeEffectiveOrder(orderId);
+			this.orderService.exeEffectiveOrder(orderId, PayType.getPayType(vo.getPayType()));
 		}
 		return true;
 	}

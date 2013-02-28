@@ -36,6 +36,7 @@ import com.spark.cms.common.DataModel;
 import com.spark.cms.common.MessageModel;
 import com.spark.cms.common.Constant.MemberEnum.DealingsType;
 import com.spark.cms.common.Constant.MemberEnum.VantagesType;
+import com.spark.cms.common.Constant.OrderEnum.PayType;
 import com.spark.cms.services.ServiceMessage;
 import com.spark.cms.services.form.Login;
 import com.spark.cms.services.form.delivery.DeliveryForm;
@@ -558,7 +559,7 @@ public class ActionServiceImpl implements ActionService {
 				return new ServiceMessage(false, "余额不足请先充值！", 5).getMessageModel();
 			}
 			try {
-				this.orderService.exeEffectiveOrder(order.getRecid());
+				this.orderService.exeEffectiveOrder(order.getRecid(),PayType.Balance);
 			} catch (Throwable e) {
 				return new ServiceMessage(false, "出错了！", 1).getMessageModel();
 			}

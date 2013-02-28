@@ -1,6 +1,8 @@
 package com.spark.cms.services.order;
 
 import java.util.List;
+
+import com.spark.cms.common.Constant.OrderEnum.PayType;
 import com.spark.cms.services.ServiceMessage;
 import com.spark.cms.services.order.key.GetEffectedOrderListKey;
 import com.spark.cms.services.order.key.GetUnEffectedOrderListKey;
@@ -89,7 +91,7 @@ public interface OrderService {
 	 * @param info
 	 * @throws Throwable
 	 */
-	void exeEffectiveOrder(String orderId) throws ServiceMessage;
+	void exeEffectiveOrder(String orderId,PayType payType) throws ServiceMessage;
 	/**
 	 * É¾³ýÎÞÐ§¶©µ¥
 	 */
