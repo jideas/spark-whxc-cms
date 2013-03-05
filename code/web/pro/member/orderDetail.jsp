@@ -18,7 +18,7 @@
 		orderMessage = "订单已经完成，感谢您在7号生活馆购物！";
 	} else if (Constant.Order.OnlineOrderStatus.Paying.getCode()
 			.equals(order.getStatus())) {
-		orderMessage = "尊敬的客户，我们还没收到该订单的款项，请尽快支付，该订单将为您保留30分钟，30分钟后如果还没付款，系统将自动取消该订单";
+		orderMessage = "尊敬的客户，我们还没收到该订单的款项，请尽快支付，该订单将为您保留24小时，24小时后如果还没付款，系统将自动取消该订单";
 	} else if (Constant.Order.OnlineOrderStatus.Effected.getCode()
 			.equals(order.getStatus())) {
 		orderMessage = "您的订单已付款成功";

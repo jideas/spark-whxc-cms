@@ -442,7 +442,7 @@ public class OrderServiceImpl implements OrderService {
 		List<Object> params = new ArrayList<Object>();
 		hql.append(" from OrderPo p ");
 		hql.append(" where p.createdate<? ");
-		params.add(new Date(DateUtil.getHalfHourAgo(null)));
+		params.add(new Date(DateUtil.get24HoursAgo(null)));
 		List<OrderPo> list = this.genericDAO.getGenericByHql(hql.toString(),
 				params.toArray(new Object[0]));
 		for (OrderPo p : list) {
