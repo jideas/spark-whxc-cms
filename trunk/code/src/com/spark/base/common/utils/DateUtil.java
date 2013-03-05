@@ -515,15 +515,15 @@ public class DateUtil {
 	}
 	
 	/**
-	 * 获取半小时前时间
+	 * 获取24小时前时间
 	 */
-	public static long getHalfHourAgo(Date date)
+	public static long get24HoursAgo(Date date)
 	{
 		if (CheckIsNull.isEmpty(date))
 			date = new Date(System.currentTimeMillis());
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
-		calendar.add(Calendar.SECOND, -(60*30));
+		calendar.add(Calendar.SECOND, -(60*60*24));
 		return calendar.getTimeInMillis();
 	}
 }
