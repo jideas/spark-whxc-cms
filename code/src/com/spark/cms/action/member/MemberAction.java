@@ -1,8 +1,6 @@
 package com.spark.cms.action.member;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -32,6 +30,7 @@ import com.spark.cms.common.Constant;
 import com.spark.cms.common.DataModel;
 import com.spark.cms.common.MessageModel;
 import com.spark.cms.common.ResponseEntityUtil;
+import com.spark.cms.common.Constant.OrderEnum.PayType;
 import com.spark.cms.services.ServiceMessage;
 import com.spark.cms.services.form.Login;
 import com.spark.cms.services.form.UserExtForm;
@@ -42,13 +41,12 @@ import com.spark.cms.services.member.key.GetMemberListKey;
 import com.spark.cms.services.member.key.GetVantagesListKey;
 import com.spark.cms.services.order.OrderService;
 import com.spark.cms.services.order.key.GetEffectedOrderListKey;
-import com.spark.cms.services.vo.CardVo;
+import com.spark.cms.services.order.key.GetUnEffectedOrderListKey;
 import com.spark.cms.services.vo.MemberAccountVo;
 import com.spark.cms.services.vo.MemberDealingVo;
 import com.spark.cms.services.vo.MemberVantagesVo;
 import com.spark.cms.services.vo.MemberVo;
 import com.spark.front.form.order.OrderInfo;
-import com.spark.front.utils.CmsString;
 
 /**
  * 会员管理管理
@@ -453,6 +451,61 @@ public class MemberAction extends BaseAction {
 			this.totalAmount = totalAmount;
 		}
 
+	}
+	
+	/**
+	 * 获取会员未付款订单
+	 */
+	@RequestMapping("/member/getuneffectedorder")
+	@ResponseBody
+	@SuppressWarnings("unchecked")
+	public DataModel getUneffectedorder(@RequestParam(value = "page", required = false)
+	String page, @RequestParam(value = "rows", required = false)
+	String rows, @RequestParam(value = "memberId", required = false)
+	String memberId) {
+		try {
+			GetUnEffectedOrderListKey key = new GetUnEffectedOrderListKey(Integer.valueOf(page), Integer.valueOf(rows),
+					false);
+			key.setMemberId(memberId);
+			List<OrderInfo> list = orderService.getList(key);
+			int count = orderService.getCount(key);
+			DataModel dataModel = new DataModel();
+
+			Double totalAmount = 0d;
+			for (OrderInfo v : list) {
+				v.setStatusStr(Constant.Order.OnlineOrderStatus.getStatus(v.getStatus()).getName());
+				v.setPayTypeStr(Constant.OrderEnum.PayType.getPayType(v.getPayType()).getName());
+				v.setCreateDateStr(DateUtil.dateFromat(v.getCreatedate(), DateUtil.DATE_TIME_PATTERN2));
+				totalAmount += v.getTotalamount();
+			}
+			if (list != null) {
+				dataModel.setRows(list);
+				dataModel.setTotal(count);
+			}
+			List<OrderFooter> l = new ArrayList<OrderFooter>();
+			l.add(new OrderFooter(totalAmount));
+			dataModel.setFooter(l);
+			return dataModel;
+		} catch (Throwable e) {
+			log.error("获取会员未付款订单列表异常====" + e.getStackTrace());
+		}
+		return null;
+	}
+	
+	/**
+	 * 确认收款
+	 */
+	@RequestMapping("/member/effectOrder")
+	@ResponseBody
+	public ResponseEntity<MessageModel> effectOrder(@RequestParam(value = "orderId", required = true)
+			String orderId) {
+		try {
+			this.orderService.exeEffectiveOrder(orderId, PayType.Online);
+			return ResponseEntityUtil.getResponseEntity(Success);
+		} catch (Exception e) {
+			log.error("确认收款发生异常====" + e.getStackTrace());
+			return null;
+		}
 	}
 
 	/**

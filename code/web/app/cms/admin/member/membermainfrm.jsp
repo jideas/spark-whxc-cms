@@ -8,15 +8,18 @@
     </div>
     <div title="历史订单">  
     </div>
+    <div title="未付款订单">  
+    </div>
 </div>
 <script type="text/javascript">
 $(function(){
-	var titles = new Array("余额记录","当前订单","历史订单","积分查看");
+	var titles = new Array("余额记录","当前订单","历史订单","积分查看","未付款订单");
 	var hrefs = new Array(
 		mainWeb+"/app/cms/admin/member/chargelogfrm.jsp",
 		mainWeb+"/app/cms/admin/member/currentorderfrm.jsp",
 		mainWeb+"/app/cms/admin/member/historyorderfrm.jsp",
-		mainWeb+"/app/cms/admin/member/scoreviewfrm.jsp");	
+		mainWeb+"/app/cms/admin/member/scoreviewfrm.jsp",
+		mainWeb+"/app/cms/admin/member/uneffectedorderfrm.jsp");	
 	//监听事件 -> 单击tab面板
 	$('#memberTabs').tabs({
 		onSelect: function(title){
