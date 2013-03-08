@@ -32,7 +32,7 @@
 			<span>版权所有：武汉新辰食品有限公司</span>
 			<span>邮箱：whyc777@126.com</span>
 			<span>鄂ICP备12002886号</span>
-			<!-- span><script src="http://s24.cnzz.com/stat.php?id=3931318&web_id=3931318&show=pic" language="JavaScript"></script></span> -->
+			<span><script src="http://s24.cnzz.com/stat.php?id=3931318&web_id=3931318&show=pic" language="JavaScript"></script></span>
 		</div>
 	</div>
 	</body>
