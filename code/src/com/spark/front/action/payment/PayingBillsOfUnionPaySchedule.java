@@ -144,6 +144,12 @@ public class PayingBillsOfUnionPaySchedule {
 					continue;
 				}
 			}
+			try {
+				Thread.sleep(30000);
+				System.out.println("ÐÝÃß30Ãë¡£¡£¡£¡£¡£¡£¡£");
+			} catch (InterruptedException e) {
+				System.out.println("ÐÝÃß30ÃëÊ§°Ü£¡£¡£¡£¡£¡£¡£¡");
+			}
 		}
 	}
 
