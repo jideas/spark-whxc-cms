@@ -86,7 +86,7 @@
 	  	},
 	  	effect: 'slide-hori', 
 	 	enable_keyboard_move: true, 
-	  	cycle: true, 
+	  	cycle: true,
 	  	hooks: {
 			displayDescription: function(image) {
 		  
