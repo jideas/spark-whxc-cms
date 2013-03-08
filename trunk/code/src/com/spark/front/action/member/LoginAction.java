@@ -569,14 +569,7 @@ public class LoginAction extends BaseAction {
 		try {
 			if (CmsString.isEmpty(form.getUserName()) || CmsString.isEmpty(form.getPassword())) {
 				return new ServiceMessage(false, "数据传输错误！").getMessageModel();
-			}
-			if (!CmsString.matches(RegEx.UserName, form.getUserName().trim())
-					&& !CmsString.matches(RegEx.Mobile, form.getUserName().trim())
-					&& !CmsString.matches(RegEx.Email, form.getUserName().trim())) {
-				return new ServiceMessage(false, "数据传输错误！").getMessageModel();
-			} else if (!CmsString.matches(RegEx.PassWord, form.getPassword().trim())) {
-				return new ServiceMessage(false, "数据传输错误！").getMessageModel();
-			}
+			} 
 			ServiceMessage sMessage = this.memberService.getLogin(form.getUserName().trim(), form.getPassword().trim());
 			if (sMessage.isOperSuccess()) {
 				request.getSession().setAttribute(Constant.LoginMemberUser, sMessage.getReturnObj());
@@ -585,7 +578,6 @@ public class LoginAction extends BaseAction {
 				return sMessage.getMessageModel();
 			}
 		} catch (Throwable e) {
-
 			log.error("会员注册发生异常====" + e.getStackTrace());
 			return new ServiceMessage("会员注册发生异常,请重试!").getMessageModel();
 		}
