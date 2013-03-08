@@ -16,7 +16,6 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "ERP_Sales_OnlineOrder")
 @SuppressWarnings("serial")
-
 public class EffectedOrderPo implements java.io.Serializable {
 
 	// Fields
