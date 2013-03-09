@@ -333,7 +333,7 @@ public class OrderServiceImpl implements OrderService {
 			throw new ServiceMessage("orderId不能为空！");
 		}
 		if (CheckIsNull.isEmpty(payType)) {
-			throw new ServiceMessage("付款方式不能为空！");
+			throw new ServiceMessage("付款方式不能为空呀！");
 		}
 		OrderPo p = this.genericDAO.get(OrderPo.class, GUID.valueOf(orderId)
 				.toBytes());

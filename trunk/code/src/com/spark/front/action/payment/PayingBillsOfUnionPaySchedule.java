@@ -133,21 +133,21 @@ public class PayingBillsOfUnionPaySchedule {
 			Map<String, String> map = new HashMap<String, String>();
 			for (String param : params) {
 				String two[] = param.split("=");
-				map.put(two[0], two[1]);
+				map.put(two[0].toUpperCase(), two[1]);
 			}
-			if ("0".equals(map.get("ResponeseCode")) && vo.getAmount().equals(map.get("amount"))
-					&& "1001".equals(map.get("status"))) {
+			if ("0".equals(map.get("ResponeseCode".toUpperCase())) && vo.getAmount().equals(map.get("amount".toUpperCase()))
+					&& "1001".equals(map.get("status".toUpperCase()))) {
 				UnionPayForm form = new UnionPayForm();
-				form.setAmount(map.get("amount"));
-				form.setCheckvalue(map.get("checkvalue"));
-				form.setCurrencycode(map.get("currencycode"));
-				form.setGateId(map.get("GateId"));
-				form.setMerid(map.get("merid"));
-				form.setOrderno(map.get("orderno"));
-				form.setPriv1(map.get("Priv1"));
-				form.setStatus(map.get("status"));
-				form.setTransdate(map.get("transdate"));
-				form.setTranstype(map.get("transtype"));
+				form.setAmount(map.get("amount".toUpperCase()));
+				form.setCheckvalue(map.get("checkvalue".toUpperCase()));
+				form.setCurrencycode(map.get("currencycode".toUpperCase()));
+				form.setGateId(map.get("GateId".toUpperCase()));
+				form.setMerid(map.get("merid".toUpperCase()));
+				form.setOrderno(map.get("orderno".toUpperCase()));
+				form.setPriv1(map.get("Priv1".toUpperCase()));
+				form.setStatus(map.get("status".toUpperCase()));
+				form.setTransdate(map.get("transdate".toUpperCase()));
+				form.setTranstype(map.get("transtype".toUpperCase()));
 				if (!UnionPayChkValue.checkVerifyTransResponse(form, SystemCommonFilter.getContextRealPath())) {
 					System.out.println("未通过验证");
 					continue;
