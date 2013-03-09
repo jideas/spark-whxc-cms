@@ -52,6 +52,12 @@ public class PayingBillsOfUnionPaySchedule {
 			if (vo.getCreateTime() > (new Date().getTime() - 300000)) {
 				break;
 			}
+			try {
+				Thread.sleep(30000);
+				System.out.println("–›√ﬂ30√Î°£°£°£°£°£°£°£");
+			} catch (InterruptedException e) {
+				System.out.println("–›√ﬂ30√Î ß∞‹£°£°£°£°£°£°£°");
+			}
 			System.out.println("ø™ º≤È—Ø«Î«Û°£°£°£°£°£°£");
 			URL urls = null;
 			String str = CMS.PayInfo.UnionPayUserNo + vo.getTransDate() + vo.getOrderId() + "0001";
@@ -142,7 +148,8 @@ public class PayingBillsOfUnionPaySchedule {
 				form.setStatus(map.get("status"));
 				form.setTransdate(map.get("transdate"));
 				form.setTranstype(map.get("transdate"));
-				if (!UnionPayChkValue.checkVerifyTransResponse(form, SystemCommonFilter.getContextRealPath())) {
+				if (!UnionPayChkValue.checkVerifyTransResponse(form, SystemCommonFilter.getContextRealPath())
+						&&!UnionPayChkValue.checkVerifyTransResponse2(form, SystemCommonFilter.getContextRealPath())) {
 					System.out.println("Œ¥Õ®π˝—È÷§");
 					continue;
 				}
@@ -154,12 +161,6 @@ public class PayingBillsOfUnionPaySchedule {
 					e.printStackTrace();
 					continue;
 				}
-			}
-			try {
-				Thread.sleep(30000);
-				System.out.println("–›√ﬂ30√Î°£°£°£°£°£°£°£");
-			} catch (InterruptedException e) {
-				System.out.println("–›√ﬂ30√Î ß∞‹£°£°£°£°£°£°£°");
 			}
 		}
 	}
