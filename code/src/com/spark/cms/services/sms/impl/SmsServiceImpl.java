@@ -166,30 +166,27 @@ public class SmsServiceImpl implements SmsService {
 				ss.append("&" + config.getMsgContentKey() + "=" + task.getMessage().replace(" ", "") + "【7号生活馆】");
 			}
 			System.out.println(ss.toString());
-			// URL urls = new URL(config.getSubmitUrl());
-			// HttpURLConnection uc = (HttpURLConnection) urls.openConnection();
-			// uc.setRequestMethod("POST");
-			// uc.setRequestProperty("content-type",
-			// "application/x-www-form-urlencoded");
-			// System.setProperty("sun.net.client.defaultConnectTimeout",
-			// "30000");// 设置超时时间
-			// System.setProperty("sun.net.client.defaultReadTimeout", "30000");
-			// uc.setDoOutput(true);
-			// OutputStreamWriter writer = new
-			// OutputStreamWriter(uc.getOutputStream());
-			// writer.write(ss.toString());
-			// writer.flush();
-			// writer.close();
-			// BufferedReader read;
-			// read = new BufferedReader(new
-			// InputStreamReader(uc.getInputStream()));
-			// String str;
-			// StringBuilder sb = new StringBuilder();
-			// while ((str = read.readLine()) != null) {
-			// sb.append(str.trim());
-			// }
-			// read.close();// 关闭读取流
-			// System.out.println(sb.toString());
+			System.out.println("短信内容：" + task.getMessage());
+			URL urls = new URL(config.getSubmitUrl());
+			HttpURLConnection uc = (HttpURLConnection) urls.openConnection();
+			uc.setRequestMethod("POST");
+			uc.setRequestProperty("content-type", "application/x-www-form-urlencoded");
+			System.setProperty("sun.net.client.defaultConnectTimeout", "30000");// 设置超时时间
+			System.setProperty("sun.net.client.defaultReadTimeout", "30000");
+			uc.setDoOutput(true);
+			OutputStreamWriter writer = new OutputStreamWriter(uc.getOutputStream());
+			writer.write(ss.toString());
+			writer.flush();
+			writer.close();
+			BufferedReader read;
+			read = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+			String str;
+			StringBuilder sb = new StringBuilder();
+			while ((str = read.readLine()) != null) {
+				sb.append(str.trim());
+			}
+			read.close();// 关闭读取流
+			System.out.println(sb.toString());
 			// ReturnMessage msg =
 			// XmlParseUtil.getInstance().parseXml(sb.toString());
 			// ReturnFlag flag = (ReturnFlag.getFlag(msg.getResult()));
