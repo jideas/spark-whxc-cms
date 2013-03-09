@@ -38,19 +38,7 @@ public class UnionPayChkValue {
 		t = new chinapay.SecureLink(key);
 		return t.verifyTransResponse(form.getMerid(), form.getOrderno(), form.getAmount(), form.getCurrencycode(), form
 				.getTransdate(), form.getTranstype(), form.getStatus(), form.getCheckvalue());
-	}
-	public static boolean checkVerifyTransResponse2(UnionPayForm form, String realPath) {
-		PrivateKey key = new PrivateKey();
-		SecureLink t;
-		boolean flag = key.buildKey(CMS.PayInfo.UnionPayUserNo, 0, realPath + "\\xml\\key\\MerPrK.key");
-		if (flag == false) {
-			System.out.println("build key error!");
-			return false;
-		}
-		t = new chinapay.SecureLink(key);
-		return t.verifyTransResponse(form.getMerid(), form.getOrderno(), form.getAmount(), form.getCurrencycode(), form
-				.getTransdate(), form.getTranstype(), form.getStatus(), form.getCheckvalue());
-	}
+	} 
 	public static String getPayMerPrKValue(String MerId, String OrdId, String TransAmt, String CuryId,
 			String TransDate, String TransType, String realPath, String priv1) {
 		PrivateKey key = new PrivateKey();

@@ -37,7 +37,7 @@ import com.spark.front.utils.UnionPayChkValue;
 public class PayingBillsOfUnionPaySchedule {
 
 	@Autowired
-	private PayingBillsService service; 
+	private PayingBillsService service;
 
 	@Scheduled(fixedDelay = 300000)
 	public void reQueryPayResultAndUpdate() {
@@ -53,8 +53,8 @@ public class PayingBillsOfUnionPaySchedule {
 				break;
 			}
 			try {
-				Thread.sleep(30000);
 				System.out.println("–›√ﬂ30√Î°£°£°£°£°£°£°£");
+				Thread.sleep(30000);
 			} catch (InterruptedException e) {
 				System.out.println("–›√ﬂ30√Î ß∞‹£°£°£°£°£°£°£°");
 			}
@@ -147,9 +147,8 @@ public class PayingBillsOfUnionPaySchedule {
 				form.setPriv1(map.get("Priv1"));
 				form.setStatus(map.get("status"));
 				form.setTransdate(map.get("transdate"));
-				form.setTranstype(map.get("transdate"));
-				if (!UnionPayChkValue.checkVerifyTransResponse(form, SystemCommonFilter.getContextRealPath())
-						&&!UnionPayChkValue.checkVerifyTransResponse2(form, SystemCommonFilter.getContextRealPath())) {
+				form.setTranstype(map.get("transtype"));
+				if (!UnionPayChkValue.checkVerifyTransResponse(form, SystemCommonFilter.getContextRealPath())) {
 					System.out.println("Œ¥Õ®π˝—È÷§");
 					continue;
 				}
