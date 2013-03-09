@@ -25,6 +25,7 @@ import com.spark.cms.base.constant.card.CMS;
 import com.spark.cms.base.constant.payment.PayingBillStatus;
 import com.spark.cms.services.payment.PayingBillsService;
 import com.spark.cms.services.vo.PayingBillsVo;
+import com.spark.cms.services.vo.PayingLogVo;
 import com.spark.front.form.payment.UnionPayForm;
 import com.spark.front.utils.UnionPayChkValue;
 
@@ -36,7 +37,7 @@ import com.spark.front.utils.UnionPayChkValue;
 public class PayingBillsOfUnionPaySchedule {
 
 	@Autowired
-	private PayingBillsService service;
+	private PayingBillsService service; 
 
 	@Scheduled(fixedDelay = 300000)
 	public void reQueryPayResultAndUpdate() {
@@ -57,8 +58,8 @@ public class PayingBillsOfUnionPaySchedule {
 			String checkValue = UnionPayChkValue.getPayQueryChkValue(SystemCommonFilter.getContextRealPath(), str);
 			try {
 				String path = CMS.PayInfo.UnionPayQueryUrl + "?MerId=" + CMS.PayInfo.UnionPayUserNo
-				+ "&TransType=0001&OrdId=" + vo.getOrderId() + "&TransDate=" + vo.getTransDate()
-				+ "&Version=20060831&Resv=" + vo.getRecid() + "&ChkValue=" + checkValue;
+						+ "&TransType=0001&OrdId=" + vo.getOrderId() + "&TransDate=" + vo.getTransDate()
+						+ "&Version=20060831&Resv=" + vo.getRecid() + "&ChkValue=" + checkValue;
 				System.out.println(path);
 				urls = new URL(path);
 			} catch (MalformedURLException e) {
@@ -112,6 +113,16 @@ public class PayingBillsOfUnionPaySchedule {
 			}
 			String xml = sb.toString().substring(sb.toString().indexOf("<body>") + 6, sb.toString().indexOf("</body>"));
 			System.out.println("·µ»Ø½á¹û£º" + xml);
+			PayingLogVo log = new PayingLogVo();
+			log.setAmount(vo.getAmount());
+			log.setCreateDate(vo.getCreateTime() + "");
+			log.setLogDate(new Date().getTime() + "");
+			log.setOrderId(vo.getOrderId());
+			log.setPtype(vo.getPayType());
+			log.setRelaBillsId(vo.getRelaBillsId());
+			log.setResultXml(xml);
+			log.setTransDate(vo.getTransDate());
+			this.service.insertLog(log);
 			String params[] = xml.split("&");
 			Map<String, String> map = new HashMap<String, String>();
 			for (String param : params) {
@@ -119,7 +130,7 @@ public class PayingBillsOfUnionPaySchedule {
 				map.put(two[0], two[1]);
 			}
 			if ("0".equals(map.get("ResponeseCode")) && vo.getAmount().equals(map.get("amount"))
-					&& "1001".equals("status")) {
+					&& "1001".equals(map.get("status"))) {
 				UnionPayForm form = new UnionPayForm();
 				form.setAmount(map.get("amount"));
 				form.setCheckvalue(map.get("checkvalue"));

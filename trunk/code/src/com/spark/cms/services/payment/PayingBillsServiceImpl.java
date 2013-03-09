@@ -18,11 +18,13 @@ import com.spark.cms.base.utils.BeanCopy;
 import com.spark.cms.common.Constant.MemberEnum.DealingsType;
 import com.spark.cms.common.Constant.OrderEnum.PayType;
 import com.spark.cms.dao.po.PayingBillsPo;
+import com.spark.cms.dao.po.PayingLogPo;
 import com.spark.cms.services.ServiceMessage;
 import com.spark.cms.services.member.MemberService;
 import com.spark.cms.services.order.OrderService;
 import com.spark.cms.services.vo.MemberDealingVo;
 import com.spark.cms.services.vo.PayingBillsVo;
+import com.spark.cms.services.vo.PayingLogVo;
 
 /**
  * @author Jideas
@@ -182,5 +184,17 @@ public class PayingBillsServiceImpl implements PayingBillsService {
 		} 
 		return BeanCopy.copy(PayingBillsVo.class, polist.get(0));
 	}
-
+	
+	
+	
+	@Override
+	public void insertLog(PayingLogVo vo) {
+		vo.setRecid(GUID.randomID().toString());
+		try{
+			Object s = this.baseDAO.save(BeanCopy.copy(PayingLogPo.class, vo));
+			System.out.println(s+"");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 }
