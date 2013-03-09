@@ -227,6 +227,8 @@ public class MemberServiceImpl implements MemberService {
 			hsql.append(" where (mp.code like '%").append(searchText).append("%' ");
 			hsql.append(" or mp.membername like '%").append(searchText).append("%' ");
 			hsql.append(" or mp.username like '%").append(searchText).append("%') ");
+			hsql.append(" or mp.mobile like '%").append(searchText).append("%') ");
+			hsql.append(" or mp.email like '%").append(searchText).append("%') ");
 
 		}
 		if (CheckIsNull.isNotEmpty(key.getSortType())) {
