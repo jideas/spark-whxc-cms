@@ -111,7 +111,7 @@ public class PayingBillsServiceImpl implements PayingBillsService {
 	private boolean orderSuccess(PayingBillsVo vo) throws Throwable {
 		String ids[] = vo.getRelaBillsId().split(",");
 		for (String orderId : ids) {
-			this.orderService.exeEffectiveOrder(orderId, PayType.getPayType(vo.getPayType()));
+			this.orderService.exeEffectiveOrder(orderId, PayType.Online);
 		}
 		return true;
 	}
