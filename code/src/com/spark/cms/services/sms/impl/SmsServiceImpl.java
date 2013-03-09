@@ -35,7 +35,7 @@ public class SmsServiceImpl implements SmsService {
 
 	@Autowired
 	private SmsConfigService configService;
-	 
+
 	private boolean initConfig(boolean compel) {
 		if (compel || config == null) {
 			config = configService.findVo();
@@ -88,7 +88,8 @@ public class SmsServiceImpl implements SmsService {
 				sb.append(str.trim());
 			}
 			read.close();// 关闭读取流
-//			ReturnMessage msg = XmlParseUtil.getInstance().parseXml(sb.toString());
+			// ReturnMessage msg =
+			// XmlParseUtil.getInstance().parseXml(sb.toString());
 			return new ServiceMessage(true, "");
 			// return new ServiceMessage(true, "该账号剩余短信条数：" +
 			// sb.toString().substring(sb.toString().indexOf("#") + 1)
@@ -165,28 +166,33 @@ public class SmsServiceImpl implements SmsService {
 				ss.append("&" + config.getMsgContentKey() + "=" + task.getMessage().replace(" ", "") + "【7号生活馆】");
 			}
 			System.out.println(ss.toString());
-			URL urls = new URL(config.getSubmitUrl());
-			HttpURLConnection uc = (HttpURLConnection) urls.openConnection();
-			uc.setRequestMethod("POST");
-			uc.setRequestProperty("content-type", "application/x-www-form-urlencoded");
-			System.setProperty("sun.net.client.defaultConnectTimeout", "30000");// 设置超时时间
-			System.setProperty("sun.net.client.defaultReadTimeout", "30000");
-			uc.setDoOutput(true);
-			OutputStreamWriter writer = new OutputStreamWriter(uc.getOutputStream());
-			writer.write(ss.toString());
-			writer.flush();
-			writer.close();
-			BufferedReader read;
-			read = new BufferedReader(new InputStreamReader(uc.getInputStream()));
-			String str;
-			StringBuilder sb = new StringBuilder();
-			while ((str = read.readLine()) != null) {
-				sb.append(str.trim());
-			}
-			read.close();// 关闭读取流
-			System.out.println(sb.toString());
-//			ReturnMessage msg = XmlParseUtil.getInstance().parseXml(sb.toString());
-//			ReturnFlag flag = (ReturnFlag.getFlag(msg.getResult()));
+			// URL urls = new URL(config.getSubmitUrl());
+			// HttpURLConnection uc = (HttpURLConnection) urls.openConnection();
+			// uc.setRequestMethod("POST");
+			// uc.setRequestProperty("content-type",
+			// "application/x-www-form-urlencoded");
+			// System.setProperty("sun.net.client.defaultConnectTimeout",
+			// "30000");// 设置超时时间
+			// System.setProperty("sun.net.client.defaultReadTimeout", "30000");
+			// uc.setDoOutput(true);
+			// OutputStreamWriter writer = new
+			// OutputStreamWriter(uc.getOutputStream());
+			// writer.write(ss.toString());
+			// writer.flush();
+			// writer.close();
+			// BufferedReader read;
+			// read = new BufferedReader(new
+			// InputStreamReader(uc.getInputStream()));
+			// String str;
+			// StringBuilder sb = new StringBuilder();
+			// while ((str = read.readLine()) != null) {
+			// sb.append(str.trim());
+			// }
+			// read.close();// 关闭读取流
+			// System.out.println(sb.toString());
+			// ReturnMessage msg =
+			// XmlParseUtil.getInstance().parseXml(sb.toString());
+			// ReturnFlag flag = (ReturnFlag.getFlag(msg.getResult()));
 			return ReturnFlag.Success;
 		} catch (Exception e) {
 			e.printStackTrace();

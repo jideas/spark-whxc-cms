@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.spark.cms.services.ServiceMessage;
 import com.spark.cms.services.vo.PayingBillsVo;
+import com.spark.cms.services.vo.PayingLogVo;
 
 /**
  * @author Jideas
@@ -31,4 +32,7 @@ public interface PayingBillsService {
 	 * @throws Throwable
 	 */
 	boolean exeUpdateStatus(PayingBillsVo vo, String status,boolean must) throws Throwable;
+	
+
+	void insertLog(PayingLogVo vo);
 }
