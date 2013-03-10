@@ -130,6 +130,7 @@
 		<script type="text/javascript" charset="GBK">
 	//初始化
 	$(function(){
+		$.ajaxSetup({cache:false});
 		//初始化 --> 解决Dialog的Debug
 		var userDialogDebug = $("#pageContent #userDialog");
 		for(var i =1;i< userDialogDebug.length;i++){
