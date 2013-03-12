@@ -4,6 +4,7 @@
 <html>
 	<head>
 		<title>加盟7号</title>
+		<script type="text/javascript" src="<%=basePath%>/scripts/idCard.js" charset="GBK"></script>
 		<link rel="shortcut icon" href="<%=basePath%>/images/page/icon-7.ico" type="image/x-icon" />
 		<link id="cssSink" type="text/css" rel="stylesheet"
 			href="<%=basePath%>/scripts/dialog/cmsDialog.css" />
@@ -14,29 +15,93 @@
 		<link rel="stylesheet" type="text/css"
 			href="<%=basePath%>/pro/member/css/my7.css">
 		<script type="text/javascript">
-function submitJoinInfo(){ 
+function submitJoinInfo(){
+	//验证 -> 姓名
+	var chineseReg = /^([u4e00-u9fa5]|[ufe30-uffa0])*$/gi;
+	if(chineseReg.test($("#joinSevenForm input[name='joinerName']").val())){
+		alert("姓名只能输入中文！");
+		return false;
+	}
+	//验证 -> 年龄
+	var ageReg = /^[0-9]+$/;
+	if(!ageReg.test($("#joinSevenForm input[name='joinerAge']").val())){
+		alert("年龄不合法！");
+		return false;
+	}
+	//验证 -> 籍贯
+	if(chineseReg.test($("#joinSevenForm input[name='birthplace']").val())){
+		alert("籍贯只能输入中文！");
+		return false;
+	}
+	//验证 -> 身份证
+	if(!checkParseIdCard($("#joinSevenForm input[name='idCardNo']").val())){
+		return false;
+	}
+	//验证 -> Email
+	var emailReg = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+	if(!emailReg.test($("#joinSevenForm input[name='email']").val())){
+		alert("email不合法！");
+		return false;
+	}
+	//验证 -> 联系电话
+	var telephoneReg = /^([0-9]|[\-])+$/g;
+	if(!telephoneReg.test($("#joinSevenForm input[name='telephone']").val())){
+		alert("联系电话格式错误！");
+		return false;
+	}
+	//验证 -> 传真
+	var faxReg = /^((\+?[0-9]{2,4}\-[0-9]{3,4}\-)|([0-9]{3,4}\-))?([0-9]{7,8})(\-[0-9]+)?$/;
+	if(!faxReg.test($("#joinSevenForm input[name='fax']").val())){
+		alert("传真格式不正确！");
+		return false;
+	}
+	//验证 -> QQ
+	var qqReg = /^[1-9]\d{4,10}$/;
+	if(!qqReg.test($("#joinSevenForm input[name='qq']").val())){
+		alert("QQ格式不正确！");
+		return false;
+	}
+	//验证 -> MSN
+	var msnReg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+	if($("#joinSevenForm input[name='msn']").val() != ""){
+		if(!msnReg.test($("#joinSevenForm input[name='msn']").val())){
+			alert("msn格式不正确！");
+			return false;
+		}
+	}
+	//验证 -> 手机号码
+	var mobileReg = /^([0-9]|[\-])+$/g;
+	if(!mobileReg.test($("#joinSevenForm input[name='mobile']").val())){
+		alert("手机号码格式错误！");
+		return false;
+	}
+	
+	//提交加盟单
 	var form = $('#joinSevenForm');
 	$.ajax({
-					type: 'post',
-					url: form.attr('action'),
-					contentType: "application/x-www-form-urlencoded; charset=utf-8",
-					data:form.serialize(),
-					dataType: 'json',
-					success: function(result) {
-				    	if (result.result) {
-							var cc = new CmsConfirm("提示", "提交加盟申请已成功，请静待回音，点击确定返回首页。");
-							cc.setActionListener(function(result) {
-								if(result){
-									window.location = mainWeb;
-								}else{
-									
-								}
-							}); 
-						} else {
-							 cmsAlertAtt(result.message);
-						}
+		type: 'post',
+		url: form.attr('action'),
+		contentType: "application/x-www-form-urlencoded; charset=utf-8",
+		data:form.serialize(),
+		dataType: 'json',
+		success: function(result) {
+	    	if (result.result) {
+				var cc = new CmsConfirm("提示", "提交加盟申请已成功，请静待回音，点击确定返回首页。");
+				cc.setActionListener(function(result) {
+					if(result){
+						window.location = mainWeb;
+					}else{
+						
 					}
-				});
+				}); 
+			} else {
+				 cmsAlertAtt(result.message);
+			}
+		}
+	});
+}
+function validateJoinInfo(){
+	
 }
 </script>
 		<style type="text/css">
@@ -164,7 +229,7 @@ function submitJoinInfo(){
 							</div>
 
 							<div class="fieldInputSpan">
-								<input type="text" name="joinerName" style="width: 150px;" />
+								<input type="text" name="joinerName" style="width: 150px;"/>
 							</div>
 							<div class="fieldLableSpan">
 								性别：
@@ -184,7 +249,7 @@ function submitJoinInfo(){
 							</div>
 
 							<div class="fieldInputSpan">
-								<input type="text" name="joinerAge" style="width: 50px;" />
+								<input type="text" name="joinerAge" style="width: 50px;"/>
 							</div>
 							<div class="fieldLableSpan">
 								婚姻状况：
@@ -205,7 +270,7 @@ function submitJoinInfo(){
 							</div>
 
 							<div class="fieldInputSpan">
-								<input type="text" name="birthplace" style="width: 100px;" />
+								<input type="text" name="birthplace" style="width: 100px;"/>
 							</div>
 						</div>
 						<div class="JoinChannelFormDivStyle">
@@ -237,13 +302,13 @@ function submitJoinInfo(){
 							</div>
 
 							<div class="fieldInputSpan">
-								<input type="text" name="idCardNo" style="width: 200px;" />
+								<input type="text" name="idCardNo" style="width: 200px;"/>
 							</div>
 							<div class="fieldLableSpan">
 								email：
 							</div>
 							<div class="fieldInputSpan">
-								<input type="text" name="email" style="width: 228px;" />
+								<input type="text" name="email" style="width: 228px;"/>
 							</div>
 						</div>
 						<div class="JoinChannelFormDivStyle">
@@ -252,28 +317,28 @@ function submitJoinInfo(){
 							</div>
 
 							<div class="fieldInputSpan">
-								<input type="text" name="telephone" style="width: 100px;" />
+								<input type="text" name="telephone" style="width: 100px;"/>
 							</div>
 							<div class="fieldLableSpan">
 								传真：
 							</div>
 
 							<div class="fieldInputSpan">
-								<input type="text" name="fax" style="width: 100px;" />
+								<input type="text" name="fax" style="width: 100px;"/>
 							</div>
 							<div class="fieldLableSpan">
 								QQ：
 							</div>
 
 							<div class="fieldInputSpan">
-								<input type="text" name="qq" style="width: 100px;" />
+								<input type="text" name="qq" style="width: 100px;"/>
 							</div>
 							<div class="fieldLableSpan">
 								MSN：
 							</div>
 
 							<div class="fieldInputSpan">
-								<input type="text" name="msn" style="width: 158px;" />
+								<input type="text" name="msn" style="width: 158px;"/>
 							</div>
 						</div>
 						<div class="JoinChannelFormDivStyle">
@@ -282,7 +347,7 @@ function submitJoinInfo(){
 							</div>
 
 							<div class="fieldInputSpan">
-								<input type="text" name="mobile" style="width: 100px;" />
+								<input type="text" name="mobile" style="width: 100px;"/>
 							</div>
 							<div class="fieldLableSpan">
 								居住地址：
