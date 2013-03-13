@@ -679,6 +679,13 @@
         	'http://www.yc777.com.cn',
         	'http://www.yc777.com.cn',
         	'http://www.yc777.com.cn',
+        	'http://www.yc777.com.cn',
+        	'http://www.yc777.com.cn',
+        	'http://www.yc777.com.cn',
+        	'http://www.yc777.com.cn',
+        	'http://www.yc777.com.cn',
+        	'http://www.yc777.com.cn',
+        	'http://www.yc777.com.cn',
         	'http://www.yc777.com.cn'
         	];
         var link = $('<a href="'+ img_links[index] +'" target="_blank"></a>');
