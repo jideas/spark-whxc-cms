@@ -87,14 +87,15 @@ public class GoodsForwardAction extends BaseAction {
 		mv.addObject(GoodsKey.GoodsName.toString(), goods.getGoodsname());
 		mv.addObject(GoodsKey.GoodsSpec.toString(), goods.getGoodsspec());
 		if (CmsString.isEmpty(sign) || "1".equals(sign)) {
-			mv.addObject(GoodsKey.GoodsPrice.toString(), "￥" + DoubleUtil.getRoundStr(goods.getRealprice()) + "元/"+goods.getGoodsunit());
+			mv.addObject(GoodsKey.GoodsPrice.toString(), "￥" + DoubleUtil.getRoundStr(goods.getRealprice()) + "元/"
+					+ goods.getGoodsunit());
 			String oldPrice = "";
-			if (goods.getOriginalprice() > goods.getRealprice()) {
+			if (goods.getOriginalprice() >= goods.getRealprice()) {
 				oldPrice = DoubleUtil.getRoundStr(goods.getOriginalprice());
 			} else {
 				oldPrice = DoubleUtil.getRoundStr(DoubleUtil.mul(goods.getRealprice(), 1.2));
 			}
-			mv.addObject(GoodsKey.GoodsOldPrice.toString(), "￥" + oldPrice + "元/"+goods.getGoodsunit());
+			mv.addObject(GoodsKey.GoodsOldPrice.toString(), "￥" + oldPrice + "元/" + goods.getGoodsunit());
 
 			String code = SparkDictionaryManager.getItem(DictionaryType.VantagesType, goods.getVantagestype())
 					.getCode();
@@ -113,9 +114,13 @@ public class GoodsForwardAction extends BaseAction {
 			fillSpecSelector(goods, mv);
 		} else if ("2".equals(sign)) {
 			mv.addObject(GoodsKey.GoodsPrice.toString(), DoubleUtil.getRoundStr(goods.getVantagesCost(), 0) + "积分");
-			mv.addObject(GoodsKey.GoodsOldPrice.toString(), DoubleUtil.getRoundStr(DoubleUtil.mul(goods
-					.getVantagesCost(), 1.2), 0)
-					+ "积分");
+			String oldPrice = "";
+			if (goods.getOriginalprice() >= goods.getRealprice()) {
+				oldPrice = DoubleUtil.getRoundStr(goods.getOriginalprice());
+			} else {
+				oldPrice = DoubleUtil.getRoundStr(DoubleUtil.mul(goods.getRealprice(), 1.2));
+			}
+			mv.addObject(GoodsKey.GoodsOldPrice.toString(), "￥" + oldPrice + "元/" + goods.getGoodsunit());
 			mv.addObject(GoodsKey.VantegesRule.toString(), "<font color=red >积分商城商品不赠送积分！</font>");
 			mv.addObject(GoodsKey.PromotionInfo.toString(), "商品暂未促销");
 			mv.addObject(GoodsKey.GoodsType.toString(), "2");
@@ -162,7 +167,7 @@ public class GoodsForwardAction extends BaseAction {
 				price = (DoubleUtil.getRoundStr(DoubleUtil.mul(form.getRealprice(), pmt.getDisrate())));
 			}
 			htmllist.add(GoodsHtmlHelper.getSmallGoodsHtml(form.getRecid(), form.getPicturepath2(),
-					form.getGoodsname(), form.getGoodsspec(), price,form.getGoodsunit(), basePath));
+					form.getGoodsname(), form.getGoodsspec(), price, form.getGoodsunit(), basePath));
 		}
 		mv.addObject(GoodsKey.SameCategoryPopularGoods.toString(), htmllist);
 	}
@@ -203,8 +208,10 @@ public class GoodsForwardAction extends BaseAction {
 			message = "商品促销中";
 		}
 		if (pmt.getDisrate() > 0 && pmt.getDisrate() < 1) {
-			mv.addObject(GoodsKey.GoodsPrice.toString(), "￥"
-					+ DoubleUtil.getRoundStr(DoubleUtil.mul(goods.getRealprice(), pmt.getDisrate())) + "元/"+goods.getGoodsunit());
+			mv.addObject(
+					GoodsKey.GoodsPrice.toString(),
+					"￥" + DoubleUtil.getRoundStr(DoubleUtil.mul(goods.getRealprice(), pmt.getDisrate())) + "元/"
+							+ goods.getGoodsunit());
 			if (goods.isFreedelivery()) {
 				message += ",且享受促销价格";
 			}
@@ -247,7 +254,7 @@ public class GoodsForwardAction extends BaseAction {
 			} else {
 				oldPrice = DoubleUtil.getRoundStr(DoubleUtil.mul(g.getRealprice(), 1.2));
 			}
-			oldPrice = "￥" + oldPrice + "元/"+goods.getGoodsunit();
+			oldPrice = "￥" + oldPrice + "元/" + goods.getGoodsunit();
 			String code = SparkDictionaryManager.getItem(DictionaryType.VantagesType, goods.getVantagestype())
 					.getCode();
 			double d = DoubleUtil.mul(g.getRealprice(), DoubleUtil.strToDouble(code));
@@ -275,7 +282,7 @@ public class GoodsForwardAction extends BaseAction {
 			if (g.getGoodsType().equals(GoodsType.Booking.getCode())) {
 				bookingText = "";
 			}
-			ss.append(",'￥" + price + "元/"+goods.getGoodsunit()+"'");
+			ss.append(",'￥" + price + "元/" + goods.getGoodsunit() + "'");
 			ss.append(",'" + message + "'");
 			ss.append(",'" + oldPrice + "'");
 			ss.append(",'" + vantege + "'");
