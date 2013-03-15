@@ -26,8 +26,8 @@ public class ProductListGen {
 			String promotionInfo = null;
 			if (goodsVo.isPromotion()) {
 				GoodsPromotionVo promotion = promotionService.findByGoodsId(goodsVo.getRecid());
-				double price = 0.0;
-				if (promotion.getDisrate() > 0 && promotion.getDisrate() < 1) {
+				double price = goodsVo.getRealprice();
+				if (null!=promotion&&promotion.getDisrate() > 0 && promotion.getDisrate() < 1) {
 					price = DoubleUtil.mul(goodsVo.getRealprice(), promotion.getDisrate());
 					promotionInfo = " " + (promotion.getDisrate() * 10) + "уш";
 				}
