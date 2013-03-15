@@ -22,6 +22,11 @@
 	               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/011_thumb.jpg" class="image11">              
 				</a>
 			</li>
+			<li>
+	            <a href="<%=basePath%>/scripts/jslider/slider-images/012.jpg">
+	               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/012_thumb.jpg" class="image012">              
+				</a>
+			</li>
             <li>
 	            <a href="<%=basePath%>/scripts/jslider/slider-images/01.jpg" id="img001">
                 	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/01_thumb.jpg" class="image0">              
