@@ -20,7 +20,8 @@ import sun.misc.Unsafe;
 /**
  * GUID
  */
-public final class GUID extends Object implements Serializable, Comparable<GUID> {
+public final class GUID extends Object implements Serializable,
+		Comparable<GUID> {
 	public final static Comparator<GUID> comparator = new Comparator<GUID>() {
 		public int compare(GUID o1, GUID o2) {
 			return o1.compareTo(o2);
@@ -37,7 +38,8 @@ public final class GUID extends Object implements Serializable, Comparable<GUID>
 		}
 		if (obj instanceof GUID) {
 			GUID one = (GUID) obj;
-			return this.leastSigBits == one.leastSigBits && this.mostSigBits == one.mostSigBits;
+			return this.leastSigBits == one.leastSigBits
+					&& this.mostSigBits == one.mostSigBits;
 		}
 		return false;
 	}
@@ -81,7 +83,8 @@ public final class GUID extends Object implements Serializable, Comparable<GUID>
 		}
 		final int blen = buf.length;
 		if (off < 0 || off > blen) {
-			throw new IndexOutOfBoundsException("buf's length: " + blen + ", off: " + off);
+			throw new IndexOutOfBoundsException("buf's length: " + blen
+					+ ", off: " + off);
 		}
 		if (blen - off < 16) {
 			throw new BufferUnderflowException();
@@ -106,7 +109,8 @@ public final class GUID extends Object implements Serializable, Comparable<GUID>
 		if (id1 == id2) {
 			return true;
 		}
-		return id1 != null && id2 != null && id1.leastSigBits == id2.leastSigBits
+		return id1 != null && id2 != null
+				&& id1.leastSigBits == id2.leastSigBits
 				&& id1.mostSigBits == id2.mostSigBits;
 	}
 
@@ -115,7 +119,8 @@ public final class GUID extends Object implements Serializable, Comparable<GUID>
 	 */
 	@Override
 	public final int hashCode() {
-		return (int) ((this.mostSigBits >>> 32) ^ this.mostSigBits ^ (this.leastSigBits >>> 32) ^ this.leastSigBits);
+		return (int) ((this.mostSigBits >>> 32) ^ this.mostSigBits
+				^ (this.leastSigBits >>> 32) ^ this.leastSigBits);
 	}
 
 	public final int compareTo(GUID val) {
@@ -182,8 +187,8 @@ public final class GUID extends Object implements Serializable, Comparable<GUID>
 	private final static int h2b_A_10 = 'A' - 10;
 	private final static int h2b_a_10 = 'a' - 10;
 
-	private static int parseChar(String s, int offset) throws ValueConvertException,
-			StringIndexOutOfBoundsException {
+	private static int parseChar(String s, int offset)
+			throws ValueConvertException, StringIndexOutOfBoundsException {
 		char c = s.charAt(offset);
 		if (c < '0') {
 		} else if (c <= '9') {
@@ -195,10 +200,12 @@ public final class GUID extends Object implements Serializable, Comparable<GUID>
 		} else if (c <= 'f') {
 			return c - h2b_a_10;
 		}
-		throw new ValueConvertException("在偏移量" + offset + "处出现无效的十六进制字符'" + c + "'");
+		throw new ValueConvertException("在偏移量" + offset + "处出现无效的十六进制字符'" + c
+				+ "'");
 	}
 
-	private static void byteToHex(char[] hex, int index, byte b, boolean upperCase) {
+	private static void byteToHex(char[] hex, int index, byte b,
+			boolean upperCase) {
 		int h = b >>> 4 & 0xF;
 		if (upperCase) {
 			hex[index] = (char) (h > 9 ? h + h2b_A_10 : h + '0');
@@ -211,7 +218,8 @@ public final class GUID extends Object implements Serializable, Comparable<GUID>
 		}
 	}
 
-	private static void appendTo(Appendable hex, long l, boolean upperCase) throws IOException {
+	private static void appendTo(Appendable hex, long l, boolean upperCase)
+			throws IOException {
 		int b = (int) (l >>> 56);
 		int h = (b >>> 4) & 0xF;
 		if (upperCase) {
@@ -287,7 +295,8 @@ public final class GUID extends Object implements Serializable, Comparable<GUID>
 		this.appendTo(hex, false, true);
 	}
 
-	public final void appendTo(Appendable hex, boolean withPrefix, boolean upperCase) {
+	public final void appendTo(Appendable hex, boolean withPrefix,
+			boolean upperCase) {
 		if (hex == null) {
 			throw new NullPointerException("hex is null");
 		}
@@ -421,7 +430,8 @@ public final class GUID extends Object implements Serializable, Comparable<GUID>
 		}
 		final int blen = buf.length;
 		if (off < 0 || off > blen) {
-			throw new IndexOutOfBoundsException("buf's length: " + blen + ", off: " + off);
+			throw new IndexOutOfBoundsException("buf's length: " + blen
+					+ ", off: " + off);
 		}
 		if (blen - off < 16) {
 			throw new BufferUnderflowException();
@@ -640,12 +650,7 @@ public final class GUID extends Object implements Serializable, Comparable<GUID>
 		}
 	}
 
-	// //////////////////////////////////////////////////////////////////////////
-	// ////////////////////
-	// //////////////////以下是内部方法/////////////////////////////////////////////////
-	// ////////////////
-	// //////////////////////////////////////////////////////////////////////////
-	// ////////////////////
+	// ///////以下是内部方法///////////
 	private static final long serialVersionUID = 2686938417664634277L;
 	private static final SecureRandom numberGenerator = new SecureRandom();
 
@@ -676,23 +681,17 @@ public final class GUID extends Object implements Serializable, Comparable<GUID>
 	private static class UnsafeString {
 		static final Unsafe unsafe = getUnsafe();
 
-		// static final long stringValueOffset = tryGetFieldOffset(String.class,
-		// "value");
-		// static final long stringCountOffset = tryGetFieldOffset(String.class,
-		// "count");
-
-		// static final long ILLEGAL_OFFSET = -1;
-
 		private static Unsafe getUnsafe() {
 			Unsafe us;
 			try {
 				final Field f = Unsafe.class.getDeclaredField("theUnsafe");
-				java.security.AccessController.doPrivileged(new PrivilegedAction<Object>() {
-					public Object run() {
-						f.setAccessible(true);
-						return null;
-					}
-				});
+				java.security.AccessController
+						.doPrivileged(new PrivilegedAction<Object>() {
+							public Object run() {
+								f.setAccessible(true);
+								return null;
+							}
+						});
 				us = (Unsafe) f.get(null);
 			} catch (Throwable e) {
 				us = null;
@@ -700,39 +699,12 @@ public final class GUID extends Object implements Serializable, Comparable<GUID>
 			return us;
 		}
 
-		// private static long tryGetFieldOffset(Class<?> clazz, String
-		// fieldName) {
-		// if (unsafe != null) {
-		// try {
-		// return unsafe.objectFieldOffset(clazz
-		// .getDeclaredField(fieldName));
-		// } catch (Throwable e) {
-		// return ILLEGAL_OFFSET;
-		// }
-		// }
-		// return ILLEGAL_OFFSET;
-		// }
-
-		// private static boolean 绝对不可以移除或置该变量为final = false;
-
 		static String fastString(char[] chars) {
 			int charCount = chars.length;
 			if (charCount == 0) {
 				return "";
 			}
 			return new String(chars);
-			// if (stringCountOffset != ILLEGAL_OFFSET
-			// && stringValueOffset != ILLEGAL_OFFSET) {
-			// String s = "绝对不可以改该字符串".substring(0, 0);
-			// unsafe.putInt(s, stringCountOffset, charCount);
-			// unsafe.putObject(s, stringValueOffset, chars);
-			// if (绝对不可以移除或置该变量为final) {
-			// 绝对不可以移除或置该变量为final = false;
-			// }
-			// return s;
-			// } else {
-			// throw new IllegalAccessError();
-			// }
 		}
 	}
 }
