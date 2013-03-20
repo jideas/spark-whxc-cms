@@ -249,7 +249,7 @@ public class GoodsForwardAction extends BaseAction {
 			String price = DoubleUtil.getRoundStr(g.getRealprice());
 			String message = "";
 			String oldPrice = "";
-			if (g.getOriginalprice() > g.getRealprice()) {
+			if (g.getOriginalprice() >= g.getRealprice()) {
 				oldPrice = DoubleUtil.getRoundStr(g.getOriginalprice());
 			} else {
 				oldPrice = DoubleUtil.getRoundStr(DoubleUtil.mul(g.getRealprice(), 1.2));
