@@ -81,7 +81,7 @@
 		<!-- begin of 新增赠品促销 -->
 		<div id="goodsBillDialog" class="easyui-dialog"
 			data-options="modal:true,closable:true,maximizable:true"
-			style="width: 852px; height: 608px; padding: 20px 10px 0px;"
+			style="width: 852px; height: 508px; padding: 10px 10px 0px;"
 			title="1" closed="true">
 			<div id="MainBillInfo">
 				<div class="JoinChannelTitleDivStyle">
