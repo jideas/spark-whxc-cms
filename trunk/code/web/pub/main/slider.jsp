@@ -89,10 +89,10 @@
 	  	},
 	  	callbacks: {
 			init: function() {
-		  		this.preloadAll();
+		  		//this.preloadAll();
 		  		this.preloadImage(0);
-		  		this.preloadImage(1);
-		  		this.preloadImage(2);
+		  		//this.preloadImage(1);
+		  		//this.preloadImage(2);
 			},
 			afterImageVisible: function() {
 		 		var context = this;

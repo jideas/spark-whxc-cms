@@ -179,7 +179,7 @@
 
 .commonFloor .floor_product .floor_productcontain .floor_category_product{
 	display:none;
-	padding-left:15px;
+	padding-left:10px;
 }
 
 .commonFloor .floor_product .floor_productcontain .floor_category_product ol{
@@ -188,9 +188,9 @@
 }
 .commonFloor .floor_product .floor_productcontain .floor_category_product ol li{
 	float:left;
-	width:210px;
+	width:175px;
 	height:210px;
-	margin:15px 7px 10px 0px;
+	margin:15px 2px 10px 0px;
 	vertical-align:middle;
 }
 .commonFloor ol .product_image {
@@ -201,6 +201,8 @@
 	line-height: 18px;
 	font-size: 12px;
 	margin-top:2px;
+	word-wrap:break-word; 
+	overflow:hidden; 
 	*display:inline-block;
 }
 .commonFloor ol .product_name a,#commonFloor ol .product_name a:link,#commonFloor ol .product_type{
