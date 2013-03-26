@@ -114,6 +114,10 @@
 				id="ImportCardDialog-dlg-buttons02"
 				onclick="javascript:$('#ImportCardDialog').dialog('close')">取 消</a>
 		</div>
+		<object  id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0> 
+			<embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0></embed>
+		</object>
+		<script type="text/javascript" src="<%=mainWeb%>/scripts/Lodop/LodopFuncs.js"></script>
 		<script type="text/javascript">
 // 初始化
 $(function() {
@@ -350,18 +354,47 @@ $(function() {
 			if (ids == '') {
 				$.messager.alert('提示', '请选择要批量印发的面值卡!', 'warning');
 			} else {
-				$.post(mainWeb+'/admin/card/batchPrint', {
-							'ids[]' : ids
-						}, function() {
-							addCardAction.refreshCards();// 刷新面值卡列表信息
+				$.post(mainWeb+'/admin/card/batchPrint',{'ids[]' : ids},function(data) {
+					data = eval("("+data+")");
+					if(data.result){
+						addCardAction.refreshCards();// 刷新面值卡列表信息
+						//获取要打印的面值卡
+						$.post(mainWeb+'/admin/card/getVoListByIds',{'ids[]' : ids},function(data) {
+							data = eval("("+data+")");
+							createPrintPage1(data);
 						});
+					}
+				});
 			}
+		}
+		
+		//面值卡 -> 创建打印页面
+		function createPrintPage1(data){
+			var LODOP=getLodop(document.getElementById('LODOP_OB'),document.getElementById('LODOP_EM'));
+			LODOP.PRINT_INIT("面值卡打印...");
+			LODOP.SET_PRINT_PAGESIZE(1, '75mm','101mm','CreateCustomPage');
+			LODOP.SET_PRINT_STYLE("FontSize",12);
+			LODOP.SET_PRINT_STYLE("FontColor","#000000");
+			var invalidDate = new Date();
+			for(var i = 0;i < data.returnObj.length;i++){
+				invalidDate.setTime(data.returnObj[i].lastDate);
+				var tempDate = invalidDate.getFullYear() + "-" + (invalidDate.getMonth()+1) + "-" + invalidDate.getDate();
+				LODOP.NewPage();
+
+				LODOP.ADD_PRINT_TEXT('30mm','30mm','40mm','5mm',data.returnObj[i].amount);
+				LODOP.ADD_PRINT_TEXT('36.5mm','30mm','40mm','5mm',data.returnObj[i].ordinal);
+				LODOP.ADD_PRINT_TEXT('43mm','30mm','40mm','5mm',tempDate);
+				
+				LODOP.ADD_PRINT_TEXT('64.5mm','16mm','50mm','5mm','卡号：'+data.returnObj[i].cardno);
+				LODOP.ADD_PRINT_TEXT('74mm','16mm','50mm','5mm','密码：'+data.returnObj[i].password);
+			}
+			LODOP.PREVIEW();
+			//LODOP.PRINT();
 		}
 
 		function CreatePrintPage(value, number, productDate, enddate, card, ps) {
 			LODOP.PRINT_INITA(4, 3, 1200, 1600, "套打EMS的模板");
-			LODOP
-					.ADD_PRINT_SETUP_BKIMG("C:\\Users\\mengyongfeng\\Desktop\\首页.jpg");
+			//LODOP.ADD_PRINT_SETUP_BKIMG("C:\\Users\\mengyongfeng\\Desktop\\首页.jpg");
 			LODOP.SET_PRINT_PAGESIZE(1, 1200, 1600, "");
 			LODOP.SET_SHOW_MODE("BKIMG_IN_PREVIEW", true);
 			LODOP.SET_SHOW_MODE("BKIMG_PRINT", true);
