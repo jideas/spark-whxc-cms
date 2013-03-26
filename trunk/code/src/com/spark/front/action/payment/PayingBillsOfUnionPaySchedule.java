@@ -23,6 +23,7 @@ import org.springframework.stereotype.Component;
 import com.spark.base.common.filter.SystemCommonFilter;
 import com.spark.cms.base.constant.card.CMS;
 import com.spark.cms.base.constant.payment.PayingBillStatus;
+import com.spark.cms.services.ServiceMessage;
 import com.spark.cms.services.payment.PayingBillsService;
 import com.spark.cms.services.vo.PayingBillsVo;
 import com.spark.cms.services.vo.PayingLogVo;
@@ -156,7 +157,7 @@ public class PayingBillsOfUnionPaySchedule {
 					System.out.println("开始更新相关数据。。。。");
 					this.service.exeUpdateStatus(vo, PayingBillStatus.Success.getCode(), true);
 					System.out.println("本条数据完成。");
-				} catch (Throwable e) {
+				} catch (ServiceMessage e) {
 					e.printStackTrace();
 					continue;
 				}

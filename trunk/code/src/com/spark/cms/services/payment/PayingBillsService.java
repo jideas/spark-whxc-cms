@@ -31,7 +31,7 @@ public interface PayingBillsService {
 	 * @throws ServiceMessage
 	 * @throws Throwable
 	 */
-	boolean exeUpdateStatus(PayingBillsVo vo, String status,boolean must) throws Throwable;
+	boolean exeUpdateStatus(PayingBillsVo vo, String status,boolean must) throws ServiceMessage;
 	
 
 	void insertLog(PayingLogVo vo);
