@@ -502,7 +502,7 @@ public class MemberAction extends BaseAction {
 		try {
 			this.orderService.exeEffectiveOrder(orderId, PayType.Online);
 			return ResponseEntityUtil.getResponseEntity(Success);
-		} catch (Exception e) {
+		} catch (ServiceMessage e) {
 			log.error("确认收款发生异常====" + e.getStackTrace());
 			return null;
 		}
