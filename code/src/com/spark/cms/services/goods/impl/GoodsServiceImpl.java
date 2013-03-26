@@ -513,10 +513,15 @@ public class GoodsServiceImpl implements GoodsService {
 		Object[] parameters = null;
 		if (null == key.getCategoryId()) {
 			hql = "from EGoodsPo where recid not in (select recid from GoodsPo)";
+//			hql = "from EGoodsPo ";
 		} else {
 			hql = "FROM EGoodsPo " + " WHERE categoryId IN (" + " SELECT c.recid FROM EGoodsCategoryPo c"
 					+ " WHERE c.path LIKE '%" + GUID.valueOf(key.getCategoryId()).toString() + "%'"
 					+ " AND c.leafflag=TRUE) and recid not in (select recid from GoodsPo)";
+			
+//			hql = "FROM EGoodsPo " + " WHERE categoryId IN (" + " SELECT c.recid FROM EGoodsCategoryPo c"
+//					+ " WHERE c.path LIKE '%" + GUID.valueOf(key.getCategoryId()).toString() + "%'"
+//					+ " AND c.leafflag=TRUE)";
 		}
 		Map<String, Object> queryInfo = new HashMap<String, Object>();
 		queryInfo.put(QueryGoodsInfo.HQL.name(), hql);
