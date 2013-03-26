@@ -720,7 +720,7 @@ public class CardServiceImpl implements CardService {
 		hql.append("from CardPo as t");
 		hql.append(" where ");
 		hql.append(" t.status = ? ");
-		params.add(CardStatus.Created.getCode());
+		params.add(CardStatus.Printed.getCode());
 		hql.append(" and t.recid in (");
 		int index = 0;
 		for (String id : cardIds) {
