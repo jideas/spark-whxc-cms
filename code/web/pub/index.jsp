@@ -221,7 +221,7 @@ body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,table,th,td,blockquote,field
 				</div>
 			</div>
 			<div id="mainFloorMainDiv"><%=pageManager.getMainFloorHtml("0", "6", basePath)%></div>
-			<div id="productFloors"><%=pageManager.getFloorHtml("0", "8", basePath)%></div>
+			<div id="productFloors"><%=pageManager.getFloorHtml("0", "10", basePath)%></div>
 
 			<div id="serviceFloors">
 				<jsp:include page="/pub/main/service.jsp" flush="true" />
