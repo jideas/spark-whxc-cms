@@ -76,7 +76,7 @@ public class PayingBillsServiceImpl implements PayingBillsService {
 	 *      java.lang.String, java.lang.String)
 	 */
 	@Override
-	public boolean exeUpdateStatus(PayingBillsVo vo, String status, boolean must) throws Throwable {
+	public boolean exeUpdateStatus(PayingBillsVo vo, String status, boolean must) throws ServiceMessage {
 		StringBuilder hql = new StringBuilder();
 		hql.append(" update PayingBillsPo as t set ");
 		hql.append(" status=?");
@@ -108,7 +108,7 @@ public class PayingBillsServiceImpl implements PayingBillsService {
 	 * @return
 	 * @throws Throwable
 	 */
-	private boolean orderSuccess(PayingBillsVo vo) throws Throwable {
+	private boolean orderSuccess(PayingBillsVo vo) throws ServiceMessage {
 		String ids[] = vo.getRelaBillsId().split(",");
 		for (String orderId : ids) {
 			this.orderService.exeEffectiveOrder(orderId, PayType.Online);

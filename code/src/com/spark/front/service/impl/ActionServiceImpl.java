@@ -560,7 +560,7 @@ public class ActionServiceImpl implements ActionService {
 			}
 			try {
 				this.orderService.exeEffectiveOrder(order.getRecid(),PayType.Balance);
-			} catch (Throwable e) {
+			} catch (ServiceMessage e) {
 				return new ServiceMessage(false, "ณ๖ดํมหฃก", 1).getMessageModel();
 			}
 		}
