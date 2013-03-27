@@ -13,7 +13,7 @@
 		<meta http-equiv="Expires" CONTENT="0">  
 		<meta http-equiv="Cache-Control" CONTENT="no-cache">
 		<meta http-equiv="Pragma" CONTENT="no-cache">
-		<meta http-equiv="keywords" content="武汉买菜,武昌买菜,汉口买菜,汉阳买菜,湖北买菜,7号买菜,七号买菜,湖北特产">
+		<meta http-equiv="keywords" content="7号生活馆,生鲜超市,服务社区,方便居民,一点到家,武汉买菜,武昌买菜,汉口买菜,汉阳买菜,湖北买菜,7号买菜,七号买菜,生鲜,蔬菜,水果,特产,进口食品,半成品菜,特产,湖北特产,速冻菜,便携菜,肉,水产,蛋品,菜,休闲食品,酒,水,米,面,酱,醋,盐,调味,茶,果,生活用品,卫生清洁,厨房,有机蔬菜">
 		
 		<script type="text/javascript"
 			src="<%=basePath%>/scripts/jquery/jquery.js"></script>
