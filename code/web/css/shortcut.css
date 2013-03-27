@@ -103,10 +103,13 @@
 .shortcut .shortcut-body .cutkey span{
 	position:relative;
 	display:inline-block;
-	width:80px;
 	text-align: center;
 	vertical-align:middle;
 	background: url("../images/page/page_top_split.png") no-repeat right center;
+}
+.shortcut .shortcut-body .cutkey span a{
+	margin-left: 4px;
+	margin-right: 8px;
 }
 .shortcut .shortcut-body .cutkey .tailor{
 	background-image: none;
