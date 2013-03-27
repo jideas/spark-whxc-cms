@@ -155,9 +155,11 @@ body {
 				<div
 					style="width: 1200px; clear: both; * height: 0px; * line-height: 0px;"></div>
 			</div>
+			<!-- 
 			<div id="product_ad_floor">
 				<jsp:include page="main/downstairs-ad.jsp" flush="true" />
 			</div>
+			 -->
 			<div id="product_service">
 				<jsp:include page="main/service.jsp" flush="true" />
 			</div>
