@@ -52,6 +52,16 @@ public class GoodsPo implements java.io.Serializable {
 	private byte[] publishPersonId;
 	private String publishPersonName;
 	private Date publishDate;
+	private double halfkgPrice;
+
+	@Column(name = "halfkgPrice")
+	public double getHalfkgPrice() {
+		return halfkgPrice;
+	}
+
+	public void setHalfkgPrice(double halfkgPrice) {
+		this.halfkgPrice = halfkgPrice;
+	}
 	
 	private boolean isPromotion;
 	
