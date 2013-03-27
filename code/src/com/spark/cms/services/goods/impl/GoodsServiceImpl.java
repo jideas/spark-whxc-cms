@@ -54,7 +54,8 @@ public class GoodsServiceImpl implements GoodsService {
 		// TODO 处理异常情况
 		if (StringHelper.isEmpty(categoryId))
 			return false;
-		GoodsCategoryPo categoryPo = baseDAO.get(GoodsCategoryPo.class, GUID.tryValueOf(categoryId).toBytes());
+		GoodsCategoryPo categoryPo = baseDAO.get(GoodsCategoryPo.class, GUID
+				.tryValueOf(categoryId).toBytes());
 		String[] parentIds = categoryPo.getPath().split(";");
 		byte[] category1Recid = null; // 直属类ID
 		byte[] category2Recid = null;
@@ -63,11 +64,14 @@ public class GoodsServiceImpl implements GoodsService {
 			category1Recid = (GUID.tryValueOf(categoryId).toBytes());
 		} else if (parentIds.length == 2) {
 			category1Recid = (GUID.tryValueOf(categoryId).toBytes());
-			category2Recid = (StringHelper.isEmpty(parentIds[1]) ? null : GUID.tryValueOf(parentIds[0]).toBytes());
+			category2Recid = (StringHelper.isEmpty(parentIds[1]) ? null : GUID
+					.tryValueOf(parentIds[0]).toBytes());
 		} else if (parentIds.length == 3) {
 			category1Recid = (GUID.tryValueOf(categoryId).toBytes());
-			category2Recid = (StringHelper.isEmpty(parentIds[1]) ? null : GUID.tryValueOf(parentIds[1]).toBytes());
-			category3Recid = (StringHelper.isEmpty(parentIds[2]) ? null : GUID.tryValueOf(parentIds[0]).toBytes());
+			category2Recid = (StringHelper.isEmpty(parentIds[1]) ? null : GUID
+					.tryValueOf(parentIds[1]).toBytes());
+			category3Recid = (StringHelper.isEmpty(parentIds[2]) ? null : GUID
+					.tryValueOf(parentIds[0]).toBytes());
 		}
 		GoodsPo goodsPo = new GoodsPo();
 		goodsPo.setRecid(GUID.tryValueOf(goodsVo.getRecid()).toBytes());
@@ -98,8 +102,10 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	public void createGoodsFromERP(String categoryId, String[] erpGoodsIds) {
-		if (StringHelper.isEmpty(categoryId)) return;
-		GoodsCategoryPo categoryPo = baseDAO.get(GoodsCategoryPo.class, GUID.tryValueOf(categoryId).toBytes());
+		if (StringHelper.isEmpty(categoryId))
+			return;
+		GoodsCategoryPo categoryPo = baseDAO.get(GoodsCategoryPo.class, GUID
+				.tryValueOf(categoryId).toBytes());
 		String[] parentIds = categoryPo.getPath().split(";");
 		byte[] category1Recid = null; // 直属类ID
 		byte[] category2Recid = null;
@@ -108,18 +114,23 @@ public class GoodsServiceImpl implements GoodsService {
 			category1Recid = (GUID.tryValueOf(categoryId).toBytes());
 		} else if (parentIds.length == 2) {
 			category1Recid = (GUID.tryValueOf(categoryId).toBytes());
-			category2Recid = (StringHelper.isEmpty(parentIds[1]) ? null : GUID.tryValueOf(parentIds[0]).toBytes());
+			category2Recid = (StringHelper.isEmpty(parentIds[1]) ? null : GUID
+					.tryValueOf(parentIds[0]).toBytes());
 		} else if (parentIds.length == 3) {
 			category1Recid = (GUID.tryValueOf(categoryId).toBytes());
-			category2Recid = (StringHelper.isEmpty(parentIds[1]) ? null : GUID.tryValueOf(parentIds[1]).toBytes());
-			category3Recid = (StringHelper.isEmpty(parentIds[2]) ? null : GUID.tryValueOf(parentIds[0]).toBytes());
+			category2Recid = (StringHelper.isEmpty(parentIds[1]) ? null : GUID
+					.tryValueOf(parentIds[1]).toBytes());
+			category3Recid = (StringHelper.isEmpty(parentIds[2]) ? null : GUID
+					.tryValueOf(parentIds[0]).toBytes());
 		}
-		
+
 		GoodsPo goodsPo = null;
 		EGoodsPo eGoodsPo = null;
 		for (String goodsId : erpGoodsIds) {
-			eGoodsPo = baseDAO.get(EGoodsPo.class, GUID.tryValueOf(goodsId).toBytes());
-			if (null == eGoodsPo) continue;
+			eGoodsPo = baseDAO.get(EGoodsPo.class, GUID.tryValueOf(goodsId)
+					.toBytes());
+			if (null == eGoodsPo)
+				continue;
 			goodsPo = new GoodsPo();
 			// from erp
 			goodsPo.setRecid(eGoodsPo.getRecid());
@@ -142,18 +153,19 @@ public class GoodsServiceImpl implements GoodsService {
 			goodsPo.setGoodsType(GoodsType.Common.getCode());
 			goodsPo.setPublished(false);
 			goodsPo.setVantagesGoods(false);
-			
+
 			baseDAO.save(goodsPo);
 		}
-		
+
 	}
-	
+
 	@Override
 	public GoodsVo getGoodsVo(String goodsId) {
 		// TODO Auto-generated method stub
 		if (StringHelper.isEmpty(goodsId))
 			return null;
-		GoodsPo goodsPo = baseDAO.get(GoodsPo.class, GUID.tryValueOf(goodsId).toBytes());
+		GoodsPo goodsPo = baseDAO.get(GoodsPo.class, GUID.tryValueOf(goodsId)
+				.toBytes());
 		if (null == goodsPo) {
 			return null;
 		}
@@ -161,11 +173,12 @@ public class GoodsServiceImpl implements GoodsService {
 		try {
 			// BeanUtils.copyProperties1(goodsPo, goodsVo);
 			goodsVo = BeanCopy.copy(GoodsVo.class, goodsPo);
-			goodsVo.setCategoryid1(GUID.valueOf(goodsPo.getCategoryid1()).toString());
-			goodsVo.setCategoryid2(goodsPo.getCategoryid2() == null ? null : GUID.valueOf(goodsPo.getCategoryid2())
+			goodsVo.setCategoryid1(GUID.valueOf(goodsPo.getCategoryid1())
 					.toString());
-			goodsVo.setCategoryid3(goodsPo.getCategoryid3() == null ? null : GUID.valueOf(goodsPo.getCategoryid3())
-					.toString());
+			goodsVo.setCategoryid2(goodsPo.getCategoryid2() == null ? null
+					: GUID.valueOf(goodsPo.getCategoryid2()).toString());
+			goodsVo.setCategoryid3(goodsPo.getCategoryid3() == null ? null
+					: GUID.valueOf(goodsPo.getCategoryid3()).toString());
 			goodsVo.setRecid(GUID.valueOf(goodsPo.getRecid()).toString());
 			goodsVo.setInventoryCount(goodsPo.getInventoryCount());
 			goodsVo.setVantagestype(goodsPo.getVantagestype());
@@ -207,14 +220,14 @@ public class GoodsServiceImpl implements GoodsService {
 		hql += ", isPopular=?";
 		hql += ", vantagestype=?";
 		hql += ", freedelivery=?";
-		//hql += ", realprice=?";
+		// hql += ", realprice=?";
 		hql += ", goodsType=?";
 		paramlist.add(task.getInventoryCount());
 		paramlist.add(task.isMostSales());
 		paramlist.add(task.isPopular());
 		paramlist.add(task.getVantagestype());
 		paramlist.add(task.isFreedelivery());
-		//paramlist.add(task.getRealprice());
+		// paramlist.add(task.getRealprice());
 		paramlist.add(task.getGoodsType().getCode());
 		hql += " where recid=?";
 		paramlist.add(task.getGoodsId());
@@ -222,25 +235,30 @@ public class GoodsServiceImpl implements GoodsService {
 		return result == 1 ? true : false;
 	}
 
-	public boolean modifyGoodsPromotionStatus(String goodsId, boolean isPromotion) {
-		if (StringUtil.isEmpty(goodsId)) return false;
+	public boolean modifyGoodsPromotionStatus(String goodsId,
+			boolean isPromotion) {
+		if (StringUtil.isEmpty(goodsId))
+			return false;
 		try {
-			GoodsPo po = baseDAO.get(GoodsPo.class, GUID.tryValueOf(goodsId).toBytes());
+			GoodsPo po = baseDAO.get(GoodsPo.class, GUID.tryValueOf(goodsId)
+					.toBytes());
 			po.setPromotion(isPromotion);
 			baseDAO.update(po);
 			return true;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
 	}
-	
+
 	@Override
-	public void modifyGoods(GoodsForm gf, UserExtForm loginUser) throws ServiceMessage {
+	public void modifyGoods(GoodsForm gf, UserExtForm loginUser)
+			throws ServiceMessage {
 		if (CheckIsNull.isEmpty(gf.getRecid())) {
 			throw new ServiceMessage("recid不能为空！");
 		}
-		GoodsPo gp = this.baseDAO.get(GoodsPo.class, GUID.valueOf(gf.getRecid()).toBytes());
+		GoodsPo gp = this.baseDAO.get(GoodsPo.class, GUID
+				.valueOf(gf.getRecid()).toBytes());
 		if (null == gp) {
 			throw new ServiceMessage("商品信息异常！");
 		}
@@ -279,11 +297,13 @@ public class GoodsServiceImpl implements GoodsService {
 			gp.setVantagesCost(0);
 		}
 		this.baseDAO.save(gp);
-		if (null != gf.getGoodsContentForms() && gf.getGoodsContentForms().size() > 0) {
+		if (null != gf.getGoodsContentForms()
+				&& gf.getGoodsContentForms().size() > 0) {
 			StringBuffer del = new StringBuffer();
 			del.append(" delete from GoodsContentPo p ");
 			del.append(" where p.goodsid=?");
-			this.baseDAO.execteBulk(del.toString(), GUID.valueOf(gf.getRecid()).toBytes());
+			this.baseDAO.execteBulk(del.toString(), GUID.valueOf(gf.getRecid())
+					.toBytes());
 			for (GoodsContentForm cf : gf.getGoodsContentForms()) {
 				GoodsContentPo p = BeanCopy.copy(GoodsContentPo.class, cf);
 				try {
@@ -301,14 +321,17 @@ public class GoodsServiceImpl implements GoodsService {
 	public boolean modifyGoodsSaleCount(String goodsId, double changeCount) {
 		if (StringUtil.isEmpty(goodsId))
 			return false;
-		int result = baseDAO.execteBulk("update GoodsPo set saledCount=(saledCount + " + changeCount
-				+ ") where recid=?", GUID.tryValueOf(goodsId).toBytes());
+		int result = baseDAO
+				.execteBulk("update GoodsPo set saledCount=(saledCount + "
+						+ changeCount + ") where recid=?", GUID.tryValueOf(
+						goodsId).toBytes());
 		return (result == 1);
 	}
 
 	@Override
 	public boolean deleteGoods(String goodsRecid) {
-		int result = baseDAO.execteBulk("delete from GoodsPo where recid=?", GUID.tryValueOf(goodsRecid).toBytes());
+		int result = baseDAO.execteBulk("delete from GoodsPo where recid=?",
+				GUID.tryValueOf(goodsRecid).toBytes());
 		return (result == 1);
 	}
 
@@ -321,24 +344,26 @@ public class GoodsServiceImpl implements GoodsService {
 		List<GoodsVo> goodsVoList = new ArrayList<GoodsVo>();
 		List<GoodsPo> goodsPoList = new ArrayList<GoodsPo>();
 		String hql = (String) queryInfo.get(QueryGoodsInfo.HQL.name());
-		Object[] parameters = (Object[]) queryInfo.get(QueryGoodsInfo.PRAMETER.name());
+		Object[] parameters = (Object[]) queryInfo.get(QueryGoodsInfo.PRAMETER
+				.name());
 		try {
 			if (null == parameters) {
-				goodsPoList = baseDAO.getGenericByPosition(hql, key.getOffset(), key.getPageSize());
+				goodsPoList = baseDAO.getGenericByPosition(hql,
+						key.getOffset(), key.getPageSize());
 			} else {
-				goodsPoList = baseDAO.getGenericByPosition(hql, key.getOffset(), key.getPageSize(), parameters);
+				goodsPoList = baseDAO.getGenericByPosition(hql,
+						key.getOffset(), key.getPageSize(), parameters);
 			}
 			for (GoodsPo goodsPo : goodsPoList) {
 				GoodsVo goodsVo = BeanCopy.copy(GoodsVo.class, goodsPo);
-				goodsVo.setCategoryid1(GUID.valueOf(goodsPo.getCategoryid1()).toString());
+				goodsVo.setCategoryid1(GUID.valueOf(goodsPo.getCategoryid1())
+						.toString());
 				/*
-				if (null != goodsPo.getCategoryid2()) {
-					goodsVo.setCategoryid2(GUID.valueOf(goodsPo.getCategoryid2()).toString());
-				}
-				if (null != goodsPo.getCategoryid3()) {
-					goodsVo.setCategoryid3(GUID.valueOf(goodsPo.getCategoryid3()).toString());
-				}
-				*/
+				 * if (null != goodsPo.getCategoryid2()) {
+				 * goodsVo.setCategoryid2(GUID.valueOf(goodsPo.getCategoryid2()).toString()); }
+				 * if (null != goodsPo.getCategoryid3()) {
+				 * goodsVo.setCategoryid3(GUID.valueOf(goodsPo.getCategoryid3()).toString()); }
+				 */
 				goodsVo.setRecid(GUID.valueOf(goodsPo.getRecid()).toString());
 				goodsVoList.add(goodsVo);
 			}
@@ -377,7 +402,7 @@ public class GoodsServiceImpl implements GoodsService {
 			parameters.add(key.getGoodsCategoryId());
 			parameters.add(key.getGoodsCategoryId());
 		}
-		
+
 		if (key.isVantageOnly()) {
 			hql += " and isVantagesGoods=true";
 		}
@@ -387,7 +412,7 @@ public class GoodsServiceImpl implements GoodsService {
 			} else {
 				hql += " and realprice>" + key.getPriceBegin();
 			}
-		} 
+		}
 		if (key.getPriceEnd() > -1) {
 			if (key.isVantageOnly()) {
 				hql += " and vantagesCost<" + key.getPriceEnd();
@@ -395,27 +420,41 @@ public class GoodsServiceImpl implements GoodsService {
 				hql += " and realprice<" + key.getPriceEnd();
 			}
 		}
-		
+
+		if (key.getHalfkgPriceBegin() > -1) {
+			hql += " and halfkgPrice>" + key.getHalfkgPriceBegin();
+		}
+		if (key.getHalfkgPriceEnd() > -1) {
+
+			hql += " and halfkgPrice<" + key.getHalfkgPriceEnd();
+
+		}
+
 		if (StringUtil.isNotEmpty(key.getSearchText())) {
 			hql += " and ";
-			hql += " (goodscode like '%" + key.getSearchText() + "%' or goodsno like '%" + key.getSearchText()
+			hql += " (goodscode like '%" + key.getSearchText()
+					+ "%' or goodsno like '%" + key.getSearchText()
 					+ "%' or goodsname like '%" + key.getSearchText() + "%')";
 		}
-		
+
 		if (null != key.getAdvanceSearch()) {
 			if (key.getAdvanceSearch().getIsMostSale() != null) {
 				hql += " and isMostSales=?";
-				parameters.add(key.getAdvanceSearch().getIsMostSale() ? true : false);
+				parameters.add(key.getAdvanceSearch().getIsMostSale() ? true
+						: false);
 			}
 			if (key.getAdvanceSearch().getIsPopular() != null) {
 				hql += " and isPopular=?";
-				parameters.add(key.getAdvanceSearch().getIsPopular() ? true : false);
+				parameters.add(key.getAdvanceSearch().getIsPopular() ? true
+						: false);
 			}
 			if (key.getAdvanceSearch().getGoodsType() != null) {
-				hql += " and goodsType='" + key.getAdvanceSearch().getGoodsType() + "'";
+				hql += " and goodsType='"
+						+ key.getAdvanceSearch().getGoodsType() + "'";
 			}
 			if (key.getAdvanceSearch().getGoodsVantageType() != null) {
-				hql += " and vantagestype='" + key.getAdvanceSearch().getGoodsVantageType() + "'";
+				hql += " and vantagestype='"
+						+ key.getAdvanceSearch().getGoodsVantageType() + "'";
 			}
 		}
 
@@ -452,7 +491,8 @@ public class GoodsServiceImpl implements GoodsService {
 		if (queryInfo.get(QueryGoodsInfo.HQL.name()) == null)
 			return 0;
 		String hql = (String) queryInfo.get(QueryGoodsInfo.HQL.name());
-		Object[] parameters = (Object[]) queryInfo.get(QueryGoodsInfo.PRAMETER.name());
+		Object[] parameters = (Object[]) queryInfo.get(QueryGoodsInfo.PRAMETER
+				.name());
 		// baseDAO.getGenericCountByHql(hql, parameters);
 		hql = "select count(*) " + hql;
 		if (parameters == null) {
@@ -491,12 +531,14 @@ public class GoodsServiceImpl implements GoodsService {
 		// }
 		Map<String, Object> queryInfo = this.getEGoodsQueryInfo(key);
 		String hql = (String) queryInfo.get(QueryGoodsInfo.HQL.name());
-		goodsPoList = baseDAO.getGenericByPosition(hql, key.getOffset(), key.getCount());
+		goodsPoList = baseDAO.getGenericByPosition(hql, key.getOffset(), key
+				.getCount());
 		try {
 			for (EGoodsPo goodsPo : goodsPoList) {
 				EGoodsVo goodsVo = new EGoodsVo();
 				BeanUtils.copyProperties1(goodsPo, goodsVo);
-				goodsVo.setCategoryId(GUID.valueOf(goodsPo.getCategoryId()).toString());
+				goodsVo.setCategoryId(GUID.valueOf(goodsPo.getCategoryId())
+						.toString());
 				goodsVo.setRecid(GUID.valueOf(goodsPo.getRecid()).toString());
 				goodsVo.setGoodsSpec(goodsPo.getSpec());
 				goodsVoList.add(goodsVo);
@@ -513,15 +555,21 @@ public class GoodsServiceImpl implements GoodsService {
 		Object[] parameters = null;
 		if (null == key.getCategoryId()) {
 			hql = "from EGoodsPo where recid not in (select recid from GoodsPo)";
-//			hql = "from EGoodsPo ";
+			// hql = "from EGoodsPo ";
 		} else {
-			hql = "FROM EGoodsPo " + " WHERE categoryId IN (" + " SELECT c.recid FROM EGoodsCategoryPo c"
-					+ " WHERE c.path LIKE '%" + GUID.valueOf(key.getCategoryId()).toString() + "%'"
+			hql = "FROM EGoodsPo "
+					+ " WHERE categoryId IN ("
+					+ " SELECT c.recid FROM EGoodsCategoryPo c"
+					+ " WHERE c.path LIKE '%"
+					+ GUID.valueOf(key.getCategoryId()).toString()
+					+ "%'"
 					+ " AND c.leafflag=TRUE) and recid not in (select recid from GoodsPo)";
-			
-//			hql = "FROM EGoodsPo " + " WHERE categoryId IN (" + " SELECT c.recid FROM EGoodsCategoryPo c"
-//					+ " WHERE c.path LIKE '%" + GUID.valueOf(key.getCategoryId()).toString() + "%'"
-//					+ " AND c.leafflag=TRUE)";
+
+			// hql = "FROM EGoodsPo " + " WHERE categoryId IN (" + " SELECT
+			// c.recid FROM EGoodsCategoryPo c"
+			// + " WHERE c.path LIKE '%" +
+			// GUID.valueOf(key.getCategoryId()).toString() + "%'"
+			// + " AND c.leafflag=TRUE)";
 		}
 		Map<String, Object> queryInfo = new HashMap<String, Object>();
 		queryInfo.put(QueryGoodsInfo.HQL.name(), hql);
@@ -547,7 +595,8 @@ public class GoodsServiceImpl implements GoodsService {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" from GoodsContentPo p ");
 		sql.append(" where p.goodsid=? order by ordinal asc");
-		List<GoodsContentPo> list = this.baseDAO.getGenericByHql(sql.toString(), GUID.valueOf(goodsId).toBytes());
+		List<GoodsContentPo> list = this.baseDAO.getGenericByHql(
+				sql.toString(), GUID.valueOf(goodsId).toBytes());
 		if (CheckIsNull.isNotEmpty(list)) {
 			return BeanCopy.copys(GoodsContentVo.class, list);
 		}
@@ -572,7 +621,8 @@ public class GoodsServiceImpl implements GoodsService {
 
 	@Override
 	public List<DicItem> getVantageList() {
-		List<DicItem> list = SparkDictionaryManager.getDicItemsList(DictionaryType.VantagesType);
+		List<DicItem> list = SparkDictionaryManager
+				.getDicItemsList(DictionaryType.VantagesType);
 		return list;
 	}
 
@@ -589,14 +639,16 @@ public class GoodsServiceImpl implements GoodsService {
 		hql.append(" isPublished=true ");
 		hql.append(" and goodscode=? ");
 		hql.append(" order by goodsspec ");
-		List<GoodsPo> polist = this.baseDAO.getGenericByHql(hql.toString(), goodsCode);
+		List<GoodsPo> polist = this.baseDAO.getGenericByHql(hql.toString(),
+				goodsCode);
 		if (polist == null || polist.isEmpty()) {
 			return null;
 		}
 		list = BeanCopy.copys(GoodsForm.class, polist);
 		for (GoodsForm goods : list) {
 			List<GoodsContentVo> gcvlist = getGoodsContentList(goods.getRecid());
-			List<GoodsContentForm> r = BeanCopy.copys(GoodsContentForm.class, gcvlist);
+			List<GoodsContentForm> r = BeanCopy.copys(GoodsContentForm.class,
+					gcvlist);
 			goods.setGoodsContentForms(r);
 		}
 		return list;
@@ -613,16 +665,20 @@ public class GoodsServiceImpl implements GoodsService {
 		StringBuilder hql = new StringBuilder();
 		hql.append(" from GoodsPo as t where ");
 		hql.append(" isPublished=true ");
-		hql.append(" and (categoryid1=? or categoryid2=? or categoryid3=?) and isPopular=true");
+		hql
+				.append(" and (categoryid1=? or categoryid2=? or categoryid3=?) and isPopular=true");
 		hql.append(" order by realprice desc ");
-		List<GoodsPo> polist = this.baseDAO.getGenericByHql(hql.toString(), GUID.valueOf(categoryId).toBytes(),GUID.valueOf(categoryId).toBytes(),GUID.valueOf(categoryId).toBytes());
+		List<GoodsPo> polist = this.baseDAO.getGenericByHql(hql.toString(),
+				GUID.valueOf(categoryId).toBytes(), GUID.valueOf(categoryId)
+						.toBytes(), GUID.valueOf(categoryId).toBytes());
 		if (polist == null || polist.isEmpty()) {
 			return null;
 		}
 		list = BeanCopy.copys(GoodsForm.class, polist);
 		for (GoodsForm goods : list) {
 			List<GoodsContentVo> gcvlist = getGoodsContentList(goods.getRecid());
-			List<GoodsContentForm> r = BeanCopy.copys(GoodsContentForm.class, gcvlist);
+			List<GoodsContentForm> r = BeanCopy.copys(GoodsContentForm.class,
+					gcvlist);
 			goods.setGoodsContentForms(r);
 		}
 		return list;
@@ -635,51 +691,56 @@ public class GoodsServiceImpl implements GoodsService {
 	 */
 	@Override
 	public List<GoodsForm> getHotGoodsList(String categoryId) {
-//		List<GoodsForm> list = new ArrayList<GoodsForm>();
-		/*StringBuilder hql = new StringBuilder();
-		hql.append(" from GoodsPo as t where ");
-		hql.append(" isPublished=true ");
-		hql.append(" and( categoryid1=? or  categoryid2=? or  categoryid3=? )and isMostSales=true");
-		hql.append(" order by realprice desc ");
-		List<GoodsPo> polist = this.baseDAO.getGenericByHql(hql.toString(), GUID.valueOf(categoryId).toBytes(), GUID
-				.valueOf(categoryId).toBytes(), GUID.valueOf(categoryId).toBytes());
-		if (polist == null || polist.isEmpty()) {
-			return null;
-		}
-		list = BeanCopy.copys(GoodsForm.class, polist);
-		for (GoodsForm goods : list) {
-			List<GoodsContentVo> gcvlist = getGoodsContentList(goods.getRecid());
-			List<GoodsContentForm> r = BeanCopy.copys(GoodsContentForm.class, gcvlist);
-			goods.setGoodsContentForms(r);
-		}*/
+		// List<GoodsForm> list = new ArrayList<GoodsForm>();
+		/*
+		 * StringBuilder hql = new StringBuilder(); hql.append(" from GoodsPo as
+		 * t where "); hql.append(" isPublished=true "); hql.append(" and(
+		 * categoryid1=? or categoryid2=? or categoryid3=? )and
+		 * isMostSales=true"); hql.append(" order by realprice desc "); List<GoodsPo>
+		 * polist = this.baseDAO.getGenericByHql(hql.toString(),
+		 * GUID.valueOf(categoryId).toBytes(), GUID
+		 * .valueOf(categoryId).toBytes(), GUID.valueOf(categoryId).toBytes());
+		 * if (polist == null || polist.isEmpty()) { return null; } list =
+		 * BeanCopy.copys(GoodsForm.class, polist); for (GoodsForm goods : list) {
+		 * List<GoodsContentVo> gcvlist =
+		 * getGoodsContentList(goods.getRecid()); List<GoodsContentForm> r =
+		 * BeanCopy.copys(GoodsContentForm.class, gcvlist);
+		 * goods.setGoodsContentForms(r); }
+		 */
 		List<GoodsVo> voList = getHotGoodsVoList(categoryId);
-		if (voList == null || voList.size() < 1) return new ArrayList<GoodsForm>(); 
+		if (voList == null || voList.size() < 1)
+			return new ArrayList<GoodsForm>();
 		return BeanCopy.copys(GoodsForm.class, voList);
 	}
-	
-	
+
 	public List<GoodsVo> getHotGoodsVoList(String categoryId) {
 		StringBuilder hql = new StringBuilder();
 		List<GoodsPo> poList = new ArrayList<GoodsPo>();
-		if (StringUtil.isEmpty(categoryId) || GoodsCategoryTree.Root_ID.equals(categoryId)) {
+		if (StringUtil.isEmpty(categoryId)
+				|| GoodsCategoryTree.Root_ID.equals(categoryId)) {
 			hql.append(" from GoodsPo as t where ");
 			hql.append(" isPublished=true and isMostSales=true ");
 			hql.append(" order by realprice desc ");
-			poList = this.baseDAO.getGenericByPosition(hql.toString(), 0, Constant.MAX_HOTSALE_SHOWCOUNT);
+			poList = this.baseDAO.getGenericByPosition(hql.toString(), 0,
+					Constant.MAX_HOTSALE_SHOWCOUNT);
 		} else {
 			hql.append(" from GoodsPo as t where ");
 			hql.append(" isPublished=true ");
-			hql.append(" and( categoryid1=? or  categoryid2=? or  categoryid3=? )and isMostSales=true");
+			hql
+					.append(" and( categoryid1=? or  categoryid2=? or  categoryid3=? )and isMostSales=true");
 			hql.append(" order by realprice desc ");
-			poList = this.baseDAO.getGenericByPosition(hql.toString(), 0, Constant.MAX_HOTSALE_SHOWCOUNT, GUID.valueOf(categoryId).toBytes(), GUID
-					.valueOf(categoryId).toBytes(), GUID.valueOf(categoryId).toBytes());
+			poList = this.baseDAO.getGenericByPosition(hql.toString(), 0,
+					Constant.MAX_HOTSALE_SHOWCOUNT, GUID.valueOf(categoryId)
+							.toBytes(), GUID.valueOf(categoryId).toBytes(),
+					GUID.valueOf(categoryId).toBytes());
 		}
-		if (poList == null || poList.size() < 1) return new ArrayList<GoodsVo>(); 
+		if (poList == null || poList.size() < 1)
+			return new ArrayList<GoodsVo>();
 		return BeanCopy.copys(GoodsVo.class, poList);
-	} 
-	
+	}
+
 	public List<GoodsVo> getVantageGoodsList(GetVantageGoodsListKey key) {
-		
+
 		return null;
 	}
 }

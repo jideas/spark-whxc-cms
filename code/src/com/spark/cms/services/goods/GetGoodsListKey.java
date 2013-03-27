@@ -19,6 +19,9 @@ public class GetGoodsListKey extends LimitKey {
 	private double priceBegin = -1.0;
 	private double priceEnd = -1.0;
 	
+	private double halfkgPriceBegin = -1.0;
+	private double halfkgPriceEnd = -1.0;
+	
 	private GoodsAdvanceSearch advanceSearch;
 	public enum SortColumn {
 		PUBLISHDATE("publishDate"),
@@ -126,6 +129,22 @@ public class GetGoodsListKey extends LimitKey {
 
 	public void setAdvanceSearch(GoodsAdvanceSearch advanceSearch) {
 		this.advanceSearch = advanceSearch;
+	}
+
+	public double getHalfkgPriceBegin() {
+		return halfkgPriceBegin;
+	}
+
+	public void setHalfkgPriceBegin(double halfkgPriceBegin) {
+		this.halfkgPriceBegin = halfkgPriceBegin;
+	}
+
+	public double getHalfkgPriceEnd() {
+		return halfkgPriceEnd;
+	}
+
+	public void setHalfkgPriceEnd(double halfkgPriceEnd) {
+		this.halfkgPriceEnd = halfkgPriceEnd;
 	}
 	
 	
