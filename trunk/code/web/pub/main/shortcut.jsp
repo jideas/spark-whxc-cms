@@ -103,24 +103,17 @@ function toOrderCenter()
 				<div class="cutkey">
 					<ul>
 						<li>
-							<span style="width: 40px;"><a href="<%=basePath%>/">首页</a></span><span style="width: 60px;"><a href="javascript:void(0)"
-								onclick="toOrderCenter()" style="vertical-align: baseline;zoom:1;">我的7号</a></span>
-							<span><img
-									src="<%=basePath%>/images/page/page_top_gift.png"
-									style="margin:5px 0px 0px 3px;float: left;"><a
-								href="<%=basePath%>/pro/member/charge.jsp">在线充值</a> </span>
-							<span><a href="javascript:void(0);"
-								onclick="SetHome(this,window.location);">设为主页</a> </span>
-							<span><img
-									src="<%=basePath%>/images/page/page_top_fav.png"
-									style="margin-right: 5px"><a href="javascript:void(0);"
-								onclick="AddFavorite(window.location,document.title);">加入收藏</a>
-							</span>
-							<span><a href="<%=basePath%>/pub/questionnaire.jsp">问卷调查</a> </span>
-							<span><a href="<%=basePath%>/pub/messageBorder.jsp">客户留言</a> </span>
-							<span class="tailor"><a
-								href="http://www.chinavegetable.com.cn" target="_blank">新辰食品</a>
-							</span>
+							<span><a href="<%=basePath%>/">首页</a></span>
+							<span><a href="javascript:void(0)" onclick="toOrderCenter()" style="vertical-align: baseline;zoom:1;">我的7号</a></span>
+							<span><img src="<%=basePath%>/images/page/page_top_gift.png" style="margin:5px 0px 0px 0px;float: left;"><a href="<%=basePath%>/pro/member/charge.jsp">在线充值</a></span>
+							<span><a href="javascript:void(0);" onclick="SetHome(this,window.location);">设为主页</a></span>
+							<span><img src="<%=basePath%>/images/page/page_top_fav.png" style="margin-right: 3px"><a href="javascript:void(0);" onclick="AddFavorite(window.location,document.title);">加入收藏</a></span>
+							<span><a href="<%=basePath%>/pub/questionnaire.jsp">问卷调查</a></span>
+							<span><a href="<%=basePath%>/pub/messageBorder.jsp">客户留言</a></span>
+							<span><a href="http://www.chinavegetable.com.cn" target="_blank">新辰食品</a></span>
+							<span><img src="<%=basePath%>/images/page/sina.gif" style="margin-right: 3px"><a href="http://weibo.com/signup/signup.php?inviteCode=2643910193" target="_blank">新浪微博</a></span>
+							<span><img src="<%=basePath%>/images/page/tenxun.gif" style="margin-right: 3px"><a href="http://e.t.qq.com/qhao_777?pgv_ref=im.perinfo.perinfo.icon" target="_blank">腾讯微博</a></span>
+							<span class="tailor"><a href="tencent://message/?uin=1215155757"><img src="<%=basePath%>/images/page/qq_online.gif" title="客服QQ" /></a></span>
 						</li>
 					</ul>
 				</div>
