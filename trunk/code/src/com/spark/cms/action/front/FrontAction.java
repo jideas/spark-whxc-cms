@@ -499,8 +499,8 @@ public class FrontAction extends BaseAction{
 			key.setOffset((pageNumber - 1) * SearchConstant.PAGESIZE);
 			key.setPageSize(SearchConstant.PAGESIZE);
 			key.setPublished(true);
-			key.setPriceBegin(0);
-			key.setPriceEnd(Constant.ONE_YUAN_UPPER_LIMIT);
+			key.setHalfkgPriceBegin(0);
+			key.setHalfkgPriceEnd(Constant.ONE_YUAN_UPPER_LIMIT);
 			
 			if (StringUtil.isNotEmpty(categoryId)) {
 				key.setGoodsCategoryId(categoryId);
@@ -541,8 +541,10 @@ public class FrontAction extends BaseAction{
 		key.setPublished(true);
 		key.setSortColumn(GetGoodsListKey.SortColumn.PRICE);
 		key.setSortType(SortType.Asc);
-		key.setPriceBegin(0);
-		key.setPriceEnd(Constant.ONE_YUAN_UPPER_LIMIT);
+//		key.setPriceBegin(0);
+//		key.setPriceEnd(Constant.ONE_YUAN_UPPER_LIMIT);
+		key.setHalfkgPriceBegin(0);
+		key.setHalfkgPriceEnd(Constant.ONE_YUAN_UPPER_LIMIT);
 		//≤È—Ø°∞ ﬂ≤À¿‡°±
 		key.setGoodsCategoryId("124ACEA916AABA4B22CACD6C5B7C87A2");
 		List<GoodsVo> vantageGoodsList = goodsService.getGoodsList(key);
