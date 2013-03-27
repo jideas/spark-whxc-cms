@@ -33,17 +33,9 @@
 			<span>版权所有：武汉新辰食品有限公司</span>
 			<span>邮箱：whyc777@126.com</span>
 			<span>鄂ICP备12002886号</span>
-			<!--
 			<span>
-				<A title=站长统计 href="http://www.cnzz.com/stat/website.php?web_id=3931318" target=_blank><IMG border=0 hspace=0 src="basePath%>/images/page/pic.gif"></A>
+				<script src="http://s17.cnzz.com/stat.php?id=5151275&web_id=5151275&show=pic" language="JavaScript"></script>
 			</SPAN>
-			-->
-			<span>
-				<SCRIPT type=text/javascript charset=utf-8 src="http://c.cnzz.com/cnzz_core.php?web_id=3931318&amp;show=pic&amp;l=none"></SCRIPT>
-				<A title=站长统计 href="http://www.cnzz.com/stat/website.php?web_id=3931318" target=_blank><IMG border=0 hspace=0 src="http://icon.cnzz.com/pic.gif"></A>
-			</SPAN>
-			 
-			<!-- <span><script src="http://s24.cnzz.com/stat.php?id=3931318&web_id=3931318&show=pic" language="JavaScript"></script></span> -->
 		</div>
 	</div>
 	</body>
