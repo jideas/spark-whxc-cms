@@ -59,6 +59,15 @@ public class GoodsVo implements java.io.Serializable {
 	private Date publishDate;
 	
 	private boolean isPromotion;
+	private double halfkgPrice;
+
+	public double getHalfkgPrice() {
+		return halfkgPrice;
+	}
+
+	public void setHalfkgPrice(double halfkgPrice) {
+		this.halfkgPrice = halfkgPrice;
+	}
 	// Constructors
 
 	public String getGoodsType() {
