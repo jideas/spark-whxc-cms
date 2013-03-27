@@ -55,7 +55,7 @@ function ShopingCar() {
 		var url = mainWeb + "/front/shopingCar/toOrder?goodsArray="
 				+ goodsArray + "&vgoodsArray=" + vgoodsArray;
 		location.replace(url);
-		event.returnValue = false;
+		//event.returnValue = false;
 
 	}
 
