@@ -17,11 +17,6 @@
 	               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/013_thumb.jpg" class="image010">              
 				</a>
 			</li>
-           <li>
-	            <a href="<%=basePath%>/scripts/jslider/slider-images/010.jpg">
-	               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/010_thumb.jpg" class="image010">              
-				</a>
-			</li>
 	          <li>
 	            <a href="<%=basePath%>/scripts/jslider/slider-images/011.jpg">
 	               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/011_thumb.jpg" class="image11">              
