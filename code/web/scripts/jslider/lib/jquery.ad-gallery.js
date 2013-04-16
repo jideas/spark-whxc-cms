@@ -672,6 +672,7 @@
         */
         /*自定义开始*/
         var img_links = [
+        	'http://www.yc777.com.cn/front/toGoodsInfoPage?id=B7FD3780FE76EF01A0503A71B64915C0',
         	'http://www.yc777.com.cn',
         	'http://www.yc777.com.cn',
         	'http://www.yc777.com.cn',
