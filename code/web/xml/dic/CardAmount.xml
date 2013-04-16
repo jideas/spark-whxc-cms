@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<content name="CardAmount"> 
+<content name="CardAmount">
+	<item code="17" name="17元"/>
+	<item code="27" name="27元"/>   
 	<item code="100" name="100元"/> 
-	<item code="200" name="200元"/> 
-	<item code="300" name="300元"/> 
-	<item code="500" name="500元"/> 
-	<item code="1000" name="1000元"/>  
+	<item code="200" name="200元"/>
+	<item code="250" name="250元"/>
+	<item code="300" name="300元"/>
+	<item code="350" name="350元"/>
+	<item code="400" name="400元"/>
+	<item code="500" name="500元"/>
+	<item code="800" name="800元"/>
+	<item code="1000" name="1000元"/>
+	<item code="1500" name="1500元"/>
 </content>
