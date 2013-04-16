@@ -142,7 +142,7 @@ public class SmsServiceImpl implements SmsService {
 			return new ServiceMessage(true, "系统发送短信功能已暂停！");
 		}
 		ReturnFlag flag = doRealSend(task);
-		if (flag != ReturnFlag.Success) {
+		if (flag != ReturnFlag.Success){
 			return new ServiceMessage(false, flag.getTitle());
 		}
 		return new ServiceMessage(true, "系统发送短信成功！");
