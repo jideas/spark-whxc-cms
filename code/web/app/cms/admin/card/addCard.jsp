@@ -372,7 +372,7 @@ $(function() {
 		function createPrintPage1(data){
 			var LODOP=getLodop(document.getElementById('LODOP_OB'),document.getElementById('LODOP_EM'));
 			LODOP.PRINT_INIT("√Ê÷µø®¥Ú”°...");
-			LODOP.SET_PRINT_PAGESIZE(1, '75mm','101mm','CreateCustomPage');
+			LODOP.SET_PRINT_PAGESIZE(1,'75mm','101mm','CreateCustomPage');
 			LODOP.SET_PRINT_STYLE("FontSize",12);
 			LODOP.SET_PRINT_STYLE("FontColor","#000000");
 			var invalidDate = new Date();
@@ -388,8 +388,8 @@ $(function() {
 				LODOP.ADD_PRINT_TEXT('64.5mm','16mm','50mm','5mm','ø®∫≈£∫'+data.returnObj[i].cardno);
 				LODOP.ADD_PRINT_TEXT('74mm','16mm','50mm','5mm','√‹¬Î£∫'+data.returnObj[i].password);
 			}
-			LODOP.PREVIEW();
-			//LODOP.PRINT();
+			//LODOP.PREVIEW();
+			LODOP.PRINT();
 		}
 
 		function CreatePrintPage(value, number, productDate, enddate, card, ps) {
