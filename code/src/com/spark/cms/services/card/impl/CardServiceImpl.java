@@ -40,6 +40,7 @@ import com.spark.cms.services.vo.GiftVo;
 import com.spark.cms.services.vo.MemberAccountVo;
 import com.spark.cms.services.vo.MemberDealingVo;
 import com.spark.cms.services.vo.MemberVantagesVo;
+import com.spark.cms.services.vo.MemberVo;
 import com.spark.cms.services.vo.StationVo;
 import com.spark.front.utils.CmsString;
 
@@ -556,6 +557,16 @@ public class CardServiceImpl implements CardService {
 		if (vo.getLastDate() <= new Date().getTime()) {
 			return new ServiceMessage(false, "该面值卡已过期，请检查！");
 		}
+		/*活动开始*/
+		if(vo.getAmount() < 50){
+			MemberVo memberVo = memberService.find(login.getRecid());
+			String memberCode = memberVo.getCode();
+			memberCode = memberCode.substring(2, 10);
+			if("20130413".compareTo(memberCode) > 0){
+				return new ServiceMessage(false, "抱歉，体验卡只针对2013年04月12日之后注册的会员！");
+			}
+		}	
+		/*活动结束*/
 		String saveKey;
 		try {
 			saveKey = EncryptionUtil.decryptAES(vo.getSecretkey(),
