@@ -3,7 +3,9 @@
  */
 package com.spark.front.action.member;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -28,7 +30,9 @@ import com.spark.cms.services.ServiceMessage;
 import com.spark.cms.services.email.EmailService;
 import com.spark.cms.services.form.Login;
 import com.spark.cms.services.member.MemberService;
+import com.spark.cms.services.member.key.GetMemberListKey;
 import com.spark.cms.services.sms.SmsService;
+import com.spark.cms.services.sms.impl.SmsServiceImpl;
 import com.spark.cms.services.sms.utils.SmsSendTask;
 import com.spark.cms.services.vo.MemberVo;
 import com.spark.front.form.member.RegistMemberForm;
@@ -177,7 +181,46 @@ public class LoginAction extends BaseAction {
 			return new ServiceMessage(false, "发送短信验证码发生异常,请重试!", 0).getMessageModel();
 		}
 	}
+	
+	/**
+	 * 群发短信
+	 * @param args
+	 */
+	@RequestMapping("/login/batchSendSafeSms")
+	@ResponseBody
+	public ResponseEntity<MessageModel> batchSendSafeSms(@RequestParam(value = "ids[]", required = true) String[] ids,
+			@RequestParam(value = "SMSContent", required = true) String SMSContent) {
+		try{
+			//获取发送短信的会员
+			List<MemberVo> memberVoList;
+			if(ids != null && ids.length > 0){
+				memberVoList = new ArrayList<MemberVo>();
+				for(String id : ids){
+					MemberVo memberVo = this.memberService.find(id);
+					if(memberVo == null) continue;
+					memberVoList.add(memberVo);
+				}
+			}else{
+				GetMemberListKey getMemberListKey = new GetMemberListKey(0,0,true);
+				memberVoList = this.memberService.getList(getMemberListKey);
+			}
+			//向会员发送短信
+			for(MemberVo memberVo : memberVoList){
+				if(memberVo.getMobile() == null || memberVo.getMobile() == "") continue;
+				SmsSendTask task = new SmsSendTask();
+				task.setPhoneNo(memberVo.getMobile());
+				task.setMessage(SMSContent);
+				this.smsService.sendMsg(task);
+				Thread.sleep(1000);
+			}
+			return new ServiceMessage(true, "短信发送成功!", 0).getMessageModel();
+		}catch(Exception e){
+			return new ServiceMessage(false, "发送短信验证码发生异常,请重试!", 0).getMessageModel();
+		}	
+	}
 
+	/*
+	*/
 	/**
 	 * 确认邮箱
 	 * 
