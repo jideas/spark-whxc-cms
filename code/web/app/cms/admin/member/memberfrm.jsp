@@ -24,7 +24,6 @@
 				<a href="javascript:void(0)" class="easyui-linkbutton"
 				iconCls="icon-search" onclick="memberAction.searchMemebers()">搜索</a>
 			</span>
-
 		</div>
 		<table id="memberDatagrid" toolbar="#membertoolbar">
 		</table>
@@ -242,9 +241,11 @@
 				$("#memderdetailDialog").dialog("refresh","<%=mainWeb%>/app/cms/admin/member/membermainfrm.jsp");
 				$("#memderdetailDialog").dialog("open");
 			}
+			
+			//会员 -> 导入会员
 			this.importMember = function(){
-			$('#importMemberDialog').dialog('open').dialog('setTitle', '导入会员');
-		}
+				$('#importMemberDialog').dialog('open').dialog('setTitle', '导入会员');
+			}
 
 		this.sureImportSubmit = function(){
 			$('#importMemberForm').form('submit', {
