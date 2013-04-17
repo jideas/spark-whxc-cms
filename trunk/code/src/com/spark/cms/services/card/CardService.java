@@ -6,6 +6,7 @@ import java.util.List;
 import com.spark.cms.common.DataModel;
 import com.spark.cms.services.ServiceMessage;
 import com.spark.cms.services.form.Login;
+import com.spark.cms.services.vo.CardValueVo;
 import com.spark.cms.services.vo.CardVo;
 
 public interface CardService {
@@ -84,4 +85,33 @@ public interface CardService {
 	List<CardVo> getVoListPrintingByIds(List<String> cardIds);
 	
 	void exeImportExcel(CardVo vo) throws Exception;
+	
+	/**
+	 * 面值 -> 新增面值
+	 * @param cardValueVo
+	 * @throws ServiceMessage
+	 */
+	public void createCardvalue(CardValueVo cardValueVo) throws ServiceMessage;
+	
+	/**
+	 * 面值 -> 修改面值
+	 * @param cardValueVo
+	 * @throws ServiceMessage
+	 */
+	public void exeUpdateCardvalue(CardValueVo cardValueVo) throws ServiceMessage;
+	
+	/**
+	 * 面值 -> 删除面值
+	 * @param cardValueID
+	 * @throws ServiceMessage
+	 */
+	public void deleteCardvalue(String cardValueID) throws ServiceMessage; 
+	
+	/**
+	 * 面值 -> 获取面值列表
+	 * @return
+	 * @throws ServiceMessage
+	 */
+	public List<CardValueVo> getCardvalues() throws ServiceMessage;
+	
 }
