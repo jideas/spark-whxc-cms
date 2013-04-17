@@ -25,6 +25,7 @@ import com.spark.cms.common.Constant.MemberEnum.DealingsType;
 import com.spark.cms.common.Constant.MemberEnum.VantagesType;
 import com.spark.cms.dao.po.CardDistributeLogPo;
 import com.spark.cms.dao.po.CardPo;
+import com.spark.cms.dao.po.CardValuePo;
 import com.spark.cms.services.ServiceMessage;
 import com.spark.cms.services.CardPromotion.CardPmtService;
 import com.spark.cms.services.card.CardService;
@@ -35,6 +36,7 @@ import com.spark.cms.services.member.MemberService;
 import com.spark.cms.services.serial.SerialNumberService;
 import com.spark.cms.services.station.StationService;
 import com.spark.cms.services.vo.CardPromotionVo;
+import com.spark.cms.services.vo.CardValueVo;
 import com.spark.cms.services.vo.CardVo;
 import com.spark.cms.services.vo.GiftVo;
 import com.spark.cms.services.vo.MemberAccountVo;
@@ -785,4 +787,66 @@ public class CardServiceImpl implements CardService {
 		vo.setStatus(CardStatus.Distributed.getCode());
 		this.baseDAO.save(BeanCopy.copy(CardPo.class, vo));
 	}
+
+	/**
+	 * 新增面值
+	 */
+	@Override
+	public void createCardvalue(CardValueVo cardValueVo) throws ServiceMessage {
+		if(null == cardValueVo){
+			throw new ServiceMessage(false,"新增面值卡为空");
+		}
+		cardValueVo.setRecid(GUID.randomID().toString());
+		cardValueVo.setCreatedate(new Date());
+		cardValueVo.setValuestatus("1");
+		this.baseDAO.save(BeanCopy.copy(CardValuePo.class, cardValueVo));
+	}
+
+	/**
+	 * 删除面值
+	 */
+	@Override
+	public void deleteCardvalue(String cardValueID) throws ServiceMessage {
+		if(null == cardValueID){
+			throw new ServiceMessage(false,"被删除的面值ID为空");
+		}
+		this.baseDAO.delete(CardValuePo.class, GUID.valueOf(cardValueID).toBytes());
+	}
+
+	/**
+	 * 修改面值
+	 */
+	@Override
+	public void exeUpdateCardvalue(CardValueVo cardValueVo)
+			throws ServiceMessage {
+		if(null == cardValueVo){
+			throw new ServiceMessage(false,"被修改的面值为空");
+		}
+		StringBuilder ss = new StringBuilder("update CardValuePo as t set");
+		ss.append(" cardvalue=");
+		ss.append(cardValueVo.getCardvalue());
+		ss.append(" where ");
+		ss.append(" t.recid =");
+		ss.append(" ? ");
+		int count = this.baseDAO.execteBulk(ss.toString(), GUID
+				.valueOf(cardValueVo.getRecid()).toBytes());
+		if (count != 1) {
+			throw new ServiceMessage("删除面值异常！");
+		}
+	}
+
+	/**
+	 * 获取面值
+	 */
+	@Override
+	public List<CardValueVo> getCardvalues() throws ServiceMessage {
+		StringBuilder hql = new StringBuilder();
+		hql.append(" from CardValuePo t");
+		hql.append(" ORDER BY t.cardvalue");
+		List<CardValuePo> cvpList =  this.baseDAO.getGenericByHql(hql.toString());
+		List<CardValueVo> cvoList = BeanCopy.copys(CardValueVo.class, cvpList);
+		return cvoList;
+	}
+	
+	
 }

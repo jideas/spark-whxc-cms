@@ -47,8 +47,10 @@ import com.spark.cms.services.form.card.CreateCardForm;
 import com.spark.cms.services.form.station.StationListItem;
 import com.spark.cms.services.station.GetStationListKey;
 import com.spark.cms.services.station.StationService;
+import com.spark.cms.services.vo.CardValueVo;
 import com.spark.cms.services.vo.CardVo;
 import com.spark.front.utils.CmsString;
+import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
 
 /**
  * @author Jideas
@@ -275,33 +277,6 @@ public class CardAction extends BaseAction {
 	}
 
 	/**
-	 * 获取面值卡类型
-	 * 
-	 * @return
-	 */
-	@RequestMapping("/card/getAmountList")
-	@ResponseBody
-	public List<DicItem> getAmountList() {
-		List<DicItem> list = SparkDictionaryManager
-				.getDicItemsList(DictionaryType.CardAmount);
-		return list;
-	}
-
-	/**
-	 * 获取面值卡类型
-	 * 
-	 * @return
-	 */
-	@RequestMapping("/card/getAmountSelectList")
-	@ResponseBody
-	public List<DicItem> getAmountSelectList() {
-		List<DicItem> list = SparkDictionaryManager
-				.getDicItemsList(DictionaryType.CardAmount);
-		list.add(0, new DicItem("0", "全部"));
-		return list;
-	}
-
-	/**
 	 * 查询面值卡列表（已分发）
 	 * 
 	 * @return
@@ -515,4 +490,121 @@ public class CardAction extends BaseAction {
 			return ResponseEntityUtil.getResponseEntity(Failure);
 		}
 	}
+	
+	/**
+	 * 面值 -> 新增面值
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/card/addValue")
+	@ResponseBody
+	public ResponseEntity<MessageModel> addValue(HttpSession session,
+			@RequestParam(value = "cardvalue", required = true)
+			String cardvalue) {
+		Login login = new Login((UserExtForm) session
+				.getAttribute(Constant.LoginAdminUser));
+		if(null == login){
+			return ResponseEntityUtil.getResponseEntity(new MessageModel(false, "请登录!"));
+		}
+		try{
+			CardValueVo cardValueVo = new CardValueVo();
+			cardValueVo.setCardvalue(Double.valueOf(cardvalue));
+			cardValueVo.setCreatorid(login.getRecid());
+			cardValueVo.setCreator(login.getUsername());
+			this.cardService.createCardvalue(cardValueVo);
+			return ResponseEntityUtil.getResponseEntity(new MessageModel(true, "新增面值成功!"));
+		}catch(Exception e){
+			return ResponseEntityUtil.getResponseEntity(new MessageModel(true, "新增面值失败!"));
+		}
+	}
+	
+	/**
+	 * 面值 -> 修改面值
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/card/updateValue")
+	@ResponseBody
+	public ResponseEntity<MessageModel> updateValue(@RequestParam(value = "recid", required = true)
+			String recid,@RequestParam(value = "cardvalue", required = true)
+			String cardvalue) {
+		try{
+			CardValueVo cardValueVo = new CardValueVo();
+			cardValueVo.setRecid(recid);
+			cardValueVo.setCardvalue(Double.valueOf(cardvalue));
+			this.cardService.exeUpdateCardvalue(cardValueVo);
+			return ResponseEntityUtil.getResponseEntity(new MessageModel(true, "修改面值成功!"));
+		}catch(Exception e){
+			return ResponseEntityUtil.getResponseEntity(new MessageModel(true, "修改面值失败!"));
+		}
+	}
+	
+	/**
+	 * 面值 -> 删除面值
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/card/deleteValue")
+	@ResponseBody
+	public ResponseEntity<MessageModel> deleteValue(@RequestParam(value = "recid", required = true)
+			String recid) {
+		try{
+			this.cardService.deleteCardvalue(recid);
+			return ResponseEntityUtil.getResponseEntity(new MessageModel(true, "删除面值成功!"));
+		}catch(Exception e){
+			return ResponseEntityUtil.getResponseEntity(new MessageModel(true, "删除面值失败!"));
+		}
+	}
+	
+	/**
+	 * 面值 -> 获取面值卡类型
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/card/getAmountList")
+	@ResponseBody
+	public List<CardValueVo> getAmountList() {
+		List<CardValueVo> cvvList;
+		try{
+			cvvList = this.cardService.getCardvalues();
+			return conventCardvalue(cvvList);
+		}catch(Exception e){
+			return new ArrayList<CardValueVo>();
+		}
+	}
+
+	/**
+	 * 面值 -> 获取面值卡类型
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/card/getAmountSelectList")
+	@ResponseBody
+	public List<CardValueVo> getAmountSelectList() {
+		List<CardValueVo> cvvList = new ArrayList<CardValueVo>();
+		try{
+			cvvList = this.cardService.getCardvalues();
+			CardValueVo cvv = new CardValueVo();
+			cvv.setCardvalue(0.0);
+			cvvList.add(0,cvv);
+			return conventCardvalue(cvvList);
+		}catch(Exception e){
+			return cvvList;
+		}
+	}
+	
+	private List<CardValueVo> conventCardvalue(List<CardValueVo> cvvList){
+		List<CardValueVo> cvvList_temp = new ArrayList<CardValueVo>();
+		for(int i = 0;cvvList != null && i < cvvList.size();i++){
+			CardValueVo cvv = cvvList.get(i);
+			if(cvv.getCardvalue() == 0){
+				cvv.setTitle("全部");
+			}else{
+				cvv.setTitle(cvv.getCardvalue()+" 元");
+			}
+			cvvList_temp.add(cvv);
+		}
+		return cvvList_temp;
+	}
+	
 }
