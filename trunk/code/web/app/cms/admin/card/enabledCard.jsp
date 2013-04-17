@@ -133,7 +133,7 @@ $(function() {
 			// 初始化 -> 初始化面值卡类型
 			$('input#selectAmountList2').combobox({
 						url : mainWeb+'/admin/card/getAmountSelectList',
-						valueField : 'code',
+						valueField : 'cardvalue',
 						textField : 'title',
 						editable:false
 					});
@@ -145,7 +145,7 @@ $(function() {
 							activedCardAction.refreshCards();
 						}
 					});
-			$('#selectAmountList2').combobox('setValue','0');
+			$('#selectAmountList2').combobox('setValue','全部');
 
 			// 监听事件 -> 开始时间改变
 			$('#beginDate2').datebox({
@@ -207,7 +207,7 @@ $(function() {
 				function fillCardType() {
 					$('#activedCardForm #activedCardvaluetype').combobox({
 								url : mainWeb+'/admin/card/getAmountList',
-								valueField : 'code',
+								valueField : 'cardvalue',
 								textField : 'title',
 								editable : false
 							});

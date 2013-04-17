@@ -84,7 +84,7 @@ $(function() {
 			// 初始化 -> 初始化面值卡类型
 			$('input#selectAmountList5').combobox({
 						url : mainWeb+'/admin/card/getAmountSelectList',
-						valueField : 'code',
+						valueField : 'cardvalue',
 						textField : 'title',
 						editable:false
 					});
@@ -96,7 +96,7 @@ $(function() {
 							usedCardAction.refreshCards();
 						}
 					});
-			$('#selectAmountList5').combobox('setValue','0');
+			$('#selectAmountList5').combobox('setValue','全部');
 			// 监听事件 -> 开始时间改变
 			$('#beginDate5').datebox({
 						onSelect : function(date) {
