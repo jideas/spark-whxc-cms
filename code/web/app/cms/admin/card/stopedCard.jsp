@@ -98,7 +98,6 @@ $(function() {
 							stopedCardAction.refreshCards();
 						}
 					});
-			$('#selectAmountList4').combobox('setValue','全部');
 
 			// 监听事件 -> 开始时间改变
 			$('#beginDate4').datebox({
