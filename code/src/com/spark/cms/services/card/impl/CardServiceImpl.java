@@ -532,7 +532,21 @@ public class CardServiceImpl implements CardService {
 				vo.getRecid()).toBytes());
 		return count;
 	}
-
+	
+	/**
+	 * 获取体验卡充值次数
+	 * @param login
+	 * @return
+	 */
+	private int getChargeNum(Login login) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(" SELECT COUNT(*) FROM CardPo t");
+		sb.append(" WHERE (t.amount = 17 OR t.amount = 27)");
+		sb.append(" AND t.status = '05'");
+		sb.append(" AND HEX(t.usedpersonid) = '"+login.getRecid()+"'");
+		return this.baseDAO.getGenericCountByHql(sb.toString());
+	}
+	
 	/*
 	 * (non-Javadoc)充值
 	 * 
@@ -559,7 +573,7 @@ public class CardServiceImpl implements CardService {
 		if (vo.getLastDate() <= new Date().getTime()) {
 			return new ServiceMessage(false, "该面值卡已过期，请检查！");
 		}
-		/*活动开始*/
+		/*活动开始【新会员充值送体验卡】*/
 		if(vo.getAmount() < 50){
 			MemberVo memberVo = memberService.find(login.getRecid());
 			String memberCode = memberVo.getCode();
@@ -567,8 +581,12 @@ public class CardServiceImpl implements CardService {
 			if("20130413".compareTo(memberCode) > 0){
 				return new ServiceMessage(false, "抱歉，体验卡只针对2013年04月12日之后注册的会员！");
 			}
+			int chargeNum = getChargeNum(login);
+			if(chargeNum > 0){
+				return new ServiceMessage(false, "抱歉，只能使用一张体验卡！");
+			}
 		}	
-		/*活动结束*/
+		/*活动结束【新会员充值送体验卡】*/
 		String saveKey;
 		try {
 			saveKey = EncryptionUtil.decryptAES(vo.getSecretkey(),
