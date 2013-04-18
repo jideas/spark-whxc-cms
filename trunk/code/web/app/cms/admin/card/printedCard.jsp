@@ -107,7 +107,6 @@ $(function() {
 							printedCardAction.refreshCards();
 						}
 					});
-			$('#selectAmountList').combobox('setValue','全部');
 
 			// 监听事件 -> 开始时间改变
 			$('#beginDate1').datebox({
