@@ -384,8 +384,8 @@ $(function() {
 				LODOP.ADD_PRINT_TEXT('36.5mm','30mm','40mm','5mm',data.returnObj[i].ordinal);
 				LODOP.ADD_PRINT_TEXT('43mm','30mm','40mm','5mm',tempDate);
 				
-				LODOP.ADD_PRINT_TEXT('64.5mm','16mm','50mm','5mm','ø®∫≈£∫'+data.returnObj[i].cardno);
-				LODOP.ADD_PRINT_TEXT('74mm','16mm','50mm','5mm','√‹¬Î£∫'+data.returnObj[i].password);
+				LODOP.ADD_PRINT_TEXT('64.5mm','10mm','50mm','5mm','ø®∫≈£∫'+data.returnObj[i].cardno);
+				LODOP.ADD_PRINT_TEXT('74mm','10mm','50mm','5mm','√‹¬Î£∫'+data.returnObj[i].password);
 			}
 			//LODOP.PREVIEW();
 			LODOP.PRINT();
