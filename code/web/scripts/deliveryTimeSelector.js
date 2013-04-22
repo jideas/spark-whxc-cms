@@ -3,7 +3,7 @@
  * @param {}
  *            pListId 配送时间点下拉控件ID
  */
-function DeliveryTimeSelector(pListId) {
+function DeliveryTimeSelector(pListId,isBook) {
 
 	var $pList = $('#' + pListId);
 
@@ -26,7 +26,7 @@ function DeliveryTimeSelector(pListId) {
 					url : basePath + '/front/common/getDeliveryTimeList',
 					async : false,
 					cache : false,
-					// data: {'parentId': parentId},
+					data: {'isBook': isBook},
 					success : function(data) {
 						dataList = data.rows;
 					}

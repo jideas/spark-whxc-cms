@@ -259,7 +259,7 @@ function Order() {
 		if ($("#deliverTime").length > 0) {
 			html += "<div id='deliverydate' class='paytypeExtra'>";
 			html += "<div style='display:inline'><font color='red'>*</font>配送时间：";
-			html += "<input type='text' id='deliverDay' day='"
+			/**html += "<input type='text' id='deliverDay' day='"
 					+ $("#deliverTime").attr("day")
 					+ "' time='"
 					+ $("#deliverTime").attr("time")
@@ -267,9 +267,9 @@ function Order() {
 					+ $("#deliverTime").attr("timeCode")
 					+ "' value='"
 					+ $("#deliverTime").attr("day")
-					+ "' class='Wdate' onFocus=\"WdatePicker({skin:'whyGreen',isShowClear:false,readOnly:true,isShowWeek:true,readOnly:true,dateFmt:'yyyy-MM-dd',minDate:'%y-%M-%d',maxDate:'%y-%M-{%d+3}'})\"/>";
-			html += "<select type='text' id='time' timeCode='"
-					+ $("#deliverTime").attr("timeCode") + " time='"
+					+ "' class='Wdate' onFocus=\"WdatePicker({skin:'whyGreen',isShowClear:false,readOnly:true,isShowWeek:true,readOnly:true,dateFmt:'yyyy-MM-dd',minDate:'%y-%M-%d',maxDate:'%y-%M-{%d+3}'})\"/>";*/
+			html += "<select type='text' id='deliverTime' timeCode='"
+					+ $("#deliverTime").attr("timeCode") + "' time='"
 					+ $("#deliverTime").attr("time") + "'/>";
 			html += "</div>";
 			timeCode = $("#deliverTime").attr("timeCode");
@@ -280,7 +280,7 @@ function Order() {
 		if ($("#bdeliverTime").length > 0) {
 			html += "<div id='bdeliverydate' class='paytypeExtra'>";
 			html += "<div style='display:inline'><font color='red'>*</font>预订配送时间：";
-			html += "<input type='text' id='bdeliverDay' day='"
+			/**html += "<input type='text' id='bdeliverDay' day='"
 					+ $("#bdeliverTime").attr("day")
 					+ "' time='"
 					+ $("#bdeliverTime").attr("time")
@@ -288,9 +288,9 @@ function Order() {
 					+ $("#bdeliverTime").attr("timeCode")
 					+ "' value='"
 					+ $("#bdeliverTime").attr("day")
-					+ "' class='Wdate' onFocus=\"WdatePicker({skin:'whyGreen',isShowClear:false,readOnly:true,isShowWeek:true,readOnly:true,dateFmt:'yyyy-MM-dd',minDate:'%y-%M-{%d+2}',maxDate:'%y-%M-{%d+5}'})\"/>";
-			html += "<select type='text' id='btime' timeCode='"
-					+ $("#bdeliverTime").attr("timeCode") + " time='"
+					+ "' class='Wdate' onFocus=\"WdatePicker({skin:'whyGreen',isShowClear:false,readOnly:true,isShowWeek:true,readOnly:true,dateFmt:'yyyy-MM-dd',minDate:'%y-%M-{%d+2}',maxDate:'%y-%M-{%d+5}'})\"/>";*/
+			html += "<select type='text' id='bdeliverTime' timeCode='"
+					+ $("#bdeliverTime").attr("timeCode") + "' time='"
 					+ $("#bdeliverTime").attr("time") + "'/>";
 			html += "</div>";
 			btimeCode = $("#bdeliverTime").attr("timeCode");
@@ -362,13 +362,13 @@ function Order() {
 		html += "</div>";
 		$("#part_payTypeAndShipType").html(html.toString());
 		$("#part_payTypeAndShipType").css("background-color", "#FAFAFA");
-		if ($("#deliverDay").length > 0) {
-			timeSelector = new DeliveryTimeSelector('time');
+		if ($("#deliverTime").length > 0) {
+			timeSelector = new DeliveryTimeSelector('deliverTime',false);
 			if (timeCode)
 				timeSelector.setSelection(timeCode);
 		}
-		if ($("#bdeliverDay").length > 0) {
-			btimeSelector = new DeliveryTimeSelector('btime');
+		if ($("#bdeliverTime").length > 0) {
+			btimeSelector = new DeliveryTimeSelector('bdeliverTime',true);
 			if (btimeCode)
 				btimeSelector.setSelection(btimeCode);
 		}
@@ -402,34 +402,44 @@ function Order() {
 		html += "<td><div id='valuewarning_paytype' class='valuewarning'></div></td>";
 		html += "</tr>";
 
-		if ($("#deliverDay").length > 0) {
+		if ($("#deliverTime").length > 0) {
 			html += "<tr style=''>";
 			html += "<td style='text-align: right;'>";
 			html += "配送时间：";
 			html += "</td>";
 
-			html += "<td id='deliverTime' value='" + $("#deliverDay").val()
-					+ "&nbsp;" + timeSelector.getSelectedTimeTitle()
-					+ "' day='" + $("#deliverDay").val() + "' time='"
+			html += "<td id='deliverTime' value='" + $("#deliverTime").val()
+					//+ "&nbsp;" + timeSelector.getSelectedTimeTitle()
+					+"'"
+					//+ " day='" + $("#deliverDay").val() 
+					//+ "'" 
+					+" time='"
 					+ timeSelector.getSelectedTimeTitle() + "' timeCode='"
 					+ timeSelector.getSelectedTimeCode() + "'>"
-					+ $("#deliverDay").val() + "&nbsp;"
-					+ timeSelector.getSelectedTimeTitle() + "</td>";
+					+ $("#deliverTime").val() 
+					//+ "&nbsp;"
+					//+ timeSelector.getSelectedTimeTitle() 
+					+ "</td>";
 			html += "<td><div id='valuewarning_deliverTime' class='valuewarning'></div></td>";
 			html += "</tr>";
 		}
-		if ($("#bdeliverDay").length > 0) {
+		if ($("#bdeliverTime").length > 0) {
 			html += "<tr style=''>";
 			html += "<td style='text-align: right;'>";
 			html += "预订配送时间：";
 			html += "</td>";
 
-			html += "<td id='bdeliverTime' value='" + $("#bdeliverDay").val()
-					+ "&nbsp;" + btimeSelector.getSelectedTimeTitle()
-					+ "' day='" + $("#bdeliverDay").val() + "' time='"
-					+ btimeSelector.getSelectedTimeTitle() + "' timeCode='"
+			html += "<td id='bdeliverTime' value='" + $("#bdeliverTime").val()
+					//+ "&nbsp;" + btimeSelector.getSelectedTimeTitle()
+					+ "'"
+					//+" day='" + $("#bdeliverDay").val() 
+					//+ "'" 
+					+" time='"
+					+ btimeSelector.getSelectedTimeTitle() 
+					+ "'"
+					+" timeCode='"
 					+ btimeSelector.getSelectedTimeCode() + "'>"
-					+ $("#bdeliverDay").val() + "&nbsp;"
+					//+ $("#bdeliverDay").val() + "&nbsp;"
 					+ btimeSelector.getSelectedTimeTitle() + "</td>";
 			html += "<td><div id='valuewarning_bdeliverTime' class='valuewarning'></div></td>";
 			html += "</tr>";
@@ -607,35 +617,39 @@ function Order() {
 		html += "<td><div id='valuewarning_paytype' class='valuewarning'></div></td>";
 		html += "</tr>";
 
-		if ($("#deliverDay").length > 0) {
+		if ($("#deliverTime").length > 0) {
 			html += "<tr style=''>";
 			html += "<td style='text-align: right;'>";
 			html += "配送时间：";
 			html += "</td>";
 			html += "<td id='deliverTime' value='"
-					+ $("#deliverDay").attr("day") + "&nbsp;"
-					+ $("#deliverDay").attr("time") + "' day='"
-					+ $("#deliverDay").attr("day") + "' time='"
-					+ $("#deliverDay").attr("time") + "' timeCode='"
-					+ $("#deliverDay").attr("timeCode") + "'>"
-					+ $("#deliverDay").attr("value") + "&nbsp;"
-					+ $("#deliverDay").attr("time") + "</td>";
+					//+ $("#deliverTime").attr("timeCode") + "&nbsp;"
+					+ $("#deliverTime").attr("time") + "'"
+					//+" day='"
+					//+ $("#deliverDay").attr("day") + "'"
+					+" time='"
+					+ $("#deliverTime").attr("time") + "' timeCode='"
+					+ $("#deliverTime").attr("timeCode") + "'>"
+					//+ $("#deliverTime").attr("value") + "&nbsp;"
+					+ $("#deliverTime").attr("time") + "</td>";
 			html += "<td><div id='valuewarning_deliverTime' class='valuewarning'></div></td>";
 			html += "</tr>";
 		}
-		if ($("#bdeliverDay").length > 0) {
+		if ($("#bdeliverTime").length > 0) {
 			html += "<tr style=''>";
 			html += "<td style='text-align: right;'>";
 			html += "预订配送时间：";
 			html += "</td>";
 			html += "<td id='bdeliverTime' value='"
-					+ $("#bdeliverDay").attr("day") + "&nbsp;"
-					+ $("#bdeliverDay").attr("time") + "' day='"
-					+ $("#bdeliverDay").attr("day") + "' time='"
-					+ $("#bdeliverDay").attr("time") + "' timeCode='"
-					+ $("#bdeliverDay").attr("timeCode") + "'>"
-					+ $("#bdeliverDay").attr("value") + "&nbsp;"
-					+ $("#bdeliverDay").attr("time") + "</td>";
+					//+ $("#bdeliverDay").attr("day") + "&nbsp;"
+					+ $("#bdeliverTime").attr("time") + "'"
+					//+" day='"
+					//+ $("#bdeliverDay").attr("day") + "'"
+					+" time='"
+					+ $("#bdeliverTime").attr("time") + "' timeCode='"
+					+ $("#bdeliverTime").attr("timeCode") + "'>"
+					//+ $("#bdeliverDay").attr("value") + "&nbsp;"
+					+ $("#bdeliverTime").attr("time") + "</td>";
 			html += "<td><div id='valuewarning_bdeliverTime' class='valuewarning'></div></td>";
 			html += "</tr>";
 		}
@@ -1101,8 +1115,8 @@ function Order() {
 			$(paytypeId).html(str);
 			success = false;
 		}
-		if ($("#deliverDay").length > 0) {
-			if (!$("#deliverDay").val() || !$("#time").val()) {
+		if ($("#deliverTime").length > 0) {
+			if (!$("#deliverTime").val()) {
 				var str = "配送时间不能为空！";
 				$("#paytype_warning_deliverTime").html(str);
 				success = false;
@@ -1110,8 +1124,8 @@ function Order() {
 				$("#paytype_warning_deliverTime").html("");
 			}
 		}
-		if ($("#bdeliverDay").length > 0) {
-			if (!$("#bdeliverDay").val() || !$("#btime").val()) {
+		if ($("#bdeliverTime").length > 0) {
+			if (!$("#bdeliverTime").val()) {
 				var str = "预订配送时间不能为空！";
 				$("#paytype_warning_bdeliverTime").html(str);
 				success = false;
@@ -1121,7 +1135,7 @@ function Order() {
 		}
 
 		// TODO 时间点校验
-		if ($("#deliverDay").val() && timeSelector
+		/**if ($("#deliverDay").val() && timeSelector
 				&& timeSelector.getSelectedTimeCode()) {
 			var currentDate = new Date();
 			if ($("#deliverDay").val().split("-")[2] == currentDate.getDate()) {
@@ -1142,7 +1156,7 @@ function Order() {
 			} else {
 				$("#paytype_warning_deliverTime").html("");
 			}
-		}
+		}*/
 
 		return success;
 	}
@@ -1194,14 +1208,12 @@ function Order() {
 		// orderInfo += ",bagsCost:\""
 		// + $("#total_bagsCost").attr("total_bagsCost") + "\"";
 		if ($("#deliverTime").length > 0) {
-			orderInfo += ",deliverTime:\"" + $("#deliverTime").attr("day")
-					+ " " + $("#deliverTime").attr("timeCode") + ":00" + "\"";
+			orderInfo += ",deliverTime:\"" + $("#deliverTime").attr("timeCode")+ ":00"+ "\"";
 		} else {
 			orderInfo += ",deliverTime:\"\"";
 		}
 		if ($("#bdeliverTime").length > 0) {
-			orderInfo += ",bdeliverTime:\"" + $("#bdeliverTime").attr("day")
-					+ " " + $("#bdeliverTime").attr("timeCode") + ":00" + "\"";
+			orderInfo += ",bdeliverTime:\"" + $("#bdeliverTime").attr("timeCode")+ ":00"+"\"";
 		} else {
 			orderInfo += ",bdeliverTime:\"\"";
 		}
@@ -1386,14 +1398,14 @@ function Order() {
 					success = false;
 				}
 			} else if ("#deliverTime" == id) {
-				if ($(id).attr("day") && $(id).attr("timeCode")) {
+				if ($(id).attr("timeCode")) {
 					$(this).html("");
 				} else {
 					$(this).html("配送时间不能为空！");
 					success = false;
 				}
 			} else if ("#bdeliverTime" == id) {
-				if ($(id).attr("day") && $(id).attr("timeCode")) {
+				if ($(id).attr("timeCode")) {
 					$(this).html("");
 				} else {
 					$(this).html("预订配送时间不能为空！");
