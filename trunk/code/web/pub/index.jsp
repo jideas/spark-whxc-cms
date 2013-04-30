@@ -1,8 +1,7 @@
 <%@ page language="java" pageEncoding="GBK"%>
 <%@ include file="/pub/common/inc.jsp"%>
 <%
-	com.spark.front.manager.PageManager pageManager = com.spark.front.manager.JSPServericeProvider
-			.getPageManager(request);
+	com.spark.front.manager.PageManager pageManager = com.spark.front.manager.JSPServericeProvider.getPageManager(request);
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -15,26 +14,23 @@
 		<meta http-equiv="Pragma" CONTENT="no-cache">
 		<meta http-equiv="keywords" content="7号生活馆,生鲜超市,服务社区,方便居民,一点到家,武汉买菜,武昌买菜,汉口买菜,汉阳买菜,湖北买菜,7号买菜,七号买菜,生鲜,蔬菜,水果,特产,进口食品,半成品菜,特产,湖北特产,速冻菜,便携菜,肉,水产,蛋品,菜,休闲食品,酒,水,米,面,酱,醋,盐,调味,茶,果,生活用品,卫生清洁,厨房,有机蔬菜">
 		
-		<script type="text/javascript"
-			src="<%=basePath%>/scripts/jquery/jquery.js"></script>
+		<script type="text/javascript" src="<%=basePath%>/scripts/jquery/jquery.js"></script>
 		<script type="text/javascript" src="<%=basePath%>/scripts/pub/menu.js"></script>
-		<script type="text/javascript"
-			src="<%=basePath%>/scripts/pub/floor.js"></script>
-		<script type="text/javascript"
-			src="<%=basePath%>/scripts/pub/backtop.js"></script>
-		<link type="text/css" href="<%=basePath%>/css/commonFloor.css"
-			rel="stylesheet">
-		<link type="text/css" href="<%=basePath%>/css/menu.css"
-			rel="stylesheet">
-		<link rel="shortcut icon" href="<%=basePath%>/images/page/icon-7.ico"
-			type="image/x-icon" />
-		<script type="text/javascript"
-			src="<%=basePath%>/scripts/cookieutil.js"></script>
-		<script type="text/javascript">function toShopingCar()
+		<script type="text/javascript" src="<%=basePath%>/scripts/pub/floor.js"></script>
+		<script type="text/javascript" src="<%=basePath%>/scripts/pub/backtop.js"></script>
+		<link rel="stylesheet" type="text/css" href="<%=basePath%>/scripts/jslider/lib/jquery.ad-gallery.css">
+ 		<link type="text/css" href="<%=basePath%>/css/commonFloor.css" rel="stylesheet">
+		<link type="text/css" href="<%=basePath%>/css/menu.css" rel="stylesheet">
+		<link rel="shortcut icon" href="<%=basePath%>/images/page/icon-7.ico" type="image/x-icon" />
+		<script type="text/javascript"	src="<%=basePath%>/scripts/cookieutil.js"></script>
+		<script type="text/javascript">
+			function toShopingCar()
 			{
-			window.location.href = mainWeb + "/front/shopingCar/getGoods";
-			}</script>
-		<style type="text/css">
+				window.location.href = mainWeb + "/front/shopingCar/getGoods";
+				}
+		</script>
+		
+<style type="text/css">
 * {
 	padding: 0px;
 	margin: 0px;
@@ -127,17 +123,124 @@ body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,table,th,td,blockquote,field
 	padding-left: 7px;
 	flost: left;
 }
+/** 右侧 广告 位 
+/*整体布局*/
+#ad-right{
+	position:relative;
+	width:230px;
+	height:495px;
+	margin:0px;
+	padding:0px;
+}
+/*图片*/
+#ad-right div a img{
+border:0px;
+}
+/*秒杀*/
+#ad-right .miaosha{
+	margin:5px 0px 5px 0px;
+}
+/*栏目*/
+#ad-right .channel{
+	background:url(<%=basePath%>/images/page/shangcheng-bg.png) repeat-x;
+	float: right;
+	width:230px;
+}
+/*栏目 -> 标题样式*/
+#ad-right .channel  ol{
+	padding-left:15px;
+	height:33px;
+	margin-bottom:0px;
+	background:url(<%=basePath%>/images/page/shangcheng-left.png) left top no-repeat;
+}
+/*栏目 -> 标题样式 -> span*/
+#ad-right .channel  span{
+	float:right;
+	width:14px;
+	height:33px;
+	background:url(<%=basePath%>/images/page/shangcheng-right.png) no-repeat right top;
+}
+/*栏目 -> 标题样式 -> 标题子项*/
+#ad-right .channel ol li{
+	float:left;
+	line-height:32px;
+	margin:1px -1px 0px 0px;
+	width:80px;
+	text-align:center;
+	color:#414241;
+	font-size:13px;
+	font-weight:bold;
+	list-style:none;
+	border-left:#CCCCCC solid 1px;
+	border-right:#CCCCCC solid 1px;	
+}
+/*栏目内容*/
+.channel div{
+	margin:0px;
+	padding-top:15px;
+	border:#CCCCCC solid 1px;
+	border-top:none;
+	height:260px;
+	*height:270px;
+	*margin-bottom:-5px;
+	position: relative;
+}	
+.channel ul{
+	display:none;
+	margin-top:-10px;
+	*margin-top:-5px;
+}
+/*栏目内容 -> 栏目子项*/
+.channel ul li{
+	color:#dc3400;
+	margin:3px 0px;
+	clear:both;
+	width:190px;
+	list-style-image:url("<%=basePath%>/images/page/list-style.png");
+	list-style-position:outside;
+	text-align:left;
+	margin: 6px 0px 0px 20px;
+	*margin: 6px 0px 5px 5px;
+	height:20px;
+}
+.channel a{
+	display:block;
+	height:20px;
+	line-height:20px;
+	*height:16px;
+	*line-height:16px;
+	color:#000000;
+	font-size:12px;
+	text-decoration:none;
+	blr:expression(this.onFocus=this.blur());
+	outline: none;
+}
+.channel a,.channel a:link{
+	color:#000000;
+}
+.channel a:visited{
+	color:#dc3400;
+}
+.channel a:hover{
+	color:#dc3400;
+}
+.channel ol li{
+	cursor:pointer;
+}
+.background_color{
+	background-color:#FFFFFF;
+}
+
 </style>
 	</head>
 	<body style="position: relative;">
 		<!-- begin of 回到顶部 -->
 		<DIV id="goTopBtn">
-			<IMG border=0 src="<%=basePath%>/images/page/lanren_top.png"
-				title="返回顶部">
+			<IMG border=0 src="<%=basePath%>/images/page/lanren_top.png"	title="返回顶部">
 		</DIV>
 		<!-- end of 回到顶部 -->
 		<div id="shortcut">
-			<jsp:include page="/pub/main/shortcut.jsp" flush="true" />
+		 <jsp:include page="/pub/main/shortcut.jsp" flush="true" />
 		</div>
 		<div id="index">
 			<div id="o-header">
@@ -213,10 +316,82 @@ body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,table,th,td,blockquote,field
 					<div class="menuRight"></div>
 
 					<div class="slider">
-						<jsp:include page="/pub/main/slider.jsp" flush="true" />
+						 <div id="gallery" class="ad-gallery">
+						      <div class="ad-image-wrapper"></div>
+						      <div class="ad-nav" style="margin-top:-5px;">
+						        <div class="ad-thumbs">
+						          <ul class="ad-thumb-list">
+						          	<li>
+							            <a href="<%=basePath%>/scripts/jslider/slider-images/015.jpg">
+							               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/015_thumb.jpg" class="image015">              
+										</a>
+									</li>
+						           <li>
+							            <a href="<%=basePath%>/scripts/jslider/slider-images/014.jpg">
+							               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/014_thumb.jpg" class="image010">              
+										</a>
+									</li>
+						           <li>
+							            <a href="<%=basePath%>/scripts/jslider/slider-images/013.jpg">
+							               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/013_thumb.jpg" class="image010">              
+										</a>
+									</li>
+							          <li>
+							            <a href="<%=basePath%>/scripts/jslider/slider-images/011.jpg">
+							               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/011_thumb.jpg" class="image11">              
+										</a>
+									</li>
+									<li>
+							            <a href="<%=basePath%>/scripts/jslider/slider-images/012.jpg">
+							               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/012_thumb.jpg" class="image012">              
+										</a>
+									</li>
+						           <li>
+							            <a href="<%=basePath%>/scripts/jslider/slider-images/02.jpg">
+						                	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/02_thumb.jpg" class="image1">              
+										</a>            
+									</li>
+									<li>
+							            <a href="<%=basePath%>/scripts/jslider/slider-images/03.jpg">
+						                	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/03_thumb.jpg" class="image2">              
+										</a>            
+									</li>
+									<li>
+							            <a href="<%=basePath%>/scripts/jslider/slider-images/04.jpg">
+						                	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/04_thumb.jpg" class="image3">            
+										</a>            
+									</li>
+						          </ul>
+						        </div>
+						      </div>
+						   </div>
 					</div>
 					<div class="shoppingNews">
-						<jsp:include page="/pub/main/ad-right.jsp" flush="true" />
+						<!--<jsp:include page="/pub/main/ad-right.jsp" flush="true" />-->
+						<div id="ad-right">
+							<div id="chunzhi">
+								<%=pageManager.getPictureAd("64CE0511837C940A3F5962EF1C05E208", basePath) %>
+							</div>
+							<div class="miaosha" id="miaosha">
+								<%=pageManager.getPictureAd("B9DA1373C1A5FEFEC6998E5E424A8B7D", basePath) %>
+							</div>
+							<div class="channel">
+								<span></span>
+								<ol>
+									<li onclick="toNewsListPage('9B3689226C6C30E5EB5E42F824F15B2F')">商城资讯</li>
+									<li onclick="toNewsListPage('1C9EEDA0B6FD28490AB85B72111C5A1E')">促销活动</li>
+								</ol>
+								<div>
+									<ul class="shangcheng">
+										<%=pageManager.getNewsList("9B3689226C6C30E5EB5E42F824F15B2F", "0", "10",basePath) %>
+									</ul>
+									<ul class="chuxiao">
+										<%=pageManager.getNewsList("1C9EEDA0B6FD28490AB85B72111C5A1E", "0", "10",basePath) %>			
+									</ul>
+								</div>
+							</div>
+						</div>
+						
 					</div>
 				</div>
 			</div>
@@ -461,5 +636,31 @@ function toCategoryPage(id){
 function showProduct(id){
 	location = mainWeb+"/front/toGoodsInfoPage?id="+id;
 }
+
+
+	//新闻 -> 点击栏目标题转向新闻列表
+	
+	function toNewsListPage(channelId){
+		window.location.href = mainWeb + "/front/channel/getNewsListToNews/"+channelId;
+	}
+
+	$(function(){
+		$(".channel ol li:first").bind("mouseover",function(){
+			$(".channel ol li").removeClass("background_color").css("color","#000000");
+			$(".channel ul").css("display","none");
+			$(this).addClass("background_color").css("color","#074a02");
+			$(".channel ul.shangcheng").css("display","block");
+		});
+		$(".channel ol li:last").bind("mouseover",function(){
+			$(".channel ol li").removeClass("background_color").css("color","#000000");
+			$(".channel ul").css("display","none");
+			$(this).addClass("background_color").css("color","#074a02");
+			$(".channel ul.chuxiao").css("display","block");
+		});
+		$(".channel ol li:first").mouseover();		
+	});
+/**新闻 结束   **/
 </script>
+	<script type="text/javascript" src="<%=basePath%>/scripts/jslider/lib/jquery.ad-gallery.js"></script>
+
 </html>
