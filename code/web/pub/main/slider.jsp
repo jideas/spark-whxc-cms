@@ -57,6 +57,7 @@
       </div>
     </div>
 <script type="text/javascript" defer="defer">
+$(function(){
 	$('.ad-gallery').adGallery({
 		width: 730,
 		height: 400,
@@ -123,6 +124,7 @@
 		}
 	  }
 	});
+});
   </script>    
 </body>
 </html>
