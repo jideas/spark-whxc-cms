@@ -18,6 +18,7 @@
 				iconCls="icon-add" onclick="memberAction.importMember();">导入会员</a>
 			</span>
 			<span id="memberNumber" style="float: left; padding-top: 5px;">会员数量：</span>
+			<span id="memberMoney" style="float: left; padding-top: 5px;margin-left:20px;">会员余额：</span>
 			<span style="float: right;"> <input type="text"
 					name="searchWord" value=""
 					style="width: 200px; height: 22px; padding-top: 3px; line-height: 22px;" />
@@ -175,6 +176,8 @@
 			onLoadSuccess:function(data){
 				$("span#memberNumber").empty();
 				$("span#memberNumber").append("会员数量："+data.total);
+				$("span#memberMoney").empty();
+				$("span#memberMoney").append("会员余额："+data.sumMoney);
 			}
 		});
 		
