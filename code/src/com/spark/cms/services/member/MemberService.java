@@ -205,4 +205,11 @@ public interface MemberService {
 	 * @return
 	 */
 	ServiceMessage createMember(MemberForm v);
+	
+	/**
+	 * 获取会员总金额
+	 * @param key
+	 * @return
+	 */
+	double getSumMoney(GetMemberListKey key);
 }
