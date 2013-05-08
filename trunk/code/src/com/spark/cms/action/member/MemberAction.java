@@ -28,6 +28,7 @@ import com.spark.cms.base.utils.ExcelReadHelper;
 import com.spark.cms.base.utils.encrypt.MD5;
 import com.spark.cms.common.Constant;
 import com.spark.cms.common.DataModel;
+import com.spark.cms.common.MemberModel;
 import com.spark.cms.common.MessageModel;
 import com.spark.cms.common.ResponseEntityUtil;
 import com.spark.cms.common.Constant.OrderEnum.PayType;
@@ -219,7 +220,7 @@ public class MemberAction extends BaseAction {
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/member/getMembers")
 	@ResponseBody
-	public DataModel getMembers(@RequestParam(value = "searchWord", required = false)
+	public MemberModel getMembers(@RequestParam(value = "searchWord", required = false)
 	String searchWord, @RequestParam(value = "page", required = false)
 	String page, @RequestParam(value = "rows", required = false)
 	String rows) {
@@ -229,16 +230,18 @@ public class MemberAction extends BaseAction {
 			key.setSearchText(searchWord);
 			List<MemberVo> membervoList = memberService.getList(key);
 			int count = memberService.getCount(key);
+			double sumMoney = memberService.getSumMoney(key);
 			for (MemberVo v : membervoList) {
 				v.setStatusStr(Constant.MemberEnum.MemberStatus.getStatus(v.getStatus()).getName());
 			}
 			// 转换
-			DataModel dataModel = new DataModel();
+			MemberModel memberModel = new MemberModel();
 			if (membervoList != null) {
-				dataModel.setRows(membervoList);
-				dataModel.setTotal(count);
+				memberModel.setRows(membervoList);
+				memberModel.setTotal(count);
+				memberModel.setSumMoney(sumMoney);
 			}
-			return dataModel;
+			return memberModel;
 		} catch (Exception e) {
 			log.error("获取会员列表发生异常====" + e.getMessage());
 		}
