@@ -1,5 +1,6 @@
 package com.spark.cms.services.member.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -258,6 +259,8 @@ public class MemberServiceImpl implements MemberService {
 			hsql.append(" where (mp.code like '%").append(searchText).append("%' ");
 			hsql.append(" or mp.membername like '%").append(searchText).append("%' ");
 			hsql.append(" or mp.username like '%").append(searchText).append("%') ");
+			hsql.append(" or mp.mobile like '%").append(searchText).append("%') ");
+			hsql.append(" or mp.email like '%").append(searchText).append("%') ");
 
 		}
 		if (CheckIsNull.isNotEmpty(key.getSortType())) {
@@ -579,6 +582,26 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return this.genericDAO.getGenericCountByHql(hql.toString(), params.toArray(new Object[0]));
 
+	}
+
+	/**
+	 * 获取会员金额
+	 */
+	@Override
+	public double getSumMoney(GetMemberListKey key) {
+		String searchText = key.getSearchText() == null ? "" : key.getSearchText().trim();
+		StringBuilder sb = new StringBuilder();
+		sb.append(" select sum(map.moneybalance)");
+		sb.append(" from cms_member as mp,cms_member_account map");
+		sb.append(" where hex(mp.recid) = hex(map.recid)");
+		sb.append(" and (mp.code like '%").append(searchText).append("%'");
+		sb.append(" or mp.membername like '%").append(searchText).append("%'");
+		sb.append(" or mp.username like '%").append(searchText).append("%'");
+		sb.append(" or mp.mobile like '%").append(searchText).append("%'");
+		sb.append(" or mp.email like '%").append(searchText).append("%')");
+		List<BigDecimal> mapList = genericDAO.query(sb.toString());
+		double sumMoney = mapList.get(0).doubleValue();
+		return sumMoney; 
 	}
 
 	@Override
