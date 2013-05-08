@@ -150,7 +150,7 @@ body {
 			<!-- 
 			<div id="product_ad-floor">
 				<jsp:include page="main/downstairs-ad.jsp" flush="true" />
-			</div>
+			</div
 			 -->
 			<div id="product_service">
 				<jsp:include page="main/service.jsp" flush="true" />
