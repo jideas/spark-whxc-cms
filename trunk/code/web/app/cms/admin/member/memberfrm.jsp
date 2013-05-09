@@ -8,23 +8,33 @@
 	</head>
 	<body>
 		<!-- begin of 会员列表 -->
-		<div id="membertoolbar" style="padding: 5px 10px 2px;">
-			<span style="float: left; padding-right: 5px;"> <a href="#"
-				class="easyui-linkbutton" id="clearVangetesButton"
-				iconCls="icon-reload" onclick="memberAction.clearVangetes();">积分清零</a>
-			</span>
-			<span style="float: right; padding-right: 5px;"> <a href="#"
-				class="easyui-linkbutton" id="clearVangetesButton"
-				iconCls="icon-add" onclick="memberAction.importMember();">导入会员</a>
-			</span>
-			<span id="memberNumber" style="float: left; padding-top: 5px;">会员数量：</span>
-			<span id="memberMoney" style="float: left; padding-top: 5px;margin-left:20px;">会员余额：</span>
-			<span style="float: right;"> <input type="text"
-					name="searchWord" value=""
-					style="width: 200px; height: 22px; padding-top: 3px; line-height: 22px;" />
-				<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-search" onclick="memberAction.searchMemebers()">搜索</a>
-			</span>
+		<div id="membertoolbar" style="padding:5px 0px;">
+			<div style="float:left; margin-top:8px;">
+				<span id="memberNumber" style="margin:0px 10px 0px 5px;">会员数量：</span>
+				<span id="memberMoney">会员余额：</span>
+			</div>
+			<div style="float:right;">
+				<span>
+					注册日期：
+					<input id="memberRegisterBeginDate" type="text" class="easyui-datebox" />
+					 - 
+					<input id="memberRegisterEndDate" type="text" class="easyui-datebox" />
+				</span>
+				<span> <input type="text"
+						name="searchWord" value=""
+						style="width: 130px; height: 22px;line-height: 22px;border:1px solid #CCC;" />
+					<a href="javascript:void(0)" class="easyui-linkbutton"
+					iconCls="icon-search" onclick="memberAction.searchMemebers()">搜索</a>
+				</span>
+				<span> <a href="#"
+					class="easyui-linkbutton" id="clearVangetesButton"
+					iconCls="icon-add" onclick="memberAction.importMember();">导入会员</a>
+				</span>
+				<span><a href="#"
+					class="easyui-linkbutton" id="clearVangetesButton"
+					iconCls="icon-reload" onclick="memberAction.clearVangetes();">积分清零</a>
+				</span>
+			</div>
 		</div>
 		<table id="memberDatagrid" toolbar="#membertoolbar">
 		</table>
@@ -181,6 +191,20 @@
 			}
 		});
 		
+		// 监听事件 -> 开始时间改变
+		$('#memberRegisterBeginDate').datebox({
+			onSelect : function(date) {
+				memberAction.refresh();
+			}
+		});
+
+		// 监听事件 -> 结束时间改变
+		$('#memberRegisterEndDate').datebox({
+			onSelect : function(date) {
+				memberAction.refresh();
+			}
+		});
+		
 	});
 	
 	//会员
@@ -214,8 +238,14 @@
 			}
 			//会员 -> 搜索
 			this.searchMemebers = function(){
-				$("#memberDatagrid").datagrid('reload',{
-					searchWord:$("input[name='searchWord']").val()
+				memberAction.refresh();
+			}
+			//会员 -> 刷新
+			this.refresh = function(){
+				$("#memberDatagrid").datagrid('load',{
+					searchWord:$("input[name='searchWord']").val(),
+					beginDate:$("#memberRegisterBeginDate").datebox('getValue'),
+					endDate:$("#memberRegisterEndDate").datebox('getValue')
 				});
 			}
 			//会员 -> 新增
