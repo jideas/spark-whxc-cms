@@ -222,15 +222,21 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberVo> getList(GetMemberListKey key) {
 		List<MemberVo> rList = new ArrayList<MemberVo>();
 		StringBuffer hsql = new StringBuffer();
-		hsql.append("from MemberPo mp ");
+		hsql.append("from MemberPo mp where 1=1");
 		if (CheckIsNull.isNotEmpty(key.getSearchText())) {
 			String searchText = key.getSearchText().trim();
-			hsql.append(" where (mp.code like '%").append(searchText).append("%' ");
-			hsql.append(" or mp.membername like '%").append(searchText).append("%' ");
-			hsql.append(" or mp.username like '%").append(searchText).append("%') ");
-			hsql.append(" or mp.mobile like '%").append(searchText).append("%') ");
-			hsql.append(" or mp.email like '%").append(searchText).append("%') ");
+			hsql.append(" and (mp.code like '%").append(searchText).append("%'");
+			hsql.append(" or mp.membername like '%").append(searchText).append("%'");
+			hsql.append(" or mp.username like '%").append(searchText).append("%'");
+			hsql.append(" or mp.mobile like '%").append(searchText).append("%'");
+			hsql.append(" or mp.email like '%").append(searchText).append("%')");
 
+		}
+		if(CheckIsNull.isNotEmpty(key.getBeginDate())){
+			hsql.append(" and SUBSTRING(mp.code,3,8) >= '").append(key.getBeginDate().replace("-", "")).append("'");
+		}
+		if(CheckIsNull.isNotEmpty(key.getEndDate())){
+			hsql.append(" and SUBSTRING(mp.code,3,8) <= '").append(key.getEndDate().replace("-", "")).append("'");
 		}
 		if (CheckIsNull.isNotEmpty(key.getSortType())) {
 			hsql.append(" order by mp.code ").append(key.getSortType());
@@ -253,20 +259,55 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int getCount(GetMemberListKey key) {
 		StringBuffer hsql = new StringBuffer();
-		hsql.append(" select count(recid) from MemberPo mp ");
+		hsql.append(" select count(recid) from MemberPo mp where 1=1");
 		if (CheckIsNull.isNotEmpty(key.getSearchText())) {
 			String searchText = key.getSearchText().trim();
-			hsql.append(" where (mp.code like '%").append(searchText).append("%' ");
-			hsql.append(" or mp.membername like '%").append(searchText).append("%' ");
-			hsql.append(" or mp.username like '%").append(searchText).append("%') ");
-			hsql.append(" or mp.mobile like '%").append(searchText).append("%') ");
+			hsql.append(" and (mp.code like '%").append(searchText).append("%'");
+			hsql.append(" or mp.membername like '%").append(searchText).append("%'");
+			hsql.append(" or mp.username like '%").append(searchText).append("%'");
+			hsql.append(" or mp.mobile like '%").append(searchText).append("%'");
 			hsql.append(" or mp.email like '%").append(searchText).append("%') ");
 
+		}
+		if(CheckIsNull.isNotEmpty(key.getBeginDate())){
+			hsql.append(" and SUBSTRING(mp.code,3,8) >= '").append(key.getBeginDate().replace("-", "")).append("'");
+		}
+		if(CheckIsNull.isNotEmpty(key.getEndDate())){
+			hsql.append(" and SUBSTRING(mp.code,3,8) <= '").append(key.getEndDate().replace("-", "")).append("'");
 		}
 		if (CheckIsNull.isNotEmpty(key.getSortType())) {
 			hsql.append(" order by mp.code ").append(key.getSortType());
 		}
 		return genericDAO.getGenericCountByHql(hsql.toString());
+	}
+	
+	/**
+	 * 获取会员金额
+	 */
+	@Override
+	public double getSumMoney(GetMemberListKey key) {
+		StringBuilder hsql = new StringBuilder();
+		hsql.append(" select sum(map.moneybalance)");
+		hsql.append(" from cms_member as mp,cms_member_account map");
+		hsql.append(" where HEX(mp.recid) = HEX(map.recid)");
+		if (CheckIsNull.isNotEmpty(key.getSearchText())) {
+			String searchText = key.getSearchText().trim();
+			hsql.append(" and (mp.code like '%").append(searchText).append("%'");
+			hsql.append(" or mp.membername like '%").append(searchText).append("%'");
+			hsql.append(" or mp.username like '%").append(searchText).append("%'");
+			hsql.append(" or mp.mobile like '%").append(searchText).append("%'");
+			hsql.append(" or mp.email like '%").append(searchText).append("%') ");
+
+		}
+		if(CheckIsNull.isNotEmpty(key.getBeginDate())){
+			hsql.append(" and SUBSTRING(mp.code,3,8) >= '").append(key.getBeginDate().replace("-", "")).append("'");
+		}
+		if(CheckIsNull.isNotEmpty(key.getEndDate())){
+			hsql.append(" and SUBSTRING(mp.code,3,8) <= '").append(key.getEndDate().replace("-", "")).append("'");
+		}
+		List<BigDecimal> mapList = genericDAO.query(hsql.toString());
+		if(mapList.get(0) == null) return 0;
+		return mapList.get(0).doubleValue();
 	}
 
 	private void copyMemberVo(MemberVo v, MemberPo p) {
@@ -582,26 +623,6 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return this.genericDAO.getGenericCountByHql(hql.toString(), params.toArray(new Object[0]));
 
-	}
-
-	/**
-	 * 获取会员金额
-	 */
-	@Override
-	public double getSumMoney(GetMemberListKey key) {
-		String searchText = key.getSearchText() == null ? "" : key.getSearchText().trim();
-		StringBuilder sb = new StringBuilder();
-		sb.append(" select sum(map.moneybalance)");
-		sb.append(" from cms_member as mp,cms_member_account map");
-		sb.append(" where hex(mp.recid) = hex(map.recid)");
-		sb.append(" and (mp.code like '%").append(searchText).append("%'");
-		sb.append(" or mp.membername like '%").append(searchText).append("%'");
-		sb.append(" or mp.username like '%").append(searchText).append("%'");
-		sb.append(" or mp.mobile like '%").append(searchText).append("%'");
-		sb.append(" or mp.email like '%").append(searchText).append("%')");
-		List<BigDecimal> mapList = genericDAO.query(sb.toString());
-		double sumMoney = mapList.get(0).doubleValue();
-		return sumMoney; 
 	}
 
 	@Override
