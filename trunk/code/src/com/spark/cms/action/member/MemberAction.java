@@ -223,11 +223,15 @@ public class MemberAction extends BaseAction {
 	public MemberModel getMembers(@RequestParam(value = "searchWord", required = false)
 	String searchWord, @RequestParam(value = "page", required = false)
 	String page, @RequestParam(value = "rows", required = false)
-	String rows) {
+	String rows, @RequestParam(value = "beginDate", required = false)
+	String beginDate, @RequestParam(value = "endDate", required = false)
+	String endDate) {
 		try {
 			// 查询会员列表
 			GetMemberListKey key = new GetMemberListKey(Integer.valueOf(page), Integer.valueOf(rows), false);
 			key.setSearchText(searchWord);
+			key.setBeginDate(beginDate);
+			key.setEndDate(endDate);
 			List<MemberVo> membervoList = memberService.getList(key);
 			int count = memberService.getCount(key);
 			double sumMoney = memberService.getSumMoney(key);
