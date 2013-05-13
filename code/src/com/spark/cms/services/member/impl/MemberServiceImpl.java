@@ -42,7 +42,9 @@ import com.spark.cms.services.member.key.GetVantagesListKey;
 import com.spark.cms.services.serial.SerialNumberService;
 import com.spark.cms.services.station.StationService;
 import com.spark.cms.services.vo.MemberAccountVo;
+import com.spark.cms.services.vo.MemberActiveVo;
 import com.spark.cms.services.vo.MemberAddressVo;
+import com.spark.cms.services.vo.MemberChargeFlowVo;
 import com.spark.cms.services.vo.MemberDealingVo;
 import com.spark.cms.services.vo.MemberDeliverLogVo;
 import com.spark.cms.services.vo.MemberDeliveryVo;
@@ -955,4 +957,337 @@ public class MemberServiceImpl implements MemberService {
 		return null;
 	}
 
+	/**
+	 * 活动会员 -> 获取活动会员列表
+	 */
+	@Override
+	public List<MemberActiveVo> getActiveMemberList(GetMemberListKey key) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(" SELECT cm.recid,cm.code,cm.username,cm.membername,cm.mobile,eso.stationname,");
+		sb.append(" COUNT(eso.recid) as ordercount,SUM(eso.totalamount) as ordermoney,");
+		sb.append(" COUNT(esr.billsno) as returncount,SUM(esr.amount) as returnmoney");
+		sb.append(" FROM cms_member cm");
+		sb.append(" LEFT JOIN erp_sales_onlineorder eso ON HEX(eso.memberid) = HEX(cm.recid)");
+		sb.append(" LEFT JOIN psi_sales_onlinereturn esr ON esr.onlinebillsno = eso.billsno");
+		sb.append(" where 1=1");
+		if(CheckIsNull.isNotEmpty(key.getBeginDate())){
+			sb.append(" and eso.createdate >= '").append(key.getBeginDate()).append("'");
+		}
+		if(CheckIsNull.isNotEmpty(key.getEndDate())){
+			sb.append(" and eso.createdate <= '").append(key.getEndDate()).append("'");
+		}
+		if(CheckIsNull.isNotEmpty(key.getSearchText())){
+			String searchText = key.getSearchText().trim();
+			sb.append(" and (cm.code like '%").append(searchText).append("%'");
+			sb.append(" or cm.membername like '%").append(searchText).append("%'");
+			sb.append(" or cm.username like '%").append(searchText).append("%'");
+			sb.append(" or eso.stationname like '%").append(searchText).append("%'");
+			sb.append(" or cm.mobile like '%").append(searchText).append("%')");
+		}
+		sb.append(" GROUP BY cm.CODE");
+		sb.append(" order by cm.code");
+		if(key.getOffset() > 0 && key.getPageSize() > 0){
+			sb.append(" LIMIT ").append((key.getOffset()-1)*key.getPageSize()).append(",").append(key.getPageSize());
+		}
+		List<Object> objList = genericDAO.query(sb.toString());
+		List<MemberActiveVo> mavList = convertToMemberActionVoList(objList);
+		return mavList;
+	}
+	
+	/**
+	 * 活动会员 -> 获取活动会员列表 ->  数据转换
+	 * @param objListList
+	 * @return
+	 */
+	private List<MemberActiveVo> convertToMemberActionVoList(List<Object> objList){
+		List<MemberActiveVo> mavList = new ArrayList<MemberActiveVo>();
+		for(Object obj : objList){
+			Object[] objs = (Object[])obj;
+			MemberActiveVo mav = new MemberActiveVo();
+			mav.setCode(objs[1].toString());
+			mav.setUsername(objs[2].toString());
+			if(CheckIsNull.isNotEmpty(objs[3])) mav.setMembername(objs[3].toString());
+			mav.setMobile(objs[4].toString());
+			if(CheckIsNull.isNotEmpty(objs[5])) mav.setStationname(objs[5].toString());
+			Object ordercount = objs[6];
+			if(CheckIsNull.isNotEmpty(ordercount)){
+				mav.setOrdercount(Integer.valueOf(ordercount.toString()));
+			}else{
+				mav.setOrdercount(0);
+			}
+			
+			Object ordermoney = objs[7];
+			if(CheckIsNull.isNotEmpty(ordermoney)){
+				mav.setOrdermoney(Double.valueOf(ordermoney.toString()));
+			}else{
+				mav.setOrdermoney(0.0);
+			}
+			
+			Object returncount = objs[8];
+			if(CheckIsNull.isNotEmpty(returncount)){
+				mav.setReturncount(Integer.valueOf(returncount.toString()));
+			}else{
+				mav.setReturncount(0);
+			}
+			
+			Object returnmoney = objs[9];
+			if(CheckIsNull.isNotEmpty(returnmoney)){
+				mav.setReturnmoney(Double.valueOf(returnmoney.toString()));
+			}else{
+				mav.setReturnmoney(0.0);
+			}
+			mavList.add(mav);
+		}
+		return mavList;
+	}
+
+	/**
+	 * 活动会员 -> 信息统计
+	 */
+	@Override
+	public List<MemberActiveVo> getActiveMemberTotal(GetMemberListKey key) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(" SELECT SUM(ordercount),SUM(ordermoney),SUM(returncount),SUM(returnmoney)");
+		sb.append(" FROM");
+		sb.append(" (");
+		sb.append(" SELECT");
+		sb.append(" COUNT(eso.recid) AS ordercount,SUM(eso.totalamount) AS ordermoney,");
+		sb.append(" COUNT(esr.billsno) AS returncount,SUM(esr.amount) AS returnmoney");
+		sb.append(" FROM cms_member cm");
+		sb.append(" LEFT JOIN erp_sales_onlineorder eso ON HEX(eso.memberid) = HEX(cm.recid)");
+		sb.append(" LEFT JOIN psi_sales_onlinereturn esr ON esr.onlinebillsno = eso.billsno");
+		sb.append(" WHERE 1=1");
+		if(CheckIsNull.isNotEmpty(key.getBeginDate())){
+			sb.append(" and eso.createdate >= '").append(key.getBeginDate()).append("'");
+		}
+		if(CheckIsNull.isNotEmpty(key.getEndDate())){
+			sb.append(" and eso.createdate <= '").append(key.getEndDate()).append("'");
+		}
+		if(CheckIsNull.isNotEmpty(key.getSearchText())){
+			String searchText = key.getSearchText().trim();
+			sb.append(" and (cm.code like '%").append(searchText).append("%'");
+			sb.append(" or cm.membername like '%").append(searchText).append("%'");
+			sb.append(" or cm.username like '%").append(searchText).append("%'");
+			sb.append(" or eso.stationname like '%").append(searchText).append("%'");
+			sb.append(" or cm.mobile like '%").append(searchText).append("%')");
+		}
+		sb.append(" GROUP BY CODE");
+		sb.append(" )");
+		sb.append(" tempTab");
+		List<Object> objList = genericDAO.query(sb.toString());
+		List<MemberActiveVo> mavList = new ArrayList<MemberActiveVo>();
+		MemberActiveVo mav = new MemberActiveVo();
+		Object[] objs = (Object[])objList.get(0);
+		Object ordercount = objs[0];
+		if(CheckIsNull.isNotEmpty(ordercount)){
+			mav.setOrdercount(Integer.valueOf(ordercount.toString()));
+		}else{
+			mav.setOrdercount(0);
+		}
+		
+		Object ordermoney = objs[1];
+		if(CheckIsNull.isNotEmpty(ordermoney)){
+			mav.setOrdermoney(Double.valueOf(ordermoney.toString()));
+		}else{
+			mav.setOrdermoney(0.0);
+		}
+		
+		Object returncount = objs[2];
+		if(CheckIsNull.isNotEmpty(returncount)){
+			mav.setReturncount(Integer.valueOf(returncount.toString()));
+		}else{
+			mav.setReturncount(0);
+		}
+		
+		Object returnmoney = objs[3];
+		if(CheckIsNull.isNotEmpty(returnmoney)){
+			mav.setReturnmoney(Double.valueOf(returnmoney.toString()));
+		}else{
+			mav.setReturnmoney(0.0);
+		}
+		mavList.add(mav);
+		return mavList;
+	}
+	 	
+	/**
+	 * 活动会员 -> 获取活动会员列表
+	 */
+	@Override
+	public int getActiveMemberCount(GetMemberListKey key) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(" SELECT COUNT(*) FROM");
+		sb.append(" (");
+		sb.append(" SELECT COUNT(cm.code)");
+		sb.append(" FROM cms_member cm");
+		sb.append(" LEFT JOIN erp_sales_onlineorder eso ON HEX(eso.memberid) = HEX(cm.recid)");
+		sb.append(" LEFT JOIN psi_sales_onlinereturn esr ON esr.onlinebillsno = eso.billsno");
+		sb.append(" WHERE 1=1");
+		if(CheckIsNull.isNotEmpty(key.getBeginDate())){
+			sb.append(" and eso.createdate >= '").append(key.getBeginDate()).append("'");
+		}
+		if(CheckIsNull.isNotEmpty(key.getEndDate())){
+			sb.append(" and eso.createdate <= '").append(key.getEndDate()).append("'");
+		}
+		if(CheckIsNull.isNotEmpty(key.getSearchText())){
+			String searchText = key.getSearchText().trim();
+			sb.append(" and (cm.code like '%").append(searchText).append("%'");
+			sb.append(" or cm.membername like '%").append(searchText).append("%'");
+			sb.append(" or cm.username like '%").append(searchText).append("%'");
+			sb.append(" or eso.stationname like '%").append(searchText).append("%'");
+			sb.append(" or cm.mobile like '%").append(searchText).append("%')");
+		}
+		sb.append(" GROUP BY CODE");
+		sb.append(" )");
+		sb.append(" tempTab1");
+		List<Object> objList = genericDAO.query(sb.toString());
+		Object obj = objList.get(0);
+		int count = 0;
+		if(obj != null) count = Integer.valueOf(obj.toString());
+		return count;
+	}
+
+	/**
+	 * 充值流水 -> 流水数量
+	 */
+	@Override
+	public int getChargeFlowCount(GetMemberListKey key,String valueType,String chargeType) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(" SELECT count(cm.code)");
+		sb.append(" FROM cms_member_dealing cmd");
+		sb.append(" LEFT JOIN cms_member cm ON HEX(cm.recid) = HEX(cmd.memberid)");
+		sb.append(" WHERE 1=1");
+		if(CheckIsNull.isNotEmpty(valueType) && Double.valueOf(valueType) > 0){
+			sb.append(" and cmd.amount = ").append(Double.valueOf(valueType));
+		}
+		if(CheckIsNull.isNotEmpty(chargeType) && !"00".equals(chargeType)){
+			sb.append(" and(cmd.dealtype = '").append(chargeType).append("')");
+		}else{
+			sb.append(" and(cmd.dealtype = '01' OR cmd.dealtype = '02')");
+		}
+		if(CheckIsNull.isNotEmpty(key.getBeginDate())){
+			sb.append(" and cmd.occurdate >= '").append(key.getBeginDate()).append("'");
+		}
+		if(CheckIsNull.isNotEmpty(key.getEndDate())){
+			sb.append(" and cmd.occurdate <= '").append(key.getEndDate()).append("'");
+		}
+		if(CheckIsNull.isNotEmpty(key.getSearchText())){
+			String searchText = key.getSearchText().trim();
+			sb.append(" and (cm.code like '%").append(searchText).append("%'");
+			sb.append(" or cm.membername like '%").append(searchText).append("%'");
+			sb.append(" or cm.username like '%").append(searchText).append("%'");
+			sb.append(" or cmd.relabillsno like '%").append(searchText).append("%'");
+			sb.append(" or cm.mobile like '%").append(searchText).append("%')");
+		}
+		List<Object> objList = genericDAO.query(sb.toString());
+		Object obj = objList.get(0);
+		int count = 0;
+		if(obj != null) count = Integer.valueOf(obj.toString());
+		return count;
+	}
+
+	/**
+	 * 充值流水 -> 流水列表
+	 */
+	@Override
+	public List<MemberChargeFlowVo> getChargeFlows(GetMemberListKey key,String valueType,String chargeType) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(" SELECT cm.code,cm.username,cm.membername,cm.mobile,cmd.dealtype,cmd.relabillsno,cmd.amount,cmd.occurdate");
+		sb.append(" FROM cms_member_dealing cmd");
+		sb.append(" LEFT JOIN cms_member cm ON HEX(cm.recid) = HEX(cmd.memberid)");
+		sb.append(" WHERE 1=1");
+		if(CheckIsNull.isNotEmpty(valueType) && Double.valueOf(valueType) > 0){
+			sb.append(" and cmd.amount = ").append(Double.valueOf(valueType));
+		}
+		if(CheckIsNull.isNotEmpty(chargeType) && !"00".equals(chargeType)){
+			sb.append(" and(cmd.dealtype = '").append(chargeType).append("')");
+		}else{
+			sb.append(" and(cmd.dealtype = '01' OR cmd.dealtype = '02')");
+		}
+		if(CheckIsNull.isNotEmpty(key.getBeginDate())){
+			sb.append(" and cmd.occurdate >= '").append(key.getBeginDate()).append("'");
+		}
+		if(CheckIsNull.isNotEmpty(key.getEndDate())){
+			sb.append(" and cmd.occurdate <= '").append(key.getEndDate()).append("'");
+		}
+		if(CheckIsNull.isNotEmpty(key.getSearchText())){
+			String searchText = key.getSearchText().trim();
+			sb.append(" and (cm.code like '%").append(searchText).append("%'");
+			sb.append(" or cm.membername like '%").append(searchText).append("%'");
+			sb.append(" or cm.username like '%").append(searchText).append("%'");
+			sb.append(" or cmd.relabillsno like '%").append(searchText).append("%'");
+			sb.append(" or cm.mobile like '%").append(searchText).append("%')");
+		}
+		sb.append(" ORDER BY cmd.occurdate DESC");
+		if(key.getOffset() > 0 && key.getPageSize() > 0){
+			sb.append(" LIMIT ").append((key.getOffset()-1)*key.getPageSize()).append(",").append(key.getPageSize());
+		}
+		List<Object> objList = genericDAO.query(sb.toString());
+		List<MemberChargeFlowVo> mcfList = convertToChargeFlowList(objList);
+		return mcfList;
+	}
+	
+	/**
+	 * 充值流水 -> 流水列表 -> 数据转换
+	 */
+	private List<MemberChargeFlowVo> convertToChargeFlowList(List<Object> objList){
+		List<MemberChargeFlowVo> mcfList = new ArrayList<MemberChargeFlowVo>();
+		for(Object obj : objList){
+			Object[] objs = (Object[])obj;
+			MemberChargeFlowVo mcf = new MemberChargeFlowVo();
+			if(CheckIsNull.isNotEmpty(objs[0])) mcf.setCode(objs[0].toString());
+			if(CheckIsNull.isNotEmpty(objs[1])) mcf.setUsername(objs[1].toString());
+			if(CheckIsNull.isNotEmpty(objs[2])) mcf.setMembername(objs[2].toString());
+			if(CheckIsNull.isNotEmpty(objs[3])) mcf.setMobile(objs[3].toString());
+			if(CheckIsNull.isNotEmpty(objs[4])) mcf.setChargetype(objs[4].toString());
+			if(CheckIsNull.isNotEmpty(objs[5])) mcf.setOrderno(objs[5].toString());
+			if(CheckIsNull.isNotEmpty(objs[6])) mcf.setAmount(objs[6].toString());
+			if(CheckIsNull.isNotEmpty(objs[7])) mcf.setOccurdate(objs[7].toString());
+			mcfList.add(mcf);
+		}
+		return mcfList;
+	}
+	
+	/**
+	 * 充值流水 -> 信息统计
+	 */
+	@Override
+	public List<MemberChargeFlowVo> getChargeFlowTotal(GetMemberListKey key,String valueType,String chargeType) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(" SELECT count(cm.code),sum(cmd.amount)");
+		sb.append(" FROM cms_member_dealing cmd");
+		sb.append(" LEFT JOIN cms_member cm ON HEX(cm.recid) = HEX(cmd.memberid)");
+		sb.append(" WHERE 1=1");
+		if(CheckIsNull.isNotEmpty(valueType) && Double.valueOf(valueType) > 0){
+			sb.append(" and cmd.amount = ").append(Double.valueOf(valueType));
+		}
+		if(CheckIsNull.isNotEmpty(chargeType) && !"00".equals(chargeType)){
+			sb.append(" and(cmd.dealtype = '").append(chargeType).append("')");
+		}else{
+			sb.append(" and(cmd.dealtype = '01' OR cmd.dealtype = '02')");
+		}
+		if(CheckIsNull.isNotEmpty(key.getBeginDate())){
+			sb.append(" and cmd.occurdate >= '").append(key.getBeginDate()).append("'");
+		}
+		if(CheckIsNull.isNotEmpty(key.getEndDate())){
+			sb.append(" and cmd.occurdate <= '").append(key.getEndDate()).append("'");
+		}
+		if(CheckIsNull.isNotEmpty(key.getSearchText())){
+			String searchText = key.getSearchText().trim();
+			sb.append(" and (cm.code like '%").append(searchText).append("%'");
+			sb.append(" or cm.membername like '%").append(searchText).append("%'");
+			sb.append(" or cm.username like '%").append(searchText).append("%'");
+			sb.append(" or cmd.relabillsno like '%").append(searchText).append("%'");
+			sb.append(" or cm.mobile like '%").append(searchText).append("%')");
+		}
+		List<Object> objList = genericDAO.query(sb.toString());
+		Object[] objs = (Object[])objList.get(0);
+		List<MemberChargeFlowVo> mcfList = new ArrayList<MemberChargeFlowVo>();
+		MemberChargeFlowVo mcf = new MemberChargeFlowVo();
+		if(CheckIsNull.isNotEmpty(objs[0])) mcf.setOrderno(objs[0].toString());
+		if(CheckIsNull.isNotEmpty(objs[1])) mcf.setAmount(objs[1].toString());
+		mcf.setCode("统计信息");
+		mcfList.add(mcf);
+		return mcfList;
+	}
+	
 }
