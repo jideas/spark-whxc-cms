@@ -1,6 +1,7 @@
 package com.spark.cms.action.member;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,6 +11,14 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import jxl.format.Colour;
+import jxl.format.UnderlineStyle;
+import jxl.write.Label;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +53,8 @@ import com.spark.cms.services.order.OrderService;
 import com.spark.cms.services.order.key.GetEffectedOrderListKey;
 import com.spark.cms.services.order.key.GetUnEffectedOrderListKey;
 import com.spark.cms.services.vo.MemberAccountVo;
+import com.spark.cms.services.vo.MemberActiveVo;
+import com.spark.cms.services.vo.MemberChargeFlowVo;
 import com.spark.cms.services.vo.MemberDealingVo;
 import com.spark.cms.services.vo.MemberVantagesVo;
 import com.spark.cms.services.vo.MemberVo;
@@ -525,5 +536,164 @@ public class MemberAction extends BaseAction {
 
 		return null;
 	}
+	
+	/**
+	 * 活动会员 -> 获取活动会员列表
+	 * @param searchWord
+	 * @param page
+	 * @param rows
+	 * @param beginDate
+	 * @param endDate
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/member/getActiveMembers")
+	@ResponseBody
+	public MemberModel getActiveMembers(@RequestParam(value = "searchWord", required = false)
+	String searchWord, @RequestParam(value = "page", required = false)
+	String page, @RequestParam(value = "rows", required = false)
+	String rows, @RequestParam(value = "beginDate", required = false)
+	String beginDate, @RequestParam(value = "endDate", required = false)
+	String endDate) {
+		MemberModel memberModel = new MemberModel();
+		try {
+			// 查询会员列表
+			beginDate = CheckIsNull.isNotEmpty(beginDate) ? beginDate : "1900-01-01";
+			GetMemberListKey key = new GetMemberListKey(Integer.valueOf(page), Integer.valueOf(rows), false);
+			key.setSearchText(searchWord);
+			key.setBeginDate(beginDate);
+			key.setEndDate(endDate);
+			List<MemberActiveVo>  mavList = memberService.getActiveMemberList(key);
+			List<MemberActiveVo> footerList = memberService.getActiveMemberTotal(key);
+			int count = memberService.getActiveMemberCount(key);
+			// 转换
+			if (mavList != null) {
+				memberModel.setRows(mavList);
+				memberModel.setTotal(count);
+				memberModel.setFooter(footerList);
+			}
+			return memberModel;
+		} catch (Exception e) {
+			log.error("获取活动会员列表发生异常====" + e.getMessage());
+		}
+		return memberModel;
+	}
+	
+	/**
+	 * 活动会员 -> 导出会员
+	 * @param searchWord
+	 * @param beginDate
+	 * @param endDate
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/member/exportActiveMember")
+	@ResponseBody
+	public ResponseEntity<MessageModel> exportActiveMember(@RequestParam(value = "searchWord", required = false)
+	String searchWord,@RequestParam(value = "beginDate", required = false)
+	String beginDate, @RequestParam(value = "endDate", required = false)
+	String endDate,HttpServletResponse response) {
+		
+		try {
+			// 查询会员列表
+			beginDate = CheckIsNull.isNotEmpty(beginDate) ? beginDate : "1900-01-01";
+			GetMemberListKey key = new GetMemberListKey(0, 0, false);
+			key.setSearchText(searchWord);
+			key.setBeginDate(beginDate);
+			key.setEndDate(endDate);
+			List<MemberActiveVo>  mavList = memberService.getActiveMemberList(key);
+			//导出设置
+			OutputStream os = response.getOutputStream();
+			response.reset();
+			response.setHeader("Content-disposition", "attachment; filename=fine.xls");
+			//response.setContentType("application/msexcel");
+			//response.setContentType("application/vnd.ms-excel");
+			//response.setContentType("application/x-msdownload");
+			response.setContentType("application/msexcel");
+			//excel设置
+			WritableWorkbook wbook = jxl.Workbook.createWorkbook(os); // 建立excel文件    
+		    WritableSheet wsheet = wbook.createSheet("活动会员", 0); // sheet名称  
+			WritableFont wfont = new WritableFont(WritableFont.ARIAL, 16,WritableFont.BOLD,false,UnderlineStyle.NO_UNDERLINE,Colour.BLACK);   
+			WritableCellFormat wcfFC = new WritableCellFormat(wfont); 
+			wcfFC.setBackground(Colour.AQUA); 
+			wsheet.addCell(new Label(1, 0, "活动会员", wcfFC));   
+			wfont = new jxl.write.WritableFont(WritableFont.ARIAL, 14,WritableFont.BOLD,false, UnderlineStyle.NO_UNDERLINE,Colour.BLACK);   
+			wcfFC = new WritableCellFormat(wfont);
+			//表头设置
+			wsheet.addCell(new Label(0, 2, "会员编号"));   
+			wsheet.addCell(new Label(1, 2, "会员账号"));
+			wsheet.addCell(new Label(2, 2, "会员名"));   
+			wsheet.addCell(new Label(3, 2, "手机号"));  
+			wsheet.addCell(new Label(4, 2, "站点"));   
+			wsheet.addCell(new Label(5, 2, "订单单数量"));
+			wsheet.addCell(new Label(6, 2, "订单总额"));
+			wsheet.addCell(new Label(7, 2, "退货单数量"));
+			wsheet.addCell(new Label(8, 2, "退货金额"));
+			//excel添加数据
+			for(int i = 0;mavList != null && i < mavList.size();i++){
+				MemberActiveVo mav = mavList.get(i);
+			    wsheet.addCell(new Label(0, i+3, mav.getCode()));
+			    wsheet.addCell(new Label(1, i+3, mav.getUsername()));
+			    wsheet.addCell(new Label(2, i+3, mav.getMembername()));
+			    wsheet.addCell(new Label(3, i+3, mav.getMobile()));
+			    wsheet.addCell(new Label(4, i+3, mav.getStationname()));
+			    wsheet.addCell(new Label(5, i+3, mav.getOrdercount()+""));
+			    wsheet.addCell(new Label(6, i+3, mav.getOrdermoney()+""));
+			    wsheet.addCell(new Label(7, i+3, mav.getReturncount()+""));
+			    wsheet.addCell(new Label(8, i+3, mav.getReturnmoney()+""));
+			}           
+	        //资源回收 
+			wbook.write();
+			wbook.close();
+			os.close();
+			return ResponseEntityUtil.getResponseEntity(Success);
+		} catch (Exception e) {
+			log.error("导出活动会员列表发生异常====" + e.getMessage());
+		}
+		return ResponseEntityUtil.getResponseEntity(Failure);
+	}
 
+	/**
+	 * 会员充值流水
+	 * @param searchWord
+	 * @param page
+	 * @param rows
+	 * @param beginDate
+	 * @param endDate
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/member/getMemberChargeFlows")
+	@ResponseBody
+	public MemberModel getMemberChargeFlows(@RequestParam(value = "searchWord", required = false)
+	String searchWord, @RequestParam(value = "page", required = false)
+	String page, @RequestParam(value = "rows", required = false)
+	String rows, @RequestParam(value = "beginDate", required = false)
+	String beginDate, @RequestParam(value = "endDate", required = false)
+	String endDate, @RequestParam(value = "valueType", required = false)
+	String valueType, @RequestParam(value = "chargeType", required = false)
+	String chargeType) {
+		MemberModel memberModel = new MemberModel();
+		try {
+			// 查询充值记录
+			beginDate = CheckIsNull.isNotEmpty(beginDate) ? beginDate : "1900-01-01";
+			GetMemberListKey key = new GetMemberListKey(Integer.valueOf(page), Integer.valueOf(rows), false);
+			key.setSearchText(searchWord);
+			key.setBeginDate(beginDate);
+			key.setEndDate(endDate);
+			List<MemberChargeFlowVo>  mavList = memberService.getChargeFlows(key,valueType,chargeType);
+			List<MemberChargeFlowVo> footerList = memberService.getChargeFlowTotal(key,valueType,chargeType);
+			int count = memberService.getChargeFlowCount(key,valueType,chargeType);
+			// 转换
+			if (mavList != null) {
+				memberModel.setRows(mavList);
+				memberModel.setTotal(count);
+				memberModel.setFooter(footerList);
+			}
+			return memberModel;
+		} catch (Exception e) {
+			log.error("获取活动会员列表发生异常====" + e.getMessage());
+		}
+		return memberModel;
+	}
 }

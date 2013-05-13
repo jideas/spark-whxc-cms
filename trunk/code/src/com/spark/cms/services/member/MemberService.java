@@ -11,7 +11,9 @@ import com.spark.cms.services.member.key.GetDealingListKey;
 import com.spark.cms.services.member.key.GetMemberListKey;
 import com.spark.cms.services.member.key.GetVantagesListKey;
 import com.spark.cms.services.vo.MemberAccountVo;
+import com.spark.cms.services.vo.MemberActiveVo;
 import com.spark.cms.services.vo.MemberAddressVo;
+import com.spark.cms.services.vo.MemberChargeFlowVo;
 import com.spark.cms.services.vo.MemberDealingVo;
 import com.spark.cms.services.vo.MemberDeliverLogVo;
 import com.spark.cms.services.vo.MemberDeliveryVo;
@@ -212,4 +214,46 @@ public interface MemberService {
 	 * @return
 	 */
 	double getSumMoney(GetMemberListKey key);
+	
+	/**
+	 * 活动会员 -> 获取活动会员列表
+	 * @param key
+	 * @return
+	 */
+	List<MemberActiveVo> getActiveMemberList(GetMemberListKey key);
+	
+	/**
+	 * 活动会员 -> 信息统计
+	 * @param key
+	 * @return
+	 */
+	List<MemberActiveVo> getActiveMemberTotal(GetMemberListKey key);
+
+	/**
+	 * 活动会员 -> 获取活动会员数量
+	 * @param key
+	 * @return
+	 */
+	int getActiveMemberCount(GetMemberListKey key);
+	
+	/**
+	 * 充值流水 -> 流水列表
+	 * @param key
+	 * @return
+	 */
+	List<MemberChargeFlowVo> getChargeFlows(GetMemberListKey key,String valueType,String chargeType);
+	
+	/**
+	 * 充值流水 -> 信息统计
+	 * @param key
+	 * @return
+	 */
+	List<MemberChargeFlowVo> getChargeFlowTotal(GetMemberListKey key,String valueType,String chargeType);
+	
+	/**
+	 * 充值流水 -> 流水数量
+	 * @param key
+	 * @return
+	 */
+	int getChargeFlowCount(GetMemberListKey key,String valueType,String chargeType);
 }
