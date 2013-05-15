@@ -12,9 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import jxl.format.Alignment;
 import jxl.format.Colour;
-import jxl.format.UnderlineStyle;
 import jxl.write.Label;
+import jxl.write.Number;
 import jxl.write.WritableCellFormat;
 import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
@@ -589,11 +590,10 @@ public class MemberAction extends BaseAction {
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/member/exportActiveMember")
 	@ResponseBody
-	public ResponseEntity<MessageModel> exportActiveMember(@RequestParam(value = "searchWord", required = false)
+	public void exportActiveMember(@RequestParam(value = "searchWord", required = false)
 	String searchWord,@RequestParam(value = "beginDate", required = false)
 	String beginDate, @RequestParam(value = "endDate", required = false)
 	String endDate,HttpServletResponse response) {
-		
 		try {
 			// 查询会员列表
 			beginDate = CheckIsNull.isNotEmpty(beginDate) ? beginDate : "1900-01-01";
@@ -605,52 +605,56 @@ public class MemberAction extends BaseAction {
 			//导出设置
 			OutputStream os = response.getOutputStream();
 			response.reset();
-			response.setHeader("Content-disposition", "attachment; filename=fine.xls");
-			//response.setContentType("application/msexcel");
-			//response.setContentType("application/vnd.ms-excel");
-			//response.setContentType("application/x-msdownload");
+			response.setHeader("Content-disposition", "attachment; filename=member.xls");
 			response.setContentType("application/msexcel");
 			//excel设置
 			WritableWorkbook wbook = jxl.Workbook.createWorkbook(os); // 建立excel文件    
-		    WritableSheet wsheet = wbook.createSheet("活动会员", 0); // sheet名称  
-			WritableFont wfont = new WritableFont(WritableFont.ARIAL, 16,WritableFont.BOLD,false,UnderlineStyle.NO_UNDERLINE,Colour.BLACK);   
-			WritableCellFormat wcfFC = new WritableCellFormat(wfont); 
-			wcfFC.setBackground(Colour.AQUA); 
-			wsheet.addCell(new Label(1, 0, "活动会员", wcfFC));   
-			wfont = new jxl.write.WritableFont(WritableFont.ARIAL, 14,WritableFont.BOLD,false, UnderlineStyle.NO_UNDERLINE,Colour.BLACK);   
-			wcfFC = new WritableCellFormat(wfont);
+		    WritableSheet wsheet = wbook.createSheet("活动会员", 0); // sheet名称
 			//表头设置
-			wsheet.addCell(new Label(0, 2, "会员编号"));   
-			wsheet.addCell(new Label(1, 2, "会员账号"));
-			wsheet.addCell(new Label(2, 2, "会员名"));   
-			wsheet.addCell(new Label(3, 2, "手机号"));  
-			wsheet.addCell(new Label(4, 2, "站点"));   
-			wsheet.addCell(new Label(5, 2, "订单单数量"));
-			wsheet.addCell(new Label(6, 2, "订单总额"));
-			wsheet.addCell(new Label(7, 2, "退货单数量"));
-			wsheet.addCell(new Label(8, 2, "退货金额"));
+		    WritableFont titleStyle = new WritableFont(WritableFont.createFont("宋体"),12,WritableFont.BOLD);
+		    WritableCellFormat titleFormat = new WritableCellFormat(titleStyle);
+		    titleFormat.setBackground(Colour.GREY_25_PERCENT);
+		    titleFormat.setAlignment(Alignment.CENTRE);
+			wsheet.addCell(new Label(0, 0, "会员编号",titleFormat));
+			wsheet.addCell(new Label(1, 0, "会员账号",titleFormat));
+			wsheet.addCell(new Label(2, 0, "会员名",titleFormat));
+			wsheet.addCell(new Label(3, 0, "手机号",titleFormat));
+			wsheet.addCell(new Label(4, 0, "站点",titleFormat));
+			wsheet.addCell(new Label(5, 0, "订单数量",titleFormat));
+			wsheet.addCell(new Label(6, 0, "订单总额",titleFormat));
+			wsheet.addCell(new Label(7, 0, "退货单数量",titleFormat));
+			wsheet.addCell(new Label(8, 0, "退货金额",titleFormat));
 			//excel添加数据
+			WritableFont contentStyle = new WritableFont(WritableFont.createFont("宋体"),12);
+		    WritableCellFormat contentFormat = new WritableCellFormat(contentStyle);
+		    wsheet.setColumnView(0, 20);
+		    wsheet.setColumnView(1, 20);
+		    wsheet.setColumnView(2, 18);
+		    wsheet.setColumnView(3, 20);
+		    wsheet.setColumnView(4, 20);
+		    wsheet.setColumnView(5, 10);
+		    wsheet.setColumnView(6, 15);
+		    wsheet.setColumnView(7, 10);
+		    wsheet.setColumnView(8, 15);
 			for(int i = 0;mavList != null && i < mavList.size();i++){
 				MemberActiveVo mav = mavList.get(i);
-			    wsheet.addCell(new Label(0, i+3, mav.getCode()));
-			    wsheet.addCell(new Label(1, i+3, mav.getUsername()));
-			    wsheet.addCell(new Label(2, i+3, mav.getMembername()));
-			    wsheet.addCell(new Label(3, i+3, mav.getMobile()));
-			    wsheet.addCell(new Label(4, i+3, mav.getStationname()));
-			    wsheet.addCell(new Label(5, i+3, mav.getOrdercount()+""));
-			    wsheet.addCell(new Label(6, i+3, mav.getOrdermoney()+""));
-			    wsheet.addCell(new Label(7, i+3, mav.getReturncount()+""));
-			    wsheet.addCell(new Label(8, i+3, mav.getReturnmoney()+""));
+			    wsheet.addCell(new Label(0, i+1, mav.getCode(),contentFormat));
+			    wsheet.addCell(new Label(1, i+1, mav.getUsername(),contentFormat));
+			    wsheet.addCell(new Label(2, i+1, mav.getMembername(),contentFormat));
+			    wsheet.addCell(new Label(3, i+1, mav.getMobile(),contentFormat));
+			    wsheet.addCell(new Label(4, i+1, mav.getStationname(),contentFormat));
+			    wsheet.addCell(new Number(5,i+1,mav.getOrdercount(),contentFormat));
+			    wsheet.addCell(new Number(6, i+1, mav.getOrdermoney(),contentFormat));
+			    wsheet.addCell(new Number(7, i+1, mav.getReturncount(),contentFormat));
+			    wsheet.addCell(new Number(8, i+1, mav.getReturnmoney(),contentFormat));
 			}           
 	        //资源回收 
 			wbook.write();
 			wbook.close();
 			os.close();
-			return ResponseEntityUtil.getResponseEntity(Success);
 		} catch (Exception e) {
 			log.error("导出活动会员列表发生异常====" + e.getMessage());
 		}
-		return ResponseEntityUtil.getResponseEntity(Failure);
 	}
 
 	/**
@@ -692,8 +696,79 @@ public class MemberAction extends BaseAction {
 			}
 			return memberModel;
 		} catch (Exception e) {
-			log.error("获取活动会员列表发生异常====" + e.getMessage());
+			log.error("获取会员充值流水列表发生异常====" + e.getMessage());
 		}
 		return memberModel;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/member/exportChargeFlow")
+	@ResponseBody
+	public void exportChargeFlow(@RequestParam(value = "searchWord", required = false)
+	String searchWord, @RequestParam(value = "beginDate", required = false)
+	String beginDate, @RequestParam(value = "endDate", required = false)
+	String endDate, @RequestParam(value = "valueType", required = false)
+	String valueType, @RequestParam(value = "chargeType", required = false)
+	String chargeType,HttpServletResponse response) {
+		try {
+			// 查询充值记录
+			beginDate = CheckIsNull.isNotEmpty(beginDate) ? beginDate : "1900-01-01";
+			GetMemberListKey key = new GetMemberListKey(0, 0, false);
+			key.setSearchText(searchWord);
+			key.setBeginDate(beginDate);
+			key.setEndDate(endDate);
+			List<MemberChargeFlowVo> mcfvList = memberService.getChargeFlows(key,valueType,chargeType);
+			//导出设置
+			OutputStream os = response.getOutputStream();
+			response.reset();
+			response.setHeader("Content-disposition", "attachment; filename=charge flow.xls");
+			response.setContentType("application/msexcel");
+			//excel设置
+			WritableWorkbook wbook = jxl.Workbook.createWorkbook(os); // 建立excel文件    
+		    WritableSheet wsheet = wbook.createSheet("会员充值流水", 0); // sheet名称
+			//表头设置
+		    WritableFont titleStyle = new WritableFont(WritableFont.createFont("宋体"),12,WritableFont.BOLD);
+		    WritableCellFormat titleFormat = new WritableCellFormat(titleStyle);
+		    titleFormat.setBackground(Colour.GREY_25_PERCENT);
+		    titleFormat.setAlignment(Alignment.CENTRE);
+			wsheet.addCell(new Label(0, 0, "编号",titleFormat));
+			wsheet.addCell(new Label(1, 0, "用户名",titleFormat));
+			wsheet.addCell(new Label(2, 0, "姓名",titleFormat));
+			wsheet.addCell(new Label(3, 0, "手机号码",titleFormat));
+			wsheet.addCell(new Label(4, 0, "充值类型",titleFormat));
+			wsheet.addCell(new Label(5, 0, "卡号/单号",titleFormat));
+			wsheet.addCell(new Label(6, 0, "金额",titleFormat));
+			wsheet.addCell(new Label(7, 0, "充值时间",titleFormat));
+			//excel添加数据
+			WritableFont contentStyle = new WritableFont(WritableFont.createFont("宋体"),12);
+		    WritableCellFormat contentFormat = new WritableCellFormat(contentStyle);
+		    wsheet.setColumnView(0, 20);
+		    wsheet.setColumnView(1, 20);
+		    wsheet.setColumnView(2, 18);
+		    wsheet.setColumnView(3, 20);
+		    wsheet.setColumnView(4, 20);
+		    wsheet.setColumnView(5, 25);
+		    wsheet.setColumnView(6, 10);
+		    wsheet.setColumnView(7, 30);
+			for(int i = 0;mcfvList != null && i < mcfvList.size();i++){
+				MemberChargeFlowVo mcfv = mcfvList.get(i);
+				String chargeTypeTemp = "01".equals(mcfv.getChargetype()) ? "面值卡" : ("02".equals(mcfv.getChargetype()) ? "网银" : "");
+			    wsheet.addCell(new Label(0, i+1, mcfv.getCode(),contentFormat));
+			    wsheet.addCell(new Label(1, i+1, mcfv.getUsername(),contentFormat));
+			    wsheet.addCell(new Label(2, i+1, mcfv.getMembername(),contentFormat));
+			    wsheet.addCell(new Label(3, i+1, mcfv.getMobile(),contentFormat));
+			    wsheet.addCell(new Label(4, i+1, chargeTypeTemp,contentFormat));
+			    wsheet.addCell(new Label(5,i+1,mcfv.getOrderno(),contentFormat));
+			    wsheet.addCell(new Number(6, i+1, Double.parseDouble(mcfv.getAmount()),contentFormat));
+			    wsheet.addCell(new Label(7, i+1, mcfv.getOccurdate(),contentFormat));
+			}           
+	        //资源回收
+			wbook.write();
+			wbook.close();
+			os.close();
+		} catch (Exception e) {
+			log.error("导出会员充值流水列表发生异常====" + e.getMessage());
+		}
+	}
+	
 }
