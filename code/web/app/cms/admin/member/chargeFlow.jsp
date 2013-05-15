@@ -25,16 +25,18 @@
 				style="width: 130px; height: 22px;line-height: 22px;border:1px solid #CCC;" />
 			<a href="javascript:void(0)" class="easyui-linkbutton"
 			iconCls="icon-search" onclick="chargeFlowAction.search()">搜索</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" id="chargeFlowExportBtn"
+			iconCls="icon-undo" onclick="chargeFlowAction.exportChargeFlow()">导出</a>
 		</span>
 	</div>
 </div>
 <table id="chargeFlowDatagrid" toolbar="#chargeFlowtoolbar">
 </table>
-<!-- end of 活动会员列表 -->	
+<!-- end of 充值流水列表 -->	
 <script type="text/javascript">
 //初始化
 $(function(){
-	//初始化 -> 活动会员列表
+	//初始化 -> 充值流水列表
 	$('#chargeFlowDatagrid').datagrid({
 		fit:true,
 		border:false,
@@ -62,7 +64,7 @@ $(function(){
 			{field:'occurdate',title:'充值时间',width:65,align:'center',sortable:true}
 		]]
 	});
-	//初始化 -> 监听事件 -> 活动时间
+	//初始化 -> 监听事件 -> 充值流水时间
 	$('#chargeFlowBeginDate').datebox({
 		onSelect : function(date) {
 			chargeFlowAction.refresh();
@@ -104,16 +106,16 @@ $(function(){
 	});
 	
 });
-//活动会员
+//充值流水
 var chargeFlowAction;
 $(function(){
 	chargeFlowAction = new ChargeFlowAction();
 	function ChargeFlowAction(){
-		//活动会员 -> 搜索
+		//充值流水 -> 搜索
 		this.search = function(){
 			chargeFlowAction.refresh();
 		}
-		//活动会员 -> 刷新
+		//充值流水 -> 刷新
 		this.refresh = function(){
 			$("#chargeFlowDatagrid").datagrid('load',{
 				searchWord:$("input[name='chargeFlowSearchWord']").val(),
@@ -122,6 +124,17 @@ $(function(){
 				valueType:$('#chargeFlowValueType').combobox('getValue'),
 				chargeType:$('#chargeFlowChargeType').combobox('getValue')
 			});
+		}
+		//充值流水 -> 导出
+		this.exportChargeFlow = function(){
+			var valueType = $("#chargeFlowValueType").combobox("getValue");
+			var chargeType = $("#chargeFlowChargeType").combobox("getValue");
+			var searchWord = $("input[name='chargeFlowSearchWord']").val();
+			var beginDate = $("#chargeFlowBeginDate").datebox('getValue');
+			var endDate = $("#chargeFlowEndDate").datebox('getValue');
+			searchWord = encodeURI(searchWord);
+			var url = "<%=mainWeb%>/admin/member/exportChargeFlow?searchWord="+searchWord+"&beginDate="+beginDate+"&endDate="+endDate+"&valueType="+valueType+"&chargeType="+chargeType;
+			$('#chargeFlowExportBtn').attr("href",url);
 		}
 	}
 });
