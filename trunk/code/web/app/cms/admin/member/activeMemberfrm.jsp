@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
+<%@page import="java.net.URLEncoder"%>
 <%@ include file="/common/inc.jsp"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -21,15 +22,15 @@
 				style="width: 130px; height: 22px;line-height: 22px;border:1px solid #CCC;" />
 			<a href="javascript:void(0)" class="easyui-linkbutton"
 			iconCls="icon-search" onclick="activeMemberAction.searchMemebers()">搜索</a>
-			<!-- a href="javascript:void(0)" class="easyui-linkbutton" id="activeMemberExportBtn"
-			iconCls="icon-undo" onclick="activeMemberAction.exportMember()">导出</a -->
+			<a href="javascript:void(0)" class="easyui-linkbutton" id="activeMemberExportBtn"
+			iconCls="icon-undo" onclick="activeMemberAction.exportMember()">导出</a>
 		</span>
 	</div>
 </div>
 <table id="activeMemberDatagrid" toolbar="#activeMembertoolbar">
 </table>
 <!-- end of 活动会员列表 -->	
-<script type="text/javascript">
+<script type="text/javascript" charset="GBK">
 //初始化
 $(function(){
 	//初始化 -> 活动会员列表
@@ -85,19 +86,12 @@ $(function(){
 			});
 		}
 		//活动会员 -> 导出
-		this.exportMember = function(){
-			$('#activeMemberExportBtn').linkbutton({text:'导出中...'}).linkbutton('disable');
-			$.post(mainWeb+'/admin/member/exportActiveMember',
-				{
-					searchWord:$("input[name='activeMemberSearchWord']").val(),
-					beginDate:$("#activeMemberBeginDate").datebox('getValue'),
-					endDate:$("#activeMemberEndDate").datebox('getValue')
-				},
-				function(result){
-					alert(result);
-					$.messager.alert('提示',result.message,'info');
-					$('#activeMemberExportBtn').linkbutton({text:'导出'}).linkbutton('enable');
-			},'json');
+		this.exportMember = function(){	
+			var searchWord = $("input[name='activeMemberSearchWord']").val();
+			var beginDate = $("#activeMemberBeginDate").datebox('getValue');
+			var endDate = $("#activeMemberEndDate").datebox('getValue');
+			searchWord = encodeURI(searchWord);
+			$('#activeMemberExportBtn').attr("href","<%=mainWeb%>/admin/member/exportActiveMember?searchWord="+searchWord+"&beginDate="+beginDate+"&endDate="+endDate)
 		}
 	}
 });
