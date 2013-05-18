@@ -177,11 +177,9 @@ body {
 				</div>
 				<div style="width:1200px;clear: both;height:10px;line-height:10px;"></div>
 			</div>
-			<!-- 
-			<div id="product_ad-floor">
+			<!--div id="product_ad-floor">
 				<jsp:include page="/pub/main/downstairs-ad.jsp" flush="true" />
-			</div>
-			 -->
+			</div-->
 			<div id="product_service">
 				<jsp:include page="/pub/main/service.jsp" flush="true" />
 			</div>
