@@ -313,11 +313,9 @@ function loadNewsList(channelId,_this){
 				<div style="width:1200px;clear: both;*height:0px;*line-height: 0px;"></div>
 			</div>
 			<!-- end of Õ¹Ê¾Çø -->
-			<!-- 
-			<div id="product_ad-floor" style="*margin-top: 5px;">
+			<!--div id="product_ad-floor" style="*margin-top: 5px;">
 				<jsp:include page="/pub/main/downstairs-ad.jsp" flush="true" />
-			</div>
-			 -->
+			</div-->
 			<div id="product_service">
 				<jsp:include page="/pub/main/service.jsp" flush="true" />
 			</div>

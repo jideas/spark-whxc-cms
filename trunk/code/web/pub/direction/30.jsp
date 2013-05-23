@@ -50,7 +50,7 @@
 					<tr><td>420102010</td><td class="tdLeft">二七宝龙酒行</td><td class="tdLeft">宝龙酒行</td><td class="tdLeft">江岸区二七路航天双城购物公园宝隆酒行C2幢一层110室</td></tr>
 					<!-- end of 江岸区 -->
 					<!-- begin of 武昌区 -->
-					<tr><td rowspan="13">武昌区</td><td>420106001</td><td class="tdLeft">南湖瑞安街站</td><td class="tdLeft">南湖瑞安街站</td><td class="tdLeft">南湖瑞安街松涛院对面</td></tr>
+					<tr><td rowspan="14">武昌区</td><td>420106001</td><td class="tdLeft">南湖瑞安街站</td><td class="tdLeft">南湖瑞安街站</td><td class="tdLeft">南湖瑞安街松涛院对面</td></tr>
 					<tr><td>420106002</td><td class="tdLeft">南湖一站</td><td class="tdLeft">南湖一站</td><td class="tdLeft">南湖虹顶门前广场上（华锦花园对面）</td></tr>
 					<tr><td>420106003</td><td class="tdLeft">东三路站</td><td class="tdLeft">东三路站</td><td class="tdLeft">洪山路东三路口，洪山礼堂对面</td></tr>
 					<tr><td>420106005</td><td class="tdLeft">洪山路站</td><td class="tdLeft">洪山路站</td><td class="tdLeft">洪山路新海天对面</td></tr>
@@ -63,6 +63,7 @@
 					<tr><td>420106015</td><td class="tdLeft">江南庭院一站</td><td class="tdLeft">江南庭院一站</td><td class="tdLeft">丁字桥南路518号南湖城市广场斜对面</td></tr>
 					<tr><td>420106016</td><td class="tdLeft">洪山侧路站</td><td class="tdLeft">洪山侧路站</td><td class="tdLeft">洪山侧路东一路路口</td></tr>
 					<tr><td>420106017</td><td class="tdLeft">东湖路二站</td><td class="tdLeft">东湖路二站</td><td class="tdLeft">水果湖二小西北侧</td></tr>
+					<tr><td>420106017</td><td class="tdLeft">紫沙路站</td><td class="tdLeft">紫沙路站</td><td class="tdLeft">武昌小东门紫沙路203号新辰生鲜超市</td></tr>
 					<!-- end of 武昌区 -->			
 				</table>
 			</p>	
