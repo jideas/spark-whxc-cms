@@ -29,6 +29,11 @@
 	float: right;
 }
 
+/*Òş²ØËÍ»õÉÏÃÅ*/
+#delivery{
+	display: none;
+}
+
 #orderinfo {
 	margin-top: 10px;
 	width: 1195px; *

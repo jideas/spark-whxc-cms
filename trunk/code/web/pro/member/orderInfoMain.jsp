@@ -353,11 +353,11 @@ body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,blockquote,fieldset,div,stro
 									</tr><%}%>
 									
 									<tr style="display: ">
-										<td style="text-align: right;">
+										<td style="text-align: right;display: none;">
 											送货上门：
 										</td>
 
-										<td id="toDoor" value="否"
+										<td id="toDoor" value="否" style="display:none;"
 											price="<%=deliverPrice%>" beginAmount="<%=order.getBeginAmount()%>">
 											否&nbsp;非包月客户送货上门费用<%=DoubleUtil.getRoundStr(deliverPrice, 2)%>元/次。办理上门送货包月，享更多优惠，点击<a href="<%=basePath%>/pro/member/delivercharge.jsp" target='_blank'>[办理]</a><%if(order.getBeginAmount()>0){%>。<font color="#000000">[促销信息：整单满<%=DoubleUtil.getRoundStr(order.getBeginAmount())%>元，免费送货上门]</font><%}%>
 										</td>
