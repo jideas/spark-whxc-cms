@@ -445,11 +445,11 @@ function Order() {
 			html += "</tr>";
 		}
 		html += "<tr style='display: '>";
-		html += "<td style='text-align: right;'>";
+		html += "<td style='text-align: right;display:none;'>";
 		html += "送货上门：";
 		html += "</td>";
 
-		html += "<td id='toDoor' price='" + $("#toDoor").attr("price")
+		html += "<td id='toDoor' style='display:none;' price='" + $("#toDoor").attr("price")
 				+ "' beginAmount='" + $("#toDoor").attr("beginAmount")
 				+ "' value='";
 		if ($("#toDoor").val() == "是") {
@@ -654,11 +654,11 @@ function Order() {
 			html += "</tr>";
 		}
 		html += "<tr style='display: '>";
-		html += "<td style='text-align: right;'>";
+		html += "<td style='text-align: right;display:none;'>";
 		html += "送货上门：";
 		html += "</td>";
 
-		html += "<td id='toDoor' price='" + $("#toDoor").attr("price")
+		html += "<td id='toDoor' style='display:none;' price='" + $("#toDoor").attr("price")
 				+ "' beginAmount='" + $("#toDoor").attr("beginAmount")
 				+ "' value='" + $("#toDoor").attr("value") + "'>";
 		html += $("#toDoor").attr("value");
