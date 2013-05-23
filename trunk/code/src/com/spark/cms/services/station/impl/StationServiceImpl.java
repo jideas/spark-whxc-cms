@@ -72,6 +72,7 @@ public class StationServiceImpl implements StationService {
 			hql.append(" where ");
 			hql.append(" t.town");
 			hql.append(" ='" + key.getAddressCode() + "'");
+			hql.append(" and t.isstop = ''");
 		}
 		list = this.baseDAO.getGenericByHql(hql.toString());
 		List<StationListItem> itemlist = new ArrayList<StationListItem>();
@@ -102,6 +103,7 @@ public class StationServiceImpl implements StationService {
 			hql.append(" where ");
 			hql.append(" t.town");
 			hql.append(" ='" + key.getAddressCode() + "'");
+			hql.append(" and t.isstop = ''");
 		}
 		list = this.baseDAO.getGenericByHql(hql.toString());
 		List<StationVo> stationVos = BeanCopy.copys(StationVo.class, list);
