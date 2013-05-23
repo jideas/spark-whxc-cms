@@ -13,6 +13,11 @@
         <div class="ad-thumbs">
           <ul class="ad-thumb-list">
           	<li>
+	            <a href="<%=basePath%>/scripts/jslider/slider-images/016.jpg">
+	               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/016_thumb.jpg" class="image015">              
+				</a>
+			</li>
+          	<li>
 	            <a href="<%=basePath%>/scripts/jslider/slider-images/015.jpg">
 	               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/015_thumb.jpg" class="image015">              
 				</a>
