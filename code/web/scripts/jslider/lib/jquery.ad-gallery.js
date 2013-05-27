@@ -672,6 +672,7 @@
         */
         /*自定义开始*/
         var img_links = [
+        	'http://www.yc777.com.cn/front/toCategoryPage/702BF2F94B283C0BF62912697A147EDC',
         	'http://www.yc777.com.cn/front/channel/getNews/9542DD98368E489F7FC50E4329D7AC40',
         	'http://www.yc777.com.cn',
         	'http://www.yc777.com.cn/front/toGoodsInfoPage?id=B7FD3780FE76EF01A0503A71B64915C0',
