@@ -322,8 +322,13 @@ border:0px;
 						        <div class="ad-thumbs">
 						          <ul class="ad-thumb-list">
 						          	<li>
+							            <a href="<%=basePath%>/scripts/jslider/slider-images/017.jpg">
+							               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/017_thumb.jpg" class="image017">              
+										</a>
+									</li>
+						          	<li>
 							            <a href="<%=basePath%>/scripts/jslider/slider-images/016.jpg">
-							               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/016_thumb.jpg" class="image015">              
+							               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/016_thumb.jpg" class="image016">              
 										</a>
 									</li>
 							          <li>
