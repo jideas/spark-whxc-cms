@@ -76,9 +76,9 @@
 					<div class="item">
 						&nbsp;&gt;&nbsp;<a href="javascript:loadDirction('01')">下单时间</a>
 					</div>
-					<div class="item">
+					<!-- div class="item">
 						&nbsp;&gt;&nbsp;<a href="javascript:loadDirction('02')">订单修改与取消</a>
-					</div>
+					</div -->
 					<div class="item">
 						&nbsp;&gt;&nbsp;<a href="javascript:loadDirction('03')">用户须知</a>
 					</div>
@@ -95,9 +95,9 @@
 					<div class="item pre">
 						&nbsp;&gt;&nbsp;<a href="javascript:loadDirction('10')">会员权益</a>
 					</div>
-					<div class="item">
+					<!-- div class="item">
 						&nbsp;&gt;&nbsp;<a href="javascript:loadDirction('11')" >VIP会员</a>
-					</div>
+					</div -->
 					<div class="item">
 						&nbsp;&gt;&nbsp;<a href="javascript:loadDirction('12')" >会员积分</a>
 					</div>
