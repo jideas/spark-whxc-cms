@@ -109,7 +109,7 @@
 			<dd>
 				<div><a target="_blank" href="<%=basePath %>/pub/direction/direction.jsp?code=00">购物流程</a></div>
 				<div><a target="_blank" href="<%=basePath %>/pub/direction/direction.jsp?code=01">下单时间</a></div>
-			    <div><a target="_blank" href="<%=basePath %>/pub/direction/direction.jsp?code=02">订单修改与取消</a></div>
+			    <!-- div><a target="_blank" href="/pub/direction/direction.jsp?code=02">订单修改与取消</a></div -->
 				<div><a target="_blank" href="<%=basePath %>/pub/direction/direction.jsp?code=03">用户须知</a></div>
 				<div><a target="_blank" href="<%=basePath %>/pub/direction/direction.jsp?code=04">用户协议</a></div>
 			</dd>
@@ -118,9 +118,7 @@
 			<dt>会员中心</dt>
 			<dd>
 				<div><a target="_blank" href="<%=basePath %>/pub/direction/direction.jsp?code=10">会员权益</a></div>
-				<!-- 
-				<div><a target="_blank" href="<%=basePath %>/pub/direction/direction.jsp?code=11">VIP会员</a></div>
-				 -->
+				<!--div><a target="_blank" href="/pub/direction/direction.jsp?code=11">VIP会员</a></div-->
 				<div><a target="_blank" href="<%=basePath %>/pub/direction/direction.jsp?code=12">会员积分</a></div>
 				<div><a target="_blank" href="<%=basePath %>/pub/direction/direction.jsp?code=13">余额查询</a></div>
 			</dd>
