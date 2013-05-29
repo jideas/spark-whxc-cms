@@ -16,10 +16,10 @@
 		</table>
 		<!-- end of 内容列表 -->
 
-		<!-- begin of 内容编辑 -->
+		<!-- begin of 内容编辑 height:520px -->
 		<div id="subContentDialog" class="easyui-dialog"
 			data-options="modal:false,closable:true,maximizable:true"
-			style="width: 940px; height: 520px; padding: 20px 10px 0px; z-index: 1"
+			style="width: 940px; height: 450px; padding: 20px 10px 0px; z-index: 1"
 			title="内容" buttons="#subContent-dlg-buttons" closed="true">
 			<form id="subContentForm" method="post" modelAttribute="content">
 				<input name="recid" type="hidden" />
