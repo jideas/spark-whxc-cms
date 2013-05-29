@@ -38,7 +38,7 @@
 
 		<!-- begin of 发布商品 -->
 		<div id="editGoodsPublishDialog"
-			style="width: 950px; height: 500px; padding: 10px 10px 0px;">
+			style="width: 950px; height: 450px; padding: 10px 10px 0px;">
 			<%@ include file="/app/cms/admin/product/editGoodsPublishfrm.jsp"%>
 		</div>
 		<!-- end of 发布商品 -->
