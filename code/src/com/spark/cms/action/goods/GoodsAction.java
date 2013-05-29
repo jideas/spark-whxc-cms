@@ -1,9 +1,20 @@
 package com.spark.cms.action.goods;
 
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import jxl.format.Alignment;
+import jxl.format.Colour;
+import jxl.write.Label;
+import jxl.write.Number;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -44,6 +55,7 @@ import com.spark.cms.services.vo.GoodsContentVo;
 import com.spark.cms.services.vo.GoodsPromotionVo;
 import com.spark.cms.services.vo.GoodsVo;
 import com.spark.cms.services.vo.ImageInfoVo;
+import com.spark.cms.services.vo.MemberChargeFlowVo;
 
 @Controller
 public class GoodsAction extends BaseAction {
@@ -348,6 +360,100 @@ public class GoodsAction extends BaseAction {
 			log.error("获取发布商品列表发生异常====" + e.getStackTrace());
 			e.printStackTrace();
 			return dm;
+		}
+	}
+	
+	/**
+	 * 发布商品 -> 导出商品
+	 */
+	@RequestMapping("/goods/exportGoodsPublish")
+	@ResponseBody
+	public void exportGoodsPublish(HttpServletResponse response,
+			@RequestParam(value = "categoryId", required = false) String categoryId,
+			@RequestParam(value = "searchWord", required = false) String searchWord,
+			@RequestParam(value = "ispublished", required = false) String ispublished) {
+		try {
+			//获取商品信息
+			GetGoodsListKey key = new GetGoodsListKey();
+			searchWord = searchWord == null ? "" : searchWord;
+			key.setSearchText(searchWord);
+			key.setPageSize(Integer.MAX_VALUE);
+			key.setOffset(0);
+			boolean ispublished_ = "1".equals(ispublished);
+			key.setPublished(ispublished_);
+			if (StringUtil.isNotEmpty(categoryId)) {
+				key.setGoodsCategoryId(categoryId);
+			}
+			List<GoodsVo> gvList = goodsService.getGoodsList(key);			
+			//导出设置
+			OutputStream os = response.getOutputStream();
+			response.reset();
+			response.setHeader("Content-disposition", "attachment; filename=goods.xls");
+			response.setContentType("application/msexcel");
+			//excel设置
+			WritableWorkbook wbook = jxl.Workbook.createWorkbook(os); // 建立excel文件    
+		    WritableSheet wsheet = wbook.createSheet("商品信息", 0); // sheet名称
+			//表头设置
+		    WritableFont titleStyle = new WritableFont(WritableFont.createFont("宋体"),12,WritableFont.BOLD);
+		    WritableCellFormat titleFormat = new WritableCellFormat(titleStyle);
+		    titleFormat.setBackground(Colour.GREY_25_PERCENT);
+		    titleFormat.setAlignment(Alignment.CENTRE);
+			wsheet.addCell(new Label(0, 0, "编号",titleFormat));
+			wsheet.addCell(new Label(1, 0, "条码",titleFormat));
+			wsheet.addCell(new Label(2, 0, "名称",titleFormat));
+			wsheet.addCell(new Label(3, 0, "规格",titleFormat));
+			wsheet.addCell(new Label(4, 0, "单位",titleFormat));
+			wsheet.addCell(new Label(5, 0, "原价",titleFormat));
+			wsheet.addCell(new Label(6, 0, "现价",titleFormat));
+			wsheet.addCell(new Label(7, 0, "积分类别",titleFormat));
+			wsheet.addCell(new Label(8, 0, "是否免费送货",titleFormat));
+			wsheet.addCell(new Label(9, 0, "发布状态",titleFormat));
+			//excel添加数据
+			WritableFont contentStyle = new WritableFont(WritableFont.createFont("宋体"),12);
+		    WritableCellFormat contentFormat = new WritableCellFormat(contentStyle);
+		    WritableCellFormat contentCenterFormat = new WritableCellFormat(contentStyle);
+		    contentCenterFormat.setAlignment(Alignment.CENTRE);
+		    wsheet.setColumnView(0, 15);
+		    wsheet.setColumnView(1, 18);
+		    wsheet.setColumnView(2, 35);
+		    wsheet.setColumnView(3, 20);
+		    wsheet.setColumnView(4, 8);
+		    wsheet.setColumnView(5, 10);
+		    wsheet.setColumnView(6, 10);
+		    wsheet.setColumnView(7, 15);
+		    wsheet.setColumnView(8, 20);
+		    wsheet.setColumnView(9, 15);
+			for(int i = 0;gvList != null && i < gvList.size();i++){
+				GoodsVo gv = gvList.get(i);
+				String it = gv.getVantagestype();
+				String scoreType = "";
+				if("0".equals(it)){
+					scoreType = "无积分";
+				}else if("1".equals(it)){
+					scoreType = "普通积分";
+				}else if("2".equals(it)){
+					scoreType = "双倍积分";
+				}
+				String isFree = gv.isFreedelivery() ? "免费" : "收费";
+				String isPublished = gv.isPublished() ? "已发布" : "未发布";
+			    wsheet.addCell(new Label(0, i+1, gv.getGoodscode(),contentFormat));
+			    wsheet.addCell(new Label(1, i+1, gv.getGoodsno(),contentFormat));
+			    wsheet.addCell(new Label(2, i+1, gv.getGoodsname(),contentFormat));
+			    wsheet.addCell(new Label(3, i+1, gv.getGoodsspec(),contentFormat));
+			    wsheet.addCell(new Label(4, i+1, gv.getGoodsunit(),contentCenterFormat));
+			    wsheet.addCell(new Number(5, i+1, gv.getOriginalprice(),contentFormat));
+			    wsheet.addCell(new Number(6, i+1, gv.getRealprice(),contentFormat));
+			    wsheet.addCell(new Label(7, i+1, scoreType,contentCenterFormat));
+			    wsheet.addCell(new Label(8, i+1, isFree,contentCenterFormat));
+			    wsheet.addCell(new Label(9, i+1, isPublished,contentCenterFormat));
+			}           
+	        //资源回收
+			wbook.write();
+			wbook.close();
+			os.close();
+		} catch (Exception e) {
+			log.error("导出发布商品列表发生异常====" + e.getStackTrace());
+			e.printStackTrace();
 		}
 	}
 	
