@@ -287,7 +287,7 @@
 				<p>
 					<%=request.getAttribute(GoodsKey.GoodsName.toString())%>
 					<span id="bookingText" style="color:#FF0000;font-size: 12px;font-weight: normal;display:<%=request.getAttribute(GoodsKey.IsBooking.toString())%>">
-						(&nbsp;本商品为预定商品，请提前2天下单&nbsp;)
+						(&nbsp;本商品即日起至6月6日期间接受预订，6月10日至6月13日统一配送&nbsp;)
 					</span>
 				</p>
 				<div calss="code"
@@ -315,11 +315,9 @@
 				<div class="price">
 					促销信息：&nbsp;&nbsp;<font id="pmtValue"><%=request.getAttribute(GoodsKey.PromotionInfo.toString())%></font>
 				</div>
-				<!-- 
-				<div class="price" id="bookingText" style="display:<%=request.getAttribute(GoodsKey.IsBooking.toString())%>">
-					预定商品：&nbsp;&nbsp;<font color=red>本商品为预定商品，请提前2天下单。</font>
-				</div>
-				 -->
+				<!-- div class="price" id="bookingText" style="display:<%=request.getAttribute(GoodsKey.IsBooking.toString())%>">
+					预定商品：&nbsp;&nbsp;<font color=red>本商品预订时间自5月27日起至6月6日结束，6月10日至6月13日统一配送。</font>
+				</div-->		 
 				<div class="price" style="height: 25px;line-height: 25px;color: #AAAAAA;">
 					图片仅供参考，商品以实物为准!
 				</div>
