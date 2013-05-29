@@ -23,7 +23,9 @@
 					<input type="text" name="searchWord" value=""
 						style="width: 200px; height: 18px; border:1px solid #CCCCCC;"/> <a href="#"
 					class="easyui-linkbutton" iconCls="icon-search"
-					onclick="goodsPublishAction.searchPublishGoods()">搜索</a> 
+					onclick="goodsPublishAction.searchPublishGoods()">搜索</a>
+					<a href="javascript:void(0)" class="easyui-linkbutton" id="goodsPublishExportBtn"
+			iconCls="icon-undo" onclick="goodsPublishAction.exportProduct()">导出</a> 
 					<a href="#"
 					class="easyui-linkbutton" iconCls="icon-search"
 					onclick="goodsPublishAction.highSearchPublishGoods()">高级搜索</a></span>
@@ -36,7 +38,7 @@
 
 		<!-- begin of 发布商品 -->
 		<div id="editGoodsPublishDialog"
-			style="width: 950px; height: 580px; padding: 10px 10px 0px;">
+			style="width: 950px; height: 500px; padding: 10px 10px 0px;">
 			<%@ include file="/app/cms/admin/product/editGoodsPublishfrm.jsp"%>
 		</div>
 		<!-- end of 发布商品 -->
@@ -378,6 +380,14 @@
 					categoryId: selectedCategoryId_publish
 				});
 			};
+			
+			//商品发布 -> 导出
+			this.exportProduct = function(){
+				var searchWord = $("input[name='searchWord']").val();
+				searchWord = encodeURI(searchWord);
+				var ispublished = $("select#goodsPublish_isPublish").combobox("getValue");
+				$('#goodsPublishExportBtn').attr("href","<%=mainWeb%>/admin/goods/exportGoodsPublish?searchWord="+searchWord+"&ispublished="+ispublished+"&categoryId="+selectedCategoryId_publish);
+			}
 			
 			//商品发布 -> 高级搜索
 			this.highSearchPublishGoods = function(){
