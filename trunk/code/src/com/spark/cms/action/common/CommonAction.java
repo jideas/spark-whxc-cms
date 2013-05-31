@@ -79,6 +79,15 @@ public class CommonAction extends BaseAction {
 			cal.setTime(new Date(System.currentTimeMillis()));
 			cal.add(Calendar.DAY_OF_MONTH, 2);
 			int days = 4;
+			
+			/*begin of 粽子促销【端午节】*/
+			Calendar calendar = Calendar.getInstance();			
+			calendar.set(2013, 5, 9, 0, 0, 0);
+			if(cal.getTimeInMillis() < calendar.getTimeInMillis()){
+				cal.set(2013, 5, 10, 0, 0, 0);
+			}
+			/*end of 粽子促销【端午节】*/
+			
 			for(int i=1;i<=days;i++)
 			{
 				if(i>1)
