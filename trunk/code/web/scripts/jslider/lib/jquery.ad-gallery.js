@@ -672,6 +672,7 @@
         */
         /*自定义开始*/
         var img_links = [
+        	'http://www.yc777.com.cn',
         	'http://www.yc777.com.cn/front/channel/getNews/538F9A7CBDF9B952B711A068D90A20F9',
         	'http://www.yc777.com.cn/front/channel/getNews/F2A34C69A6F6F00590801887A328B770',
         	'http://www.yc777.com.cn/front/channel/getNews/9542DD98368E489F7FC50E4329D7AC40',
