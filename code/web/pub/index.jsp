@@ -321,6 +321,11 @@ border:0px;
 						      <div class="ad-nav" style="margin-top:-5px;">
 						        <div class="ad-thumbs">
 						          <ul class="ad-thumb-list">
+						           <li>
+							            <a href="<%=basePath%>/scripts/jslider/slider-images/019.jpg">
+							               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/019_thumb.jpg" class="image19">              
+										</a>
+									</li>
 						          	<li>
 							            <a href="<%=basePath%>/scripts/jslider/slider-images/018.jpg">
 							               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/018_thumb.jpg" class="image018">              
@@ -334,11 +339,6 @@ border:0px;
 						          	<li>
 							            <a href="<%=basePath%>/scripts/jslider/slider-images/016.jpg">
 							               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/016_thumb.jpg" class="image016">              
-										</a>
-									</li>
-							          <li>
-							            <a href="<%=basePath%>/scripts/jslider/slider-images/011.jpg">
-							               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/011_thumb.jpg" class="image11">              
 										</a>
 									</li>
 									<li>
