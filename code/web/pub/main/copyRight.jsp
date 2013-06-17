@@ -25,12 +25,12 @@
 	<div id="copyRight">
 		<div>
 			<span>电话：4001-027-577</span>
-			<span>传真：027-61818108</span>
+			<span>传真：027-82649335</span>
 			<span>厂址：武汉市黄陂区武湖农场工业园</span>
 			<span>邮编：430345</span>
 		</div>
 		<div>
-			<span>版权所有：武汉新辰食品有限公司</span>
+			<span>版权所有：武汉柒号生活馆电子商务有限公司</span>
 			<span>邮箱：whyc777@126.com</span>
 			<span>鄂ICP备12002886号</span>
 			<span>
