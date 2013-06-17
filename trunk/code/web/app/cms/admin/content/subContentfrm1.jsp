@@ -19,7 +19,7 @@
 		<!-- begin of ÄÚÈÝ±à¼­ height:520px -->
 		<div id="subContentDialog" class="easyui-dialog"
 			data-options="modal:false,closable:true,maximizable:true"
-			style="width: 940px; height: 450px; padding: 20px 10px 0px; z-index: 1"
+			style="width: 940px; height: 600px; padding: 20px 10px 0px; z-index: 1"
 			title="ÄÚÈÝ" buttons="#subContent-dlg-buttons" closed="true">
 			<form id="subContentForm" method="post" modelAttribute="content">
 				<input name="recid" type="hidden" />
