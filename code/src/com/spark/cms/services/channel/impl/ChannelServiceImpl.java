@@ -394,7 +394,7 @@ public class ChannelServiceImpl implements ChannelService {
 			StringBuffer hsql = new StringBuffer();
 			hsql.append(" from ChannelPo p ");
 			hsql.append(" where p.pageType=?");
-			hsql.append(" order by p.code asc ");
+			hsql.append(" order by p.code desc ");
 			List<ChannelPo> list = this.baseDAO.getGenericByHql(hsql
 					.toString(), id);
 			if (CheckIsNull.isNotEmpty(list)) {
@@ -405,6 +405,7 @@ public class ChannelServiceImpl implements ChannelService {
 			StringBuffer hsql = new StringBuffer();
 			hsql.append(" from ChannelPo p ");
 			hsql.append(" where p.floorid=?");
+			hsql.append(" order by p.code asc ");
 			List<ChannelPo> list = this.baseDAO.getGenericByHql(hsql
 					.toString(), GUID.valueOf(id).toBytes());
 			if (CheckIsNull.isNotEmpty(list)) {
