@@ -179,6 +179,15 @@ public class PageManagerImpl implements PageManager {
 	public String getFloorHtml(String page, String rows, String path) {
 		// 获取楼层
 		List<FloorInfo> fList = channelService.getFloorInfoList();
+		/*begin of 改版 -> 首页只显示【生鲜】【速冻菜肴】*/
+		List<FloorInfo> delete_fList = new ArrayList<FloorInfo>();
+		for(FloorInfo floorVo : fList){
+			if(!"4C86135A02B00D01975360C301C6B04A".equals(floorVo.getGoodsCategoryId()) && !"6110D0D5329E2FADAB41140644931916".equals(floorVo.getGoodsCategoryId())){
+				delete_fList.add(floorVo);
+			}
+		}
+		fList.removeAll(delete_fList);
+		/*end of 改版 -> 首页只显示【生鲜】【速冻菜肴】*/
 		for (FloorInfo floorVo : fList) {
 			List<ChannelVo> list = Arrays.asList(floorVo.getChannelVos());
 			floorVo.setChannelVoList(list);
