@@ -331,19 +331,9 @@ border:0px;
 							               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/018_thumb.jpg" class="image018">              
 										</a>
 									</li>
-									<li>
-							            <a href="<%=basePath%>/scripts/jslider/slider-images/017.jpg">
-							               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/017_thumb.jpg" class="image017">              
-										</a>
-									</li>
 						          	<li>
 							            <a href="<%=basePath%>/scripts/jslider/slider-images/016.jpg">
 							               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/016_thumb.jpg" class="image016">              
-										</a>
-									</li>
-									<li>
-							            <a href="<%=basePath%>/scripts/jslider/slider-images/012.jpg">
-							               	<img src="<%=basePath%>/scripts/jslider/slider-images/thumbs/012_thumb.jpg" class="image012">              
 										</a>
 									</li>
 									<li>
@@ -391,7 +381,7 @@ border:0px;
 				</div>
 			</div>
 			<div id="mainFloorMainDiv"><%=pageManager.getMainFloorHtml("0", "6", basePath)%></div>
-			<div id="productFloors"><%=pageManager.getFloorHtml("0", "10", basePath)%></div>
+			<div id="productFloors"><%=pageManager.getFloorHtml("0", "20", basePath)%></div>
 
 			<div id="serviceFloors">
 				<jsp:include page="/pub/main/service.jsp" flush="true" />
