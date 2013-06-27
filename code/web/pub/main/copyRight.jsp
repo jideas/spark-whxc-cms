@@ -30,7 +30,7 @@
 			<span>邮编：430345</span>
 		</div>
 		<div>
-			<span>版权所有：武汉柒号生活馆电子商务有限公司</span>
+			<span>版权所有：武汉柒号生活馆农业科技有限公司</span>
 			<span>邮箱：whyc777@126.com</span>
 			<span>鄂ICP备12002886号</span>
 			<span>
