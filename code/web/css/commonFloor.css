@@ -119,7 +119,7 @@
 .commonFloor{
 	position: relative;
 	width:1200px;
-	height:510px;
+	height:980px;
 	margin: 10px auto;
 }
 
@@ -129,12 +129,22 @@
 	width:910px;
 	height:510px;
 }
-.commonFloor .floor_product .floor_line_dotted{
+.commonFloor .floor_product .floor_line_dotted_1,
+.commonFloor .floor_product .floor_line_dotted_2,
+.commonFloor .floor_product .floor_line_dotted_3{
 	position: absolute;
-	top:280px;
 	left:0px;
 	width: 100%;
 	border-top:1px dotted #CCCCCC;
+}
+.commonFloor .floor_product .floor_line_dotted_1{
+	top:275px;	
+}
+.commonFloor .floor_product .floor_line_dotted_2{
+	top:510px;
+}
+.commonFloor .floor_product .floor_line_dotted_3{
+	top:745px;
 }
 .commonFloor .floor_product ul{
 	width:910px;
@@ -172,7 +182,7 @@
 }
 .commonFloor .floor_product .floor_productcontain{
 	*width:910px;
-	height:469px;
+	height:939px;
 	border:1px solid #CCCCCC;
 	border-top:0px;
 }
@@ -223,8 +233,8 @@
 	float:right;
 	width:280px;
 	max-width:280px;
-	max-height:510px;
-	height:510px;
+	max-height:980px;
+	height:980px;
 	overflow: hidden;
 }
 .commonFloor .floor_ad .floor_ad_last{
