@@ -205,7 +205,7 @@ $(function(){
 		}
 		
 		//重新加载数据
-		this.reload = function(){ debugger;
+		this.reload = function(){
 			//加载发布商品
 			var filter = $("#messageborderfilterSelect").combobox("getValue");
 			$('#messageborderDatagrid').datagrid('loadData', { total: 0, rows: [] });
