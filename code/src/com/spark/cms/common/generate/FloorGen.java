@@ -31,6 +31,12 @@ public  class FloorGen {
 				
 				str += getProductFloorBegin();
 				
+				str += getFloorDotted(1);
+				
+				str += getFloorDotted(2);
+				
+				str += getFloorDotted(3);
+				
 				str += getFloorHeader(floorVo);
 				
 				str += getFloorContain(floorVo);
@@ -78,11 +84,15 @@ public  class FloorGen {
 
 	
 	private static   String getProductFloorBegin(){
-		return "<div class=\"floor_product\"><div class=\"floor_line_dotted\"></div>";
+		return "<div class=\"floor_product\">";
 	}
 	
 	private static   String getProductFloorEnd(){
 		return "</div>";
+	}
+	
+	private static String getFloorDotted(int ordinal){
+		return "<div class=\"floor_line_dotted_"+ordinal+"\"></div>";
 	}
 	
 	private static String getFloorContain(FloorInfo floorVo){
