@@ -1,5 +1,6 @@
 package com.spark.cms.action.common;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,7 +67,6 @@ public class MessageBorderAction extends BaseAction{
 			}
 			mbv.setIsrecovery("0");
 			mbv.setMsgcontent(msgcontent);
-			mbv.setMsgdate(new Date(System.currentTimeMillis()).toString());
 			String id = messageborderService.createMessageborder(mbv);
 			mbv = messageborderService.getMessageborder(id);
 		
