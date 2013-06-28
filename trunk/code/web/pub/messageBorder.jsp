@@ -304,18 +304,7 @@ $(function(){
 	</div>
 	<!-- end of 容器 -->	
 	<div id="copyRight">
-			<div>
-				<span>电话：4001-027-577</span>
-				<span>传真：027-61818108</span>
-				<span>厂址：武汉市黄陂区武湖农场工业园</span>
-				<span>邮编：430345</span>
-			</div>
-			<div>
-				<span>版权所有：武汉新辰食品有限公司</span>
-				<span>邮箱：whyc777@126.com</span>
-				<span>鄂ICP备12002886号</span>
-				<!-- span><script src="http://s24.cnzz.com/stat.php?id=3931318&web_id=3931318&show=pic" language="JavaScript"></script></span> -->
-			</div>
+		<jsp:include page="/pub/main/copyRight.jsp" flush="true" />
 	</div>
   </body>
 </html>
