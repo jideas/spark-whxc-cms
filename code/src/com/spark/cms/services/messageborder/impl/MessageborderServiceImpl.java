@@ -33,8 +33,7 @@ public class MessageborderServiceImpl implements MessageborderService {
 			if(mbv.getRecoveryid() != null){
 				mbp.setRecoveryid(GUID.valueOf(mbv.getRecoveryid()).toBytes());
 			}
-			mbp.setMsgdate(new Date(mbv.getMsgdate()));
-			
+			mbp.setMsgdate(new Date());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
