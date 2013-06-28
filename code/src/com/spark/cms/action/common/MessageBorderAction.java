@@ -63,6 +63,8 @@ public class MessageBorderAction extends BaseAction{
 				mbv.setMsgcreator("7号生活馆用户");
 			}
 			mbv.setIsrecovery("0");
+			msgcontent = msgcontent == null ? "" : msgcontent;
+			msgcontent = msgcontent.replaceAll("\\s*", "");
 			mbv.setMsgcontent(msgcontent);
 			String id = messageborderService.createMessageborder(mbv);
 			mbv = messageborderService.getMessageborder(id);
